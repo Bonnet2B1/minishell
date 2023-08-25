@@ -1,38 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/18 20:32:39 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/08/25 23:13:35 by edelarbr         ###   ########.fr       */
+/*   Created: 2022/11/22 14:34:16 by ljerinec          #+#    #+#             */
+/*   Updated: 2023/08/25 23:00:40 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
-void	reader(t_shell_memory *data)
+t_list	*ft_lstnew(void *content)
 {
-	while (1)
-	{
-		data->input_line = readline("minishell> ");
-		add_history(data->input_line);
-		input_gestion(data);
-		free(data->input_line);
-	}
-}
+	t_list	*list;
 
-int	main(int argc, char **argv, char **env)
-{
-	t_shell_memory	data;
-
-	(void)argv;
-	if (argc != 1)
+	list = malloc(sizeof(t_list));
+	if (list)
 	{
-		while (argc--)
-			printf("%s\n", *argv++);
+		list->content = content;
+		list->next = 0;
+		list->prev = 0;
 	}
-	data.env = env;
-	reader(&data);
+	return (list);
 }

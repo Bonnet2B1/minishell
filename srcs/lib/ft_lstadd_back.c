@@ -1,38 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/18 20:32:39 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/08/25 23:13:35 by edelarbr         ###   ########.fr       */
+/*   Created: 2022/11/22 22:44:17 by ljerinec          #+#    #+#             */
+/*   Updated: 2023/08/25 22:36:26 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
-void	reader(t_shell_memory *data)
+void	ft_lstadd_back(t_list **lst, t_list *new)
 {
-	while (1)
+	if (!*lst)
 	{
-		data->input_line = readline("minishell> ");
-		add_history(data->input_line);
-		input_gestion(data);
-		free(data->input_line);
+		new->prev = 0;
+		(*lst) = new;
 	}
-}
-
-int	main(int argc, char **argv, char **env)
-{
-	t_shell_memory	data;
-
-	(void)argv;
-	if (argc != 1)
+	else
 	{
-		while (argc--)
-			printf("%s\n", *argv++);
+		new->prev = ft_lstlast(*lst);
+		ft_lstlast(*lst)->next = new;
 	}
-	data.env = env;
-	reader(&data);
 }

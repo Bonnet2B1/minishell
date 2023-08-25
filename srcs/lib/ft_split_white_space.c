@@ -97,13 +97,12 @@ char	**ft_split_white_space(const char *s)
 	char	**tab;
 
 	i = 0;
-	y = 0;
 	if (!s)
 		return (NULL);
-	printf("wordcount: %zu\n", wordcount(s));
 	tab = malloc(sizeof(char *) * (wordcount(s) + 1));
 	if (!tab)
 		return (NULL);
+	y = 0;
 	while (y < wordcount(s))
 	{
 		tab[y] = nextword(s, &i, nextlen(s, i));

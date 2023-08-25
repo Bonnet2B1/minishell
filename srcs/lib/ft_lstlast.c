@@ -1,38 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   ft_lstlast.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/18 20:32:39 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/08/25 23:13:35 by edelarbr         ###   ########.fr       */
+/*   Created: 2022/11/22 22:13:08 by ljerinec          #+#    #+#             */
+/*   Updated: 2023/08/25 22:45:07 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
-void	reader(t_shell_memory *data)
+t_list	*ft_lstlast(t_list *lst)
 {
-	while (1)
-	{
-		data->input_line = readline("minishell> ");
-		add_history(data->input_line);
-		input_gestion(data);
-		free(data->input_line);
-	}
-}
-
-int	main(int argc, char **argv, char **env)
-{
-	t_shell_memory	data;
-
-	(void)argv;
-	if (argc != 1)
-	{
-		while (argc--)
-			printf("%s\n", *argv++);
-	}
-	data.env = env;
-	reader(&data);
+	if (!lst)
+		return (0);
+	while (lst->next)
+		lst = lst->next;
+	return (lst);
 }

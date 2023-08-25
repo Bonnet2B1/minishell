@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 20:38:43 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/08/25 01:48:01 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/08/26 00:48:29 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,29 @@
 
 /*----------------------------------STRUCTS-----------------------------------*/
 
+// typedef struct s_pipe
+// {
+// 	int						pipe_fd[2];
+// 	struct s_cmd			*pipe_in;
+// 	struct s_cmd			*pipe_out;
+// }							t_pipe;
+
+// typedef struct s_file
+// {
+// 	int						fd;
+// 	char					*file_name;
+// 	int						fd_in;
+// 	int						fd_out;
+// }							t_file;
+// typedef struct s_cmd
+// {
+// 	char					**cmd;
+// 	struct s_pipe			in_pipe;
+// 	struct s_file			in_file;
+// 	struct s_pipe			out_pipe;
+// 	struct s_file			out_file;
+// }							t_cmd;
+
 enum						e_token
 {
 	PIPE,
@@ -87,61 +110,33 @@ enum						e_token
 	REDIR_OUT,
 };
 
-typedef struct s_pipe
+typedef struct s_list
 {
-	int						pipe_fd[2];
-	struct s_cmd			*pipe_in;
-	struct s_cmd			*pipe_out;
-}							t_pipe;
-
-typedef struct s_file
+	void					*content;
+	struct s_list			*next;
+	struct s_list			*prev;
+}							t_list;
+typedef struct s_split
 {
-	int						fd;
-	char					*file_name;
-	int						fd_in;
-	int						fd_out;
-}							t_file;
-typedef struct s_cmd
-{
-	char					**cmd;
-	struct s_pipe			in_pipe;
-	struct s_file			in_file;
-	struct s_pipe			out_pipe;
-	struct s_file			out_file;
-}							t_cmd;
-
-// typedef struct s_node
-// {
-// 	struct s_node			*prev;
-// 	enum e_token			type;
-// 	char					*cmd_line_split;
-// 	struct s_node			*right;
-// 	struct s_node			*left;
-// }							t_node;
-
+	enum e_token			token;
+	char					*arg;
+}							t_split;
 
 typedef struct s_shell_memory
 {
-	char					**ev;
-	char					**history;
-	char					*cmd_line;
-
+	char					**env;
+	char					*input_line;
 	struct s_current_cmd	*current_cmd;
+	char					**cmd_line_split;
+	t_list					*first;
+	t_list					*node;
 }							t_shell_memory;
-
-// typedef struct s_current_cmd
-// {
-// 	char					**cmd_line_split;
-// 	t_node					*first_node;
-// }							t_current_cmd;
 
 /*----------------------------------FUNCTIONS---------------------------------*/
 
 /* TEMP */
-void						print_ast(t_shell_memory *data);
 
 /* LIB */
-char						**ft_split_white_space(char const *s);
 int							ft_iswhitespace(char c);
 int							ft_strlen(const char *str);
 char						*ft_rmchar(char *str, char c);
@@ -150,10 +145,15 @@ char						*ft_substr(char const *s, unsigned int start,
 								size_t len);
 char						*ft_strtrim(const char *s, const char *set);
 char						*ft_strchr(const char *s, int c);
+t_list						*ft_lstlast(t_list *lst);
+void						ft_lstadd_back(t_list **lst, t_list *new);
+void						ft_lstadd_front(t_list **lst, t_list *new);
+t_list						*ft_lstnew(void *content);
 
 /* UTILS */
-void						current_cmd_init(t_shell_memory *data);
-void						ast(t_shell_memory *data);
-void						current_cmd_init(t_shell_memory *data);
+void						input_gestion(t_shell_memory *data);
+char						**ft_split_white_space(char const *s);
+char						**ft_split_keep_char(const char *s, char c);
+t_split						*create_split_node(char *arg);
 
 #endif

@@ -1,18 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ast.c                                              :+:      :+:    :+:   */
+/*   ft_lstadd_front.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/19 13:39:01 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/08/19 16:59:57 by edelarbr         ###   ########.fr       */
+/*   Created: 2022/11/22 21:14:52 by ljerinec          #+#    #+#             */
+/*   Updated: 2023/08/25 22:36:26 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ast(t_shell_memory *data)
+void	ft_lstadd_front(t_list **lst, t_list *new)
 {
-	(void)data;
+	if (*lst)
+	{
+		new->next = *lst;
+		(*lst)->prev = new;
+	}
+	*lst = new;
 }

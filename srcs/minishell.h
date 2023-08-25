@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 20:38:43 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/08/23 01:49:07 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/08/25 01:48:01 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,6 @@
 // ! mettre les fichiers de fonctions spécifiques au focntionnement de minishell
 // ! dans srcs/utils/
 
-// ! le code doit être nomré en fin de session exception faite des
-// ! fichiers temporaires
-
 /*-----------------------TRUCS A CHECKER AVANT LA FIN-------------------------*/
 
 // - est-ce que mettre tous les whitespaces dans comme separateur dans split
@@ -85,16 +82,43 @@ enum						e_token
 {
 	PIPE,
 	COMMAND,
+	REDIR_IN,
+	REDIR_APPEND,
+	REDIR_OUT,
 };
 
-typedef struct s_node
+typedef struct s_pipe
 {
-	struct s_node			*prev;
-	enum e_token			type;
-	char					*cmd_line_split;
-	struct s_node			*right;
-	struct s_node			*left;
-}							t_node;
+	int						pipe_fd[2];
+	struct s_cmd			*pipe_in;
+	struct s_cmd			*pipe_out;
+}							t_pipe;
+
+typedef struct s_file
+{
+	int						fd;
+	char					*file_name;
+	int						fd_in;
+	int						fd_out;
+}							t_file;
+typedef struct s_cmd
+{
+	char					**cmd;
+	struct s_pipe			in_pipe;
+	struct s_file			in_file;
+	struct s_pipe			out_pipe;
+	struct s_file			out_file;
+}							t_cmd;
+
+// typedef struct s_node
+// {
+// 	struct s_node			*prev;
+// 	enum e_token			type;
+// 	char					*cmd_line_split;
+// 	struct s_node			*right;
+// 	struct s_node			*left;
+// }							t_node;
+
 
 typedef struct s_shell_memory
 {
@@ -105,11 +129,11 @@ typedef struct s_shell_memory
 	struct s_current_cmd	*current_cmd;
 }							t_shell_memory;
 
-typedef struct s_current_cmd
-{
-	char					**cmd_line_split;
-	t_node					*first_node;
-}							t_current_cmd;
+// typedef struct s_current_cmd
+// {
+// 	char					**cmd_line_split;
+// 	t_node					*first_node;
+// }							t_current_cmd;
 
 /*----------------------------------FUNCTIONS---------------------------------*/
 

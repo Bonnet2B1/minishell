@@ -34,7 +34,7 @@ static size_t	nextlen(const char *s, size_t i, char c)
 	return (len);
 }
 
-static size_t	wordcount(const char *s, char c)
+static size_t	countword(const char *s, char c)
 {
 	size_t	count;
 	size_t	i;
@@ -47,7 +47,7 @@ static size_t	wordcount(const char *s, char c)
 			count++;
 		i++;
 	}
-	return (count);
+	return (count - 1);
 }
 
 static char	*nextword(const char *s, size_t *i, char c, size_t len)
@@ -55,9 +55,8 @@ static char	*nextword(const char *s, size_t *i, char c, size_t len)
 	char	*cpy;
 	size_t	y;
 
+	(void)c;
 	y = 0;
-	while (s[*i] == c)
-		(*i)++;
 	cpy = malloc(sizeof(char) * (len + 1));
 	if (!cpy)
 		return (NULL);
@@ -94,16 +93,16 @@ char	**ft_split_keep_char(const char *s, char c)
 	y = 0;
 	if (!s)
 		return (NULL);
-	tab = malloc(sizeof(char *) * (wordcount(s, c) + 1));
+	tab = malloc(sizeof(char *) * (countword(s, c) + 1));
 	if (!tab)
 		return (NULL);
-	while (y < wordcount(s, c))
+	while (y < countword(s, c))
 	{
 		tab[y] = nextword(s, &i, c, nextlen(s, i, c));
 		if (!tab[y])
 			return (freeall_split(tab, y));
 		y++;
 	}
-	tab[wordcount(s, c)] = NULL;
+	tab[countword(s, c)] = NULL;
 	return (tab);
 }

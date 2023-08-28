@@ -1,31 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   struct_init.c                                      :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/19 13:04:42 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/08/28 17:18:01 by edelarbr         ###   ########.fr       */
+/*   Created: 2022/07/23 21:45:53 by edelarbr          #+#    #+#             */
+/*   Updated: 2023/08/28 17:51:13 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	data_init(t_shell_memory *data)
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	data->first = NULL;
-	data->working_node = NULL;
-	data->cmd_line_split = NULL;
-}
+	size_t	i;
 
-t_split	*create_split_node(char *arg)
-{
-	t_split	*new_node;
-
-	new_node = malloc(sizeof(t_split));
-	if (!new_node)
-		return (perror("Malloc error :"), NULL);
-	new_node->arg = arg;
-	return (new_node);
+	i = 0;
+	while ((s1[i] || s2[i]) && i < n)
+	{
+		if (!ft_isascii(s1[i]) || !ft_isascii(s2[i]))
+			i++;
+		if ((s1[i] > s2[i]) || !s2[i])
+			return (1);
+		if ((s1[i] < s2[i]) || !s1[i])
+			return (-1);
+		i++;
+	}
+	return (0);
 }

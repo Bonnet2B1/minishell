@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 20:32:39 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/08/27 17:29:29 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/08/28 22:37:16 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,10 @@ void	reader(t_shell_memory *data)
 {
 	while (1)
 	{
-		data->input_line = readline("minishell> ");
+		data->input_line = readline("minishell-1.0$ ");
 		add_history(data->input_line);
 		input_gestion(data);
+		data_init(data);
 		free(data->input_line);
 	}
 }

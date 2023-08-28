@@ -1,31 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   struct_init.c                                      :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/19 13:04:42 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/08/28 17:18:01 by edelarbr         ###   ########.fr       */
+/*   Created: 2019/09/01 12:13:13 by pmouhali          #+#    #+#             */
+/*   Updated: 2023/08/28 17:48:36 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	data_init(t_shell_memory *data)
+int	ft_strcmp(const char *s1, const char *s2)
 {
-	data->first = NULL;
-	data->working_node = NULL;
-	data->cmd_line_split = NULL;
-}
+	unsigned int	i;
 
-t_split	*create_split_node(char *arg)
-{
-	t_split	*new_node;
-
-	new_node = malloc(sizeof(t_split));
-	if (!new_node)
-		return (perror("Malloc error :"), NULL);
-	new_node->arg = arg;
-	return (new_node);
+	i = 0;
+	while (s1[i] == s2[i] && s1[i] != '\0')
+		i++;
+	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 }

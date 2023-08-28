@@ -6,42 +6,17 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 20:38:43 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/08/26 00:48:29 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/08/28 21:27:49 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 /*PARSING*/
 
-// - gerer le heredoc avant le parsing puis le transformer en fichier temporaire
-// - et l'envoyer dans l'ast ("<<" -> "< [nom du fichier temporaire]")
+// - creer une liste chainee de t_split
 
-// - split aux 5 opérateurs (|, <, <<, >, >>) et aux whitespaces (on enleve les
-// - whitespaces mais pas les operateurs)
+// - tokenizer les args de t_split
 
-// - Si besoin, swap les arguments autour de "<", ">" et ">>"
-
-// - (ez) join tout ce qui est entre deux operateurs (en mettant des espaces)
-// - ou alors (pa ez) faire un char ***tab avec une succesion de tableau
-// - (**tab arg, **tab op, **tab arg, **tab op,...)
-
-/*AST*/
-
-// - mettre tous les operateurs successivement à droite de la node
-// - remonter au top de l'arbre et mettre les arguments à gauche de la node
-// - si on arrive à la fin de la ligne, on met le dernier argument à droite
-
-/*EXEC*/
-
-// - aller tout à droite, faire les liens (fusion de fd) entre les cotes d'une
-// - meme node
-
-// - monter d'un étage et reproduire le premier point
-
-// - faire ces deux points là jusqu'à arriver au top de l'arbre
-
-// - executer de gauche a droite
-
-// - (ez minishell).
+// - creer la liste chainee triple types de nodes
 
 /*---------------------------REGLES DE COLLABORATION--------------------------*/
 
@@ -53,6 +28,8 @@
 /*-----------------------TRUCS A CHECKER AVANT LA FIN-------------------------*/
 
 // - est-ce que mettre tous les whitespaces dans comme separateur dans split
+
+// - free entre chaque ligne de commande recue
 
 /*---------------------------------PROTECTION---------------------------------*/
 
@@ -101,59 +78,68 @@
 // 	struct s_file			out_file;
 // }							t_cmd;
 
-enum						e_token
+enum				e_token
 {
 	PIPE,
 	COMMAND,
 	REDIR_IN,
 	REDIR_APPEND,
 	REDIR_OUT,
+	FILEE,
 };
 
 typedef struct s_list
 {
-	void					*content;
-	struct s_list			*next;
-	struct s_list			*prev;
-}							t_list;
+	void			*content;
+	struct s_list	*next;
+	struct s_list	*prev;
+}					t_list;
 typedef struct s_split
 {
-	enum e_token			token;
-	char					*arg;
-}							t_split;
+	enum e_token	token;
+	char			*arg;
+}					t_split;
 
 typedef struct s_shell_memory
 {
-	char					**env;
-	char					*input_line;
-	struct s_current_cmd	*current_cmd;
-	char					**cmd_line_split;
-	t_list					*first;
-	t_list					*node;
-}							t_shell_memory;
+	char			**env;
+	char			*input_line;
+	char			**cmd_line_split;
+	t_list			*first;
+	t_list			*working_node;
+}					t_shell_memory;
 
 /*----------------------------------FUNCTIONS---------------------------------*/
 
 /* TEMP */
+void				print_t_split(t_list *lst);
+void				print_tab(char **tab);
 
 /* LIB */
-int							ft_iswhitespace(char c);
-int							ft_strlen(const char *str);
-char						*ft_rmchar(char *str, char c);
-char						*ft_strrchr(const char *s, int c);
-char						*ft_substr(char const *s, unsigned int start,
-								size_t len);
-char						*ft_strtrim(const char *s, const char *set);
-char						*ft_strchr(const char *s, int c);
-t_list						*ft_lstlast(t_list *lst);
-void						ft_lstadd_back(t_list **lst, t_list *new);
-void						ft_lstadd_front(t_list **lst, t_list *new);
-t_list						*ft_lstnew(void *content);
+int					ft_iswhitespace(char c);
+int					ft_isascii(int c);
+int					ft_strlen(const char *str);
+char				*ft_rmchar(char *str, char c);
+char				*ft_strrchr(const char *s, int c);
+char				*ft_substr(char const *s, unsigned int start, size_t len);
+char				*ft_strtrim(const char *s, const char *set);
+char				*ft_strchr(const char *s, int c);
+int					ft_strcmp(const char *s1, const char *s2);
+int					ft_strncmp(const char *s1, const char *s2, size_t n);
+t_list				*ft_lstlast(t_list *lst);
+void				ft_lstadd_back(t_list **lst, t_list *new);
+void				ft_lstadd_front(t_list **lst, t_list *new);
+t_list				*ft_lstnew(void *content);
+void				ft_lstadd_here(t_list **lst, t_list *new);
+void				ft_lstdel_here(t_list **lst,
+						t_list *node_to_delete);
 
 /* UTILS */
-void						input_gestion(t_shell_memory *data);
-char						**ft_split_white_space(char const *s);
-char						**ft_split_keep_char(const char *s, char c);
-t_split						*create_split_node(char *arg);
+void				input_gestion(t_shell_memory *data);
+char				**ft_split_white_space(char const *s);
+char				**ft_split_keep_char(const char *s1, char c);
+t_split				*create_split_node(char *arg);
+void				data_init(t_shell_memory *data);
+void				lst_separate_operator(t_shell_memory *data, char operator);
 
 #endif

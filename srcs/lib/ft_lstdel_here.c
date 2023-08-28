@@ -1,31 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   struct_init.c                                      :+:      :+:    :+:   */
+/*   ft_lstdel_here.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/19 13:04:42 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/08/28 17:18:01 by edelarbr         ###   ########.fr       */
+/*   Created: 2023/08/28 16:45:27 by edelarbr          #+#    #+#             */
+/*   Updated: 2023/08/28 16:45:33 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	data_init(t_shell_memory *data)
+void	ft_lstdel_here(t_list **first, t_list *node_to_delete)
 {
-	data->first = NULL;
-	data->working_node = NULL;
-	data->cmd_line_split = NULL;
-}
-
-t_split	*create_split_node(char *arg)
-{
-	t_split	*new_node;
-
-	new_node = malloc(sizeof(t_split));
-	if (!new_node)
-		return (perror("Malloc error :"), NULL);
-	new_node->arg = arg;
-	return (new_node);
+	if (!first || !*first || !node_to_delete)
+		return ;
+	if (node_to_delete->prev)
+		node_to_delete->prev->next = node_to_delete->next;
+	else
+		*first = node_to_delete->next;
+	if (node_to_delete->next)
+		node_to_delete->next->prev = node_to_delete->prev;
+	else if (!node_to_delete->prev)
+		*first = 0;
+	free(node_to_delete);
 }

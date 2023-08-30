@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 20:38:43 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/08/30 02:40:24 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/08/30 14:54:48 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ void				ft_lstdel_here(t_list **lst,
 char				*ft_strjoin(char const *s1, char const *s2);
 char				*ft_strjoin_free_s1(char *s1, char *s2);
 void				*ft_calloc(size_t size, size_t count);
+int					ft_isenvchar(int c);
 
 /* UTILS */
 void				input_gestion(t_shell_memory *data);

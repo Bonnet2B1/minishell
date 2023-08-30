@@ -12,7 +12,6 @@
 
 #include "../minishell.h"
 
-
 static int	getstart(const char *s, const char *set)
 {
 	int	start;

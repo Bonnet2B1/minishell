@@ -6,25 +6,11 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 21:26:48 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/08/30 02:39:36 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/08/30 16:01:51 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-int	ft_isenvchar(int c)
-{
-	if (c >= 48 && c <= 57)
-		return (1);
-	else if (c >= 65 && c <= 90)
-		return (1);
-	else if (c >= 97 && c <= 123)
-		return (1);
-	else if (c == '_')
-		return (1);
-	else
-		return (0);
-}
 
 int	there_is_a_env_var(char *arg)
 {
@@ -45,8 +31,11 @@ char	*identify_env_var(char *arg)
 	int		len;
 	char	*var;
 
-	start = 0;
-	while (arg[start] == '$' && ft_isenvchar(arg[start + 1]))
+	start = -1;
+	while (arg[++start])
+		if (arg[start] == '$' && ft_isenvchar(arg[start + 1]))
+			break ;
+	if (arg[start] == '$')
 		start++;
 	len = 0;
 	while (ft_isenvchar(arg[start + len]))
@@ -57,21 +46,46 @@ char	*identify_env_var(char *arg)
 
 char	*identify_replacement(t_shell_memory *data, char *var)
 {
-	// - join un '='
-	// - strncmp dans **env
-	// - si homologue, return homologue
-	// - sinon, return '\n'
+	int		i;
+	char	*joined;
+	char	*replacement;
+
+	joined = ft_strjoin(var, "=");
+	i = -1;
+	while (data->env[++i])
+	{
+		if (ft_strncmp(joined, data->env[i], ft_strlen(joined)) == 0)
+		{
+			replacement = ft_substr(data->env[i], ft_strlen(joined),
+					ft_strlen(data->env[i] - ft_strlen(joined)));
+			break ;
+		}
+		else
+			replacement = "";
+	}
+	return (free(joined), replacement);
 }
 
-// fonction qui remplace
-// {
-// 	- dup l'avant var (avec le '$')
-// 	- dup l'apres var
-// 	- join remplacement a l'avant var
-// 	- join l'apres var a cette addition
-// 	- free l'avant var, l'apres var, arg
-// 	- return le resulatat du join (new_arg ?)
-// }
+char	*replacement_of_var(char *arg, char *var, char *replacement)
+{
+	int		i;
+	char	*new_arg;
+	char	*before_var;
+	char	*after_var;
+
+	i = -1;
+	while (arg[++i])
+		if (arg[i] == '$' && ft_isenvchar(arg[i + 1]))
+			break ;
+	before_var = ft_substr(arg, 0, i);
+	after_var = ft_substr(
+			arg, ft_strlen(before_var) + ft_strlen(var) + 1, 2147483647);
+	new_arg = before_var;
+	new_arg = ft_strjoin_free_s1(new_arg, replacement);
+	new_arg = ft_strjoin_free_s1(new_arg, after_var);
+	free(after_var);
+	return (new_arg);
+}
 
 void	env_var_gestion(t_shell_memory *data, t_list *lst)
 {
@@ -82,10 +96,12 @@ void	env_var_gestion(t_shell_memory *data, t_list *lst)
 	{
 		while (there_is_a_env_var(((t_split *)lst->content)->arg))
 		{
-			var = identify_env_var(data, ((t_split *)lst->content)->arg);
+			var = identify_env_var(((t_split *)lst->content)->arg);
 			replacement = identify_replacement(data, var);
-			// - fonction qui remplace la variable dans arg
-			// - free var et replacement
+			((t_split *)lst->content)->arg = replacement_of_var(
+					((t_split *)lst->content)->arg, var, replacement);
+			free(var);
+			free(replacement);
 		}
 		lst = lst->next;
 	}

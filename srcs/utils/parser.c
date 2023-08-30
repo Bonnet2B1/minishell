@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 23:13:02 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/08/30 01:42:05 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/08/30 21:18:16 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	lst_separate_whitespaces(t_shell_memory *data)
 	data->cmd_line_split = ft_split_white_space(data->input_line);
 	i = -1;
 	while (data->cmd_line_split[++i])
-		ft_lstadd_back(&data->first,
+		ft_lstadd_back(&data->parsing_lst,
 			ft_lstnew(create_split_node(data->cmd_line_split[i])));
 	free(data->cmd_line_split);
 }
@@ -29,7 +29,7 @@ void	lst_separate_operator(t_shell_memory *data, char operator)
 	int		i;
 	t_list	*save;
 
-	data->working_node = data->first;
+	data->working_node = data->parsing_lst;
 	while (data->working_node)
 	{
 		save = data->working_node;
@@ -44,7 +44,7 @@ void	lst_separate_operator(t_shell_memory *data, char operator)
 		}
 		free(data->cmd_line_split);
 		data->working_node = data->working_node->next;
-		ft_lstdel_here(&data->first, save);
+		ft_lstdel_here(&data->parsing_lst, save);
 	}
 }
 
@@ -73,11 +73,13 @@ void	tokenization(t_list *lst)
 
 void	input_gestion(t_shell_memory *data)
 {
+	if (!ft_strcmp(data->input_line, ""))
+		return ;
 	lst_separate_whitespaces(data);
-	env_var_gestion(data, data->first);
+	env_var_gestion(data, data->parsing_lst);
 	lst_separate_operator(data, '|');
 	lst_separate_operator(data, '>');
 	lst_separate_operator(data, '<');
-	tokenization(data->first);
-	print_t_split(data->first);
+	tokenization(data->parsing_lst);
+	print_t_split(data->parsing_lst);
 }

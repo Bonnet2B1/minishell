@@ -6,7 +6,7 @@
 #    By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/22 16:59:43 by edelarbr          #+#    #+#              #
-#    Updated: 2023/08/27 22:40:06 by edelarbr         ###   ########.fr        #
+#    Updated: 2023/08/30 21:08:46 by edelarbr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ SRCS		:=	srcs/*.c \
 # ------------------------------ Flags -------------------------------
 
 CC			:=	gcc
-FLAGS		:=	-Wall -Wextra -Werror -lreadline -g3 -fsanitize=address
+FLAGS		:=	-Wall -Wextra -Werror -lreadline -g3 #-fsanitize=address
 
 # ------------------------------ Colors ------------------------------
 

@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 22:44:17 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/08/25 22:36:26 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/08/30 21:20:39 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	ft_lstadd_back(t_list **lst, t_list *new)
 	if (!*lst)
 	{
 		new->prev = 0;
-		(*lst) = new;
+		*lst = new;
 	}
 	else
 	{

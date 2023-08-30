@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 20:38:43 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/08/30 14:54:48 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/08/30 21:11:33 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ typedef struct s_shell_memory
 	char			**env;
 	char			*input_line;
 	char			**cmd_line_split;
-	t_list			*first;
+	t_list			*parsing_lst;
 	t_list			*working_node;
 }					t_shell_memory;
 

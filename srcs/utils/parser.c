@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 23:13:02 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/08/28 21:29:53 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/08/30 01:42:05 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,8 @@ void	tokenization(t_list *lst)
 			((t_split *)lst->content)->token = REDIR_OUT;
 		else if (!ft_strncmp(((t_split *)lst->content)->arg, "<", 1))
 			((t_split *)lst->content)->token = REDIR_IN;
-		else if (lst->prev && (((t_split *)lst->prev->content)->token == REDIR_IN
+		else if (lst->prev
+			&& (((t_split *)lst->prev->content)->token == REDIR_IN
 				|| ((t_split *)lst->prev->content)->token == REDIR_OUT
 				|| ((t_split *)lst->prev->content)->token == REDIR_APPEND))
 			((t_split *)lst->content)->token = FILEE;
@@ -73,6 +74,7 @@ void	tokenization(t_list *lst)
 void	input_gestion(t_shell_memory *data)
 {
 	lst_separate_whitespaces(data);
+	env_var_gestion(data, data->first);
 	lst_separate_operator(data, '|');
 	lst_separate_operator(data, '>');
 	lst_separate_operator(data, '<');

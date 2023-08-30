@@ -6,30 +6,14 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 20:38:43 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/08/28 21:27:49 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/08/30 02:40:24 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 /*PARSING*/
 
-// - creer une liste chainee de t_split
-
-// - tokenizer les args de t_split
-
-// - creer la liste chainee triple types de nodes
-
-/*---------------------------REGLES DE COLLABORATION--------------------------*/
-
-// ! mettre les fichiers de fonctions générales dans srcs/libs/
-
-// ! mettre les fichiers de fonctions spécifiques au focntionnement de minishell
-// ! dans srcs/utils/
-
-/*-----------------------TRUCS A CHECKER AVANT LA FIN-------------------------*/
-
-// - est-ce que mettre tous les whitespaces dans comme separateur dans split
-
-// - free entre chaque ligne de commande recue
+// - variable d'environnement
+// 		- les identifier et les remplacer par leur valeur
 
 /*---------------------------------PROTECTION---------------------------------*/
 
@@ -54,29 +38,6 @@
 # define SIMPLE 1
 
 /*----------------------------------STRUCTS-----------------------------------*/
-
-// typedef struct s_pipe
-// {
-// 	int						pipe_fd[2];
-// 	struct s_cmd			*pipe_in;
-// 	struct s_cmd			*pipe_out;
-// }							t_pipe;
-
-// typedef struct s_file
-// {
-// 	int						fd;
-// 	char					*file_name;
-// 	int						fd_in;
-// 	int						fd_out;
-// }							t_file;
-// typedef struct s_cmd
-// {
-// 	char					**cmd;
-// 	struct s_pipe			in_pipe;
-// 	struct s_file			in_file;
-// 	struct s_pipe			out_pipe;
-// 	struct s_file			out_file;
-// }							t_cmd;
 
 enum				e_token
 {
@@ -133,6 +94,9 @@ t_list				*ft_lstnew(void *content);
 void				ft_lstadd_here(t_list **lst, t_list *new);
 void				ft_lstdel_here(t_list **lst,
 						t_list *node_to_delete);
+char				*ft_strjoin(char const *s1, char const *s2);
+char				*ft_strjoin_free_s1(char *s1, char *s2);
+void				*ft_calloc(size_t size, size_t count);
 
 /* UTILS */
 void				input_gestion(t_shell_memory *data);
@@ -141,5 +105,6 @@ char				**ft_split_keep_char(const char *s1, char c);
 t_split				*create_split_node(char *arg);
 void				data_init(t_shell_memory *data);
 void				lst_separate_operator(t_shell_memory *data, char operator);
+void				env_var_gestion(t_shell_memory *data, t_list *lst);
 
 #endif

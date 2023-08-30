@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 23:13:02 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/08/30 21:18:16 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/08/31 01:35:03 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,5 +81,6 @@ void	input_gestion(t_shell_memory *data)
 	lst_separate_operator(data, '>');
 	lst_separate_operator(data, '<');
 	tokenization(data->parsing_lst);
+	stake_cmd_args(data, data->parsing_lst);
 	print_t_split(data->parsing_lst);
 }

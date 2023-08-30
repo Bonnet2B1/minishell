@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 20:32:39 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/08/28 22:37:16 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/08/31 00:08:43 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,8 @@ int	main(int argc, char **argv, char **env)
 {
 	t_shell_memory	data;
 
+	(void)argc;
 	(void)argv;
-	if (argc != 1)
-	{
-		while (argc--)
-			printf("%s\n", *argv++);
-	}
 	data.env = env;
 	reader(&data);
 }

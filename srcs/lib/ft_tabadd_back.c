@@ -1,32 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   struct_init.c                                      :+:      :+:    :+:   */
+/*   ft_tabadd_back.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/19 13:04:42 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/08/30 23:53:10 by edelarbr         ###   ########.fr       */
+/*   Created: 2023/08/30 22:41:14 by edelarbr          #+#    #+#             */
+/*   Updated: 2023/08/31 00:34:40 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	data_init(t_shell_memory *data)
+char	**ft_tabadd_back(char **tab, char *new_str)
 {
-	data->parsing_lst = NULL;
-	data->working_node = NULL;
-	data->cmd_line_split = NULL;
-}
+	int		len;
+	int		i;
+	char	**new_tab;
 
-t_split	*create_split_node(char *arg)
-{
-	t_split	*new_node;
-
-	new_node = malloc(sizeof(t_split));
-	if (!new_node)
-		return (perror("Malloc error :"), NULL);
-	new_node->arg = arg;
-	new_node->cmd = NULL;
-	return (new_node);
+	if (!tab || !new_str)
+		return (NULL);
+	len = 0;
+	while (tab[len])
+		len++;
+	new_tab = malloc(sizeof(char *) * (len + 2));
+	if (!new_tab)
+		return (NULL);
+	i = -1;
+	while (tab[++i])
+		new_tab[i] = tab[i];
+	new_tab[i] = new_str;
+	new_tab[i + 1] = NULL;
+	free(tab);
+	return (new_tab);
 }

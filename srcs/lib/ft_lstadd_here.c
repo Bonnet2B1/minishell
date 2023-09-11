@@ -6,32 +6,51 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 14:52:23 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/08/31 01:05:07 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/09/11 20:52:19 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ft_lstadd_here(t_list **lst, t_list *new)
+void	ft_lstadd_here(t_list *lst, t_list *new)
 {
-	if (!*lst)
+	if (!lst || !new)
+		return ;
+	new->prev = lst;
+	if (lst->next)
 	{
-		new->prev = 0;
-		(*lst) = new;
+		new->next = lst->next;
+		lst->next->prev = new;
 	}
-	else
-	{
-		new->prev = (*lst);
-		if ((*lst)->next)
-		{
-			new->next = (*lst)->next;
-			(*lst)->next->prev = new;
-		}
-		else
-			new->next = NULL;
-		(*lst)->next = new;
-	}
+	lst->next = new;
 }
+
+// void	ft_lstadd_here(t_list **lst, t_list *new)
+// {
+// 	if (!*lst)
+// 	{
+// 		new->prev = 0;
+// 		(*lst) = new;
+// 	}
+// 	else
+// 	{
+// 		if ((*lst)->prev)
+// 		{
+// 			new->prev = (*lst)->prev;
+// 			(*lst)->prev->next = new;
+// 		}
+// 		else
+// 			new->prev = NULL;
+// 		if ((*lst)->next)
+// 		{
+// 			new->next = (*lst)->next;
+// 			(*lst)->next->prev = new;
+// 		}
+// 		else
+// 			new->next = NULL;
+// 		(*lst)->next = new;
+// 	}
+// }
 
 // void	ft_lstadd_here(t_list **lst, t_list *new)
 // {

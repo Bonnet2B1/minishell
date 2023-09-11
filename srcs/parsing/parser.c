@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 23:13:02 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/08/31 01:35:03 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/09/11 21:44:22 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,24 +27,25 @@ void	lst_separate_whitespaces(t_shell_memory *data)
 void	lst_separate_operator(t_shell_memory *data, char operator)
 {
 	int		i;
-	t_list	*save;
+	t_list	*lst;
+	t_list	*to_del;
 
-	data->working_node = data->parsing_lst;
-	while (data->working_node)
+	lst = data->parsing_lst;
+	while (lst)
 	{
-		save = data->working_node;
+		to_del = lst;
 		data->cmd_line_split = ft_split_keep_char(
-				((t_split *)data->working_node->content)->arg, operator);
+				((t_split *)lst->content)->arg, operator);
 		i = -1;
 		while (data->cmd_line_split[++i])
 		{
-			ft_lstadd_here(&data->working_node,
+			ft_lstadd_here(lst,
 				ft_lstnew(create_split_node(data->cmd_line_split[i])));
-			data->working_node = data->working_node->next;
+			lst = lst->next;
 		}
 		free(data->cmd_line_split);
-		data->working_node = data->working_node->next;
-		ft_lstdel_here(&data->parsing_lst, save);
+		ft_lstdel_here(&data->parsing_lst, to_del, (void *)free_split_node);
+		lst = lst->next;
 	}
 }
 
@@ -77,10 +78,13 @@ void	input_gestion(t_shell_memory *data)
 		return ;
 	lst_separate_whitespaces(data);
 	env_var_gestion(data, data->parsing_lst);
-	lst_separate_operator(data, '|');
-	lst_separate_operator(data, '>');
-	lst_separate_operator(data, '<');
+	lst_separate_operator(data,'|');
+	lst_separate_operator(data,'>');
+	lst_separate_operator(data,'<');
 	tokenization(data->parsing_lst);
-	stake_cmd_args(data, data->parsing_lst);
+	stack_cmd_args(data, data->parsing_lst);
+	stake_redirections(data, data->parsing_lst);
+	if (data->error)
+		return ;
 	print_t_split(data->parsing_lst);
 }

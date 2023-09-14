@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 21:26:48 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/09/10 22:22:20 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/09/12 21:34:10 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ char	*identify_replacement(t_shell_memory *data, char *var)
 			break ;
 		}
 		else
-			replacement = "";
+			replacement = ft_strdup("");
 	}
 	return (free(joined), replacement);
 }
@@ -94,12 +94,12 @@ void	env_var_gestion(t_shell_memory *data, t_list *lst)
 
 	while (lst)
 	{
-		while (there_is_a_env_var(((t_split *)lst->content)->arg))
+		while (there_is_a_env_var(((t_parsing *)lst->content)->arg))
 		{
-			var = identify_env_var(((t_split *)lst->content)->arg);
+			var = identify_env_var(((t_parsing *)lst->content)->arg);
 			replacement = identify_replacement(data, var);
-			((t_split *)lst->content)->arg = replacement_of_var(
-					((t_split *)lst->content)->arg, var, replacement);
+			((t_parsing *)lst->content)->arg = replacement_of_var(
+					((t_parsing *)lst->content)->arg, var, replacement);
 			free(var);
 			free(replacement);
 		}

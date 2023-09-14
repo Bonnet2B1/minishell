@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 14:45:41 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/08/30 15:19:01 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/09/12 21:27:32 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	ft_isenvchar(int c)
 		return (1);
 	else if (c >= '0' && c <= '9')
 		return (1);
-	else if (c == '_')
+	else if (c == '_' || c == '/' || c == ':')
 		return (1);
 	else
 		return (0);

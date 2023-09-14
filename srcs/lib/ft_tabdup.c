@@ -1,25 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcmp.c                                        :+:      :+:    :+:   */
+/*   ft_tabdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/01 12:13:13 by pmouhali          #+#    #+#             */
-/*   Updated: 2023/09/14 12:01:55 by edelarbr         ###   ########.fr       */
+/*   Created: 2023/09/12 20:37:20 by edelarbr          #+#    #+#             */
+/*   Updated: 2023/09/12 20:45:23 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	ft_strcmp(const char *s1, const char *s2)
+char **ft_tabdup(char **tab)
 {
-	unsigned int	i;
+	int i;
+	char **new_tab;
 
 	i = 0;
-	if (!s1 || !s2)
-		return (0);
-	while (s1[i] == s2[i] && s1[i] != '\0')
+	while (tab[i])
 		i++;
-	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+	new_tab = malloc(sizeof(char *) * (i + 1));
+	if (!new_tab)
+		return (perror("Malloc"), NULL);
+	i = 0;
+	while (tab[i])
+	{
+		new_tab[i] = ft_strdup(tab[i]);
+		i++;
+	}
+	new_tab[i] = NULL;
+	return (new_tab);
 }

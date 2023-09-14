@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_parsing.c                                         :+:      :+:    :+:   */
+/*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: edelarbr <edelarbr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -15,20 +15,11 @@
 static size_t	nextlen(const char *s, size_t i, char c)
 {
 	size_t	len;
-	int		limit;
 
-	limit = 2;
 	len = 0;
-	if (s[i] == c)
-	{
-		while (s[i] == c && limit--)
-		{
-			len++;
-			i++;
-		}
-		return (len);
-	}
-	while (s[i] && s[i] != c)
+	while (s[i] == c)
+		i++;
+	while (s[i] != c && s[i])
 	{
 		len++;
 		i++;
@@ -36,25 +27,18 @@ static size_t	nextlen(const char *s, size_t i, char c)
 	return (len);
 }
 
-static size_t	countword(const char *s, char c)
+static size_t	wordcount(const char *s, char c)
 {
 	size_t	count;
 	size_t	i;
-	int		limit;
 
-	limit = 2;
-	i = 0;
+	i = 1;
 	count = 0;
-	while (s[i])
+	while (s[i - 1])
 	{
-		if (s[i] == c && s[i])
-			while (s[i] == c && limit--)
-				i++;
-		else if (s[i] != c && s[i])
-			while (s[i] != c && s[i])
-				i++;
-		count++;
-		limit = 2;
+		if (i != 0 && s[i - 1] != c && (s[i] == c || !s[i]))
+			count++;
+		i++;
 	}
 	return (count);
 }
@@ -64,17 +48,19 @@ static char	*nextword(const char *s, size_t *i, char c, size_t len)
 	char	*cpy;
 	size_t	y;
 
-	(void)c;
 	y = 0;
-	cpy = malloc(sizeof(char) * (len + 1));
+	while (s[*i] == c)
+		(*i)++;
+	cpy = malloc(sizeof(char) * (len + 2));
 	if (!cpy)
 		return (NULL);
-	while (len && s[*i])
+	while (len)
 	{
 		cpy[y++] = s[(*i)++];
 		len--;
 	}
-	cpy[y] = '\0';
+	cpy[y] = '/';
+	cpy[++y] = '\0';
 	return (cpy);
 }
 
@@ -92,7 +78,7 @@ static char	**freeall_split(char **tab, size_t indice)
 	return (NULL);
 }
 
-char	**ft_parsing_keep_char(const char *s, char c)
+char	**ft_split_w_slash(const char *s, char c)
 {
 	size_t	i;
 	size_t	y;
@@ -102,16 +88,16 @@ char	**ft_parsing_keep_char(const char *s, char c)
 	y = 0;
 	if (!s)
 		return (NULL);
-	tab = malloc(sizeof(char *) * (countword(s, c) + 1));
+	tab = malloc(sizeof(char *) * (wordcount(s, c) + 1));
 	if (!tab)
 		return (NULL);
-	while (y < countword(s, c))
+	while (y < wordcount(s, c))
 	{
 		tab[y] = nextword(s, &i, c, nextlen(s, i, c));
 		if (!tab[y])
 			return (freeall_split(tab, y));
 		y++;
 	}
-	tab[countword(s, c)] = NULL;
+	tab[wordcount(s, c)] = NULL;
 	return (tab);
 }

@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/20 19:27:22 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/08/20 19:47:29 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/09/14 14:09:18 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,22 +34,21 @@ char	*ft_rmchar(char *str, char c)
 {
 	int		i;
 	int		j;
-	char	*tmp;
+	char	*new;
 
 	i = 0;
 	j = 0;
-	tmp = malloc(sizeof(char) * ft_strlen_rmchar(str, c) + 1);
+	new = malloc(sizeof(char) * ft_strlen_rmchar(str, c) + 1);
 	while (str[i])
 	{
 		if (str[i] != c)
 		{
-			tmp[j] = str[i];
+			new[j] = str[i];
 			j++;
 		}
 		i++;
 	}
-	tmp[j] = '\0';
+	new[j] = '\0';
 	free(str);
-	str = tmp;
-	return (str);
+	return (new);
 }

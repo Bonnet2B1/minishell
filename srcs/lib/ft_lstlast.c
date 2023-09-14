@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 22:13:08 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/08/30 20:57:36 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/09/13 17:54:29 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 t_list	*ft_lstlast(t_list *lst)
 {
 	if (!lst)
-		return (0);
+		return (NULL);
 	while (lst->next)
 		lst = lst->next;
 	return (lst);

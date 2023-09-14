@@ -6,15 +6,25 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 20:38:43 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/09/11 20:52:05 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/09/14 20:10:17 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+/*================================ BUGS/CRASH ================================*/
+
+// - bug
+// ! crash
+
+// - "'$PATH'" ne doit pas etre traduit
+// - "$PATH" renvoie "/opt", il doit renvoyer PATH complet
+// ! "\"
+
+/*=============================== PROTECTIONS ================================*/
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-/*---------------------------------LIBRAIRIES---------------------------------*/
+/*================================ LIBRAIRIES ================================*/
 
 # include <readline/history.h>
 # include <readline/readline.h>
@@ -25,17 +35,17 @@
 # include <unistd.h>
 # include <fcntl.h>
 
-/*----------------------------------DEFINES-----------------------------------*/
+/*================================= DEFINES ==================================*/
 
 # define TRUE 1
 # define FALSE 0
-# define DOUBLES 2
-# define SIMPLE 1
-
-/*----------------------------------STRUCTS-----------------------------------*/
+# define INPIPE 1
+# define OUTPIPE 0
+/*================================= STRUCTS ==================================*/
 
 enum				e_token
 {
+	NONE,
 	PIPE,
 	COMMAND,
 	REDIR_IN,
@@ -52,21 +62,25 @@ typedef struct s_list
 	struct s_list	*prev;
 }					t_list;
 
-typedef struct s_split
+typedef struct s_parsing
 {
 	int				to_del;
 	enum e_token	token;
 	char			*arg;
 
 	char			**cmd;
-}					t_split;
+	int			pipe_fd[2];
+	int				file_fd;
+}					t_parsing;
 
 typedef struct s_execution
 {
 	char			**cmd;
-	int				in;
-	int				out;
-}					t_execution;
+	t_parsing		*in_struct;
+	t_parsing		*out_struct;
+	int				in_fd;
+	int				out_fd;
+}					t_exec;
 
 typedef struct s_shell_memory
 {
@@ -74,15 +88,20 @@ typedef struct s_shell_memory
 	char			*input_line;
 	char			**cmd_line_split;
 	t_list			*parsing_lst;
-	int				error;
+	t_list			*exec_lst;
+	int				fatal_error;
+	// exec data
+	char			**paths;
+	char			*cmd_path;
 }					t_shell_memory;
 
-/*----------------------------------FUNCTIONS---------------------------------*/
+/*================================ FUNCTIONS =================================*/
 
 /* TEMP */
-void				print_t_split(t_list *lst);
+void				print_t_parsing(t_list *lst);
 void				print_tab(char **tab);
 void				print_lst_size(t_list *lst);
+void				print_t_exec(t_list *lst);
 
 /* LIB */
 int					ft_iswhitespace(char c);
@@ -109,16 +128,32 @@ char				**ft_tabadd_back(char **tab, char *new_str);
 t_list				*ft_lstfirst(t_list *lst);
 char				*ft_strdup(const char *src);
 void				ft_putstr_fd(char *s, int fd);
+void				setup_execution_lst(t_shell_memory *data, t_list *parsing_lst);
+t_exec				*create_execution_node(void);
+char 				**ft_tabdup(char **tab);
+void				clear_lst(t_list **lst);
+char				**ft_split_w_slash(const char *s, char c);
+char				**freetab(char **tab);
+
+/* BUILTINS */
 
 /* PARSING */
-void				input_gestion(t_shell_memory *data);
-char				**ft_split_white_space(char const *s);
-char				**ft_split_keep_char(const char *s1, char c);
-t_split				*create_split_node(char *arg);
+void				parsing(t_shell_memory *data);
+char				**ft_parsing_white_space(char const *s);
+char				**ft_parsing_keep_char(const char *s1, char c);
+t_parsing			*create_parsing_node(char *arg);
 void				data_init(t_shell_memory *data);
 void				env_var_gestion(t_shell_memory *data, t_list *lst);
 void				stack_cmd_args(t_shell_memory *data, t_list *lst);
-void				*free_split_node(t_split *node);
-void				stake_redirections(t_shell_memory *data, t_list *lst);
+void				*free_parsing_node(t_parsing *node);
+void				*free_exec_node(t_exec *node);
+void				stake_n_open_files(t_shell_memory *data, t_list *lst);
+void				setup_fd(t_shell_memory *data, t_list *exec_lst);
+
+/* EXECUTION */
+void				execution(t_shell_memory *data);
+char				**get_paths(char **env);
+void				ft_execve(t_shell_memory *data, char **cmd);
+void				close_pipes(t_list *parsing_lst);
 
 #endif

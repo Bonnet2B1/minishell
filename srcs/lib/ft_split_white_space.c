@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_split.c                                         :+:      :+:    :+:   */
+/*   ft_parsing.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -90,7 +90,7 @@ static char	**freeall(char **tab, size_t indice)
 	return (NULL);
 }
 
-char	**ft_split_white_space(const char *s)
+char	**ft_parsing_white_space(const char *s)
 {
 	size_t	i;
 	size_t	y;
@@ -108,8 +108,6 @@ char	**ft_split_white_space(const char *s)
 		tab[y] = nextword(s, &i, nextlen(s, i));
 		if (!tab[y])
 			return (freeall(tab, y));
-		tab[y] = ft_rmchar(tab[y], '\\');
-		tab[y] = ft_rmchar(tab[y], ';');
 		if (tab[y][0] == '\"' && tab[y][ft_strlen(tab[y]) - 1] == '\"')
 			tab[y] = ft_strtrim(tab[y], "\"");
 		else if (tab[y][0] == '\'' && tab[y][ft_strlen(tab[y]) - 1] == '\'')

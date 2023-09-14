@@ -1,30 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_parsing_gestion.c                             :+:      :+:    :+:   */
+/*   get_path.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/09 18:46:28 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/09/10 22:21:31 by edelarbr         ###   ########.fr       */
+/*   Created: 2023/07/17 17:25:39 by edelarbr          #+#    #+#             */
+/*   Updated: 2023/09/14 18:38:24 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	*free_split_node(t_split *node)
+char	**get_paths(char **env)
 {
-	int	i;
+	int		i;
+	char	**path;
 
-	if (node->arg)
-		free(node->arg);
 	i = -1;
-	if (node->cmd)
+	while (env[++i])
 	{
-		while (node->cmd[++i])
-			free(node->cmd[i]);
-		free(node->cmd);
+		if (ft_strncmp(env[i], "PATH=", 5) == 0)
+			path = ft_split_w_slash(env[i] + 5, ':');
 	}
-	free(node);
-	return (NULL);
+	return (path);
 }

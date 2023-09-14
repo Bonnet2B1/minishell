@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 13:49:54 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/09/14 20:10:20 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/09/14 20:50:26 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,19 +46,6 @@ void	pipex_minishell(t_shell_memory *data, t_list *exec_lst)
 	}
 	close_pipes(data->parsing_lst);
 }
-
-// void	pipex_minishell(t_shell_memory *data, t_list *exec_lst)
-// {
-// 	while(exec_lst->next)
-// 	{
-// 		exec_node_stuff(data, exec_lst->content);
-// 		exec_lst = exec_lst->next;
-// 	}
-// 	dup2(((t_exec *)exec_lst->content)->in_fd, STDIN_FILENO);
-// 	dup2(((t_exec *)exec_lst->content)->out_fd, STDOUT_FILENO);
-// 	ft_execve(data, ((t_exec *)exec_lst->content)->cmd);
-// 	close_pipes(data->parsing_lst);
-// }
 
 void	execution(t_shell_memory *data)
 {

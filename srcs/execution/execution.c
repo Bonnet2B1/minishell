@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 13:49:54 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/09/14 20:50:26 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/09/16 18:11:24 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	exec_node_stuff(t_shell_memory *data, t_exec *exec_node)
 
 	pid = fork();
 	if (pid == -1)
-		return (perror("fork"), exit(EXIT_FAILURE));
+		return (perror("fork"));
 	if (pid == 0)
 	{
 		dup2(exec_node->in_fd, STDIN_FILENO);
@@ -31,10 +31,10 @@ void	exec_node_stuff(t_shell_memory *data, t_exec *exec_node)
 		ft_execve(data, exec_node->cmd);
 	}
 	waitpid(pid, NULL, 0);
-		if (exec_node->in_fd > 1)
-	close(exec_node->in_fd);
-		if (exec_node->out_fd > 1)
-	close(exec_node->out_fd);
+	if (exec_node->in_fd > 1)
+		close(exec_node->in_fd);
+	if (exec_node->out_fd > 1)
+		close(exec_node->out_fd);
 }
 
 void	pipex_minishell(t_shell_memory *data, t_list *exec_lst)

@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 20:38:43 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/09/14 20:58:34 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/09/16 23:08:20 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 
 // - "'$PATH'" ne doit pas etre traduit
 // - "$PATH" renvoie "/opt", il doit renvoyer PATH complet
-// ! "\"
 
 /*=============================== PROTECTIONS ================================*/
 
@@ -94,7 +93,7 @@ typedef struct s_execution
 typedef struct s_shell_memory
 {
 	char			**env;
-	char			*input_line;
+	char			**input_line;
 	char			**cmd_line_split;
 	t_list			*parsing_lst;
 	t_list			*exec_lst;
@@ -127,7 +126,7 @@ t_list				*ft_lstlast(t_list *lst);
 void				ft_lstadd_back(t_list **lst, t_list *new);
 void				ft_lstadd_front(t_list **lst, t_list *new);
 t_list				*ft_lstnew(void *content);
-void				ft_lstadd_here(t_list *lst, t_list *new);
+void				ft_lstadd_here(t_list **lst, t_list *new);
 void				ft_lstdel_here(t_list **first, t_list *node_to_delete, void (*del)(void*));
 char				*ft_strjoin(char const *s1, char const *s2);
 char				*ft_strjoin_free_s1(char *s1, char *s2);
@@ -148,8 +147,8 @@ char				**freetab(char **tab);
 
 /* PARSING */
 void				parsing(t_shell_memory *data);
-char				**ft_parsing_white_space(char const *s);
-char				**ft_parsing_keep_char(const char *s1, char c);
+int					quotes_gestion(char **input_line);
+void				crazy_split(t_shell_memory *data, char **line);
 t_parsing			*create_parsing_node(char *arg);
 void				data_init(t_shell_memory *data);
 void				env_var_gestion(t_shell_memory *data, t_list *lst);
@@ -158,6 +157,7 @@ void				*free_parsing_node(t_parsing *node);
 void				*free_exec_node(t_exec *node);
 void				stake_n_open_files(t_shell_memory *data, t_list *lst);
 void				setup_fd(t_shell_memory *data, t_list *exec_lst);
+void				print_input_line(char **input_line);
 
 /* EXECUTION */
 void				execution(t_shell_memory *data);

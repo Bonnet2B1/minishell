@@ -6,23 +6,28 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 14:52:23 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/09/11 20:52:19 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/09/16 18:43:22 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ft_lstadd_here(t_list *lst, t_list *new)
+void	ft_lstadd_here(t_list **lst, t_list *new)
 {
-	if (!lst || !new)
-		return ;
-	new->prev = lst;
-	if (lst->next)
+	if (!lst)
+		lst = &new;
+	if (!(*lst))
+		*lst = new;
+	else
 	{
-		new->next = lst->next;
-		lst->next->prev = new;
+		new->prev = (*lst);
+		if ((*lst)->next)
+		{
+			new->next = (*lst)->next;
+			(*lst)->next->prev = new;
+		}
+		(*lst)->next = new;
 	}
-	lst->next = new;
 }
 
 // void	ft_lstadd_here(t_list **lst, t_list *new)

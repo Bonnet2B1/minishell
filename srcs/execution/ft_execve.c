@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 18:40:51 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/09/14 20:04:41 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/09/17 00:52:44 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ char	*find_cmd_path(t_shell_memory *data, char *cmd)
 		{
 			free(data->cmd_path);
 			data->cmd_path = NULL;
+			if (access(cmd, F_OK | X_OK) == 0)
+				return (cmd);
 		}
 	}
 	return (NULL);

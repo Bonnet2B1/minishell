@@ -1,38 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strsub.c                                        :+:      :+:    :+:   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: edelarbr <edelarbr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/31 18:17:49 by edelarbr          #+#    #+#             */
-/*   Updated: 2022/10/31 18:17:49 by edelarbr         ###   ########.fr       */
+/*   Created: 2022/10/31 18:17:28 by edelarbr          #+#    #+#             */
+/*   Updated: 2022/10/31 18:17:28 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char	*ft_substr(char const *s, unsigned int start, size_t len)
+char	*ft_strjoin_freeall(char *s1, char *s2)
 {
-	char	*cpy;
+	char	*str;
 	size_t	i;
-	size_t	slen;
+	size_t	j;
 
-	slen = 0;
-	i = 0;
-	if (!s)
+	i = -1;
+	j = 0;
+	if (!s1 || !s2)
 		return (NULL);
-	while (s[slen])
-		slen++;
-	if (start >= slen)
-		len = 0;
-	if (slen - start < len)
-		len = slen - start;
-	cpy = malloc(sizeof(char) * (len + 1));
-	if (!cpy)
+	str = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
+	if (!str)
 		return (NULL);
-	while (len-- && s[start])
-		cpy[i++] = s[start++];
-	cpy[i] = '\0';
-	return (cpy);
+	while (s1[++i])
+		str[i] = s1[i];
+	while (s2[j])
+		str[i++] = s2[j++];
+	str[i] = '\0';
+	free(s1);
+	free(s2);
+	return (str);
 }

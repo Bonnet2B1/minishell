@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 20:38:43 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/09/16 23:08:20 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/09/17 21:46:01 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,7 @@ void				ft_lstadd_here(t_list **lst, t_list *new);
 void				ft_lstdel_here(t_list **first, t_list *node_to_delete, void (*del)(void*));
 char				*ft_strjoin(char const *s1, char const *s2);
 char				*ft_strjoin_free_s1(char *s1, char *s2);
+char				*ft_strjoin_freeall(char *s1, char *s2);
 void				*ft_calloc(size_t size, size_t count);
 int					ft_isenvchar(int c);
 char				**ft_tabadd_back(char **tab, char *new_str);
@@ -142,8 +143,7 @@ char 				**ft_tabdup(char **tab);
 void				clear_lst(t_list **lst);
 char				**ft_split_w_slash(const char *s, char c);
 char				**freetab(char **tab);
-
-/* BUILTINS */
+void				*ft_memset(void *memory, int c, size_t len);
 
 /* PARSING */
 void				parsing(t_shell_memory *data);
@@ -151,18 +151,21 @@ int					quotes_gestion(char **input_line);
 void				crazy_split(t_shell_memory *data, char **line);
 t_parsing			*create_parsing_node(char *arg);
 void				data_init(t_shell_memory *data);
-void				env_var_gestion(t_shell_memory *data, t_list *lst);
+void				env_var_gestion(t_shell_memory *data, char **line);
 void				stack_cmd_args(t_shell_memory *data, t_list *lst);
 void				*free_parsing_node(t_parsing *node);
 void				*free_exec_node(t_exec *node);
 void				stake_n_open_files(t_shell_memory *data, t_list *lst);
 void				setup_fd(t_shell_memory *data, t_list *exec_lst);
 void				print_input_line(char **input_line);
+void				rm_quotes(char **line);
 
 /* EXECUTION */
 void				execution(t_shell_memory *data);
 char				**get_paths(char **env);
 void				ft_execve(t_shell_memory *data, char **cmd);
 void				close_pipes(t_list *parsing_lst);
+
+/* BUILTINS */
 
 #endif

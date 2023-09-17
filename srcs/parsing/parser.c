@@ -6,72 +6,11 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 23:13:02 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/09/16 23:10:38 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/09/17 22:18:59 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-void	setup_parsing_lst(t_shell_memory *data)
-{
-	data->parsing_lst = ft_lstnew(create_parsing_node(ft_strdup(data->input_line[0])));
-}
-
-// void	lst_separate_whitespaces(t_shell_memory *data)
-// {
-// 	int		i;
-// 	int		y;
-// 	t_list	*lst;
-// 	t_list	*to_del;
-
-// 	y = -1;
-// 	while ("\t\v\n\r\f "[++y])
-// 	{
-// 		lst = data->parsing_lst;
-// 		while (lst)
-// 		{
-// 			to_del = lst;
-// 			data->cmd_line_split = ft_split_keep_quotes(
-// 					((t_parsing *)lst->content)->arg, "\t\v\n\r\f "[y]);
-// 			i = -1;
-// 			while (data->cmd_line_split[++i])
-// 			{
-// 				ft_lstadd_here(&lst,
-// 					ft_lstnew(create_parsing_node(data->cmd_line_split[i])));
-// 				lst = lst->next;
-// 			}
-// 			free(data->cmd_line_split);
-// 			ft_lstdel_here(&data->parsing_lst, to_del, (void *)free_parsing_node);
-// 			lst = lst->next;
-// 		}
-// 	}
-// }
-
-// void	lst_separate_operator(t_shell_memory *data, char operator)
-// {
-// 	int		i;
-// 	t_list	*lst;
-// 	t_list	*to_del;
-
-// 	lst = data->parsing_lst;
-// 	while (lst)
-// 	{
-// 		to_del = lst;
-// 		data->cmd_line_split = ft_split_keep_char_n_quotes(
-// 				((t_parsing *)lst->content)->arg, operator);
-// 		i = -1;
-// 		while (data->cmd_line_split[++i])
-// 		{
-// 			ft_lstadd_here(&lst,
-// 				ft_lstnew(create_parsing_node(data->cmd_line_split[i])));
-// 			lst = lst->next;
-// 		}
-// 		free(data->cmd_line_split);
-// 		ft_lstdel_here(&data->parsing_lst, to_del, (void *)free_parsing_node);
-// 		if (lst)
-// 			lst = lst->next;
-// 	}
-// }
 
 void	tokenization(t_list *lst)
 {
@@ -119,10 +58,12 @@ void	parsing(t_shell_memory *data)
 		return ;
 	if (!quotes_gestion(data->input_line))
 		return ;
-	env_var_gestion(data, data->parsing_lst);
+	rm_quotes(data->input_line);
+	print_input_line(data->input_line);
+	env_var_gestion(data, data->input_line);
+	print_input_line(data->input_line);
 	if (forbiddens_chars(data->input_line[0]))
 		return ;
-	print_input_line(data->input_line);
 	crazy_split(data, data->input_line);
 	tokenization(data->parsing_lst);
 	stack_cmd_args(data, data->parsing_lst);

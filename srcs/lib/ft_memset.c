@@ -1,38 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strsub.c                                        :+:      :+:    :+:   */
+/*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: edelarbr <edelarbr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/31 18:17:49 by edelarbr          #+#    #+#             */
-/*   Updated: 2022/10/31 18:17:49 by edelarbr         ###   ########.fr       */
+/*   Created: 2022/10/31 18:16:40 by edelarbr          #+#    #+#             */
+/*   Updated: 2022/10/31 18:16:40 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char	*ft_substr(char const *s, unsigned int start, size_t len)
+void	*ft_memset(void *memory, int c, size_t len)
 {
-	char	*cpy;
-	size_t	i;
-	size_t	slen;
+	unsigned int	i;
+	unsigned char	*char_str;
 
-	slen = 0;
 	i = 0;
-	if (!s)
-		return (NULL);
-	while (s[slen])
-		slen++;
-	if (start >= slen)
-		len = 0;
-	if (slen - start < len)
-		len = slen - start;
-	cpy = malloc(sizeof(char) * (len + 1));
-	if (!cpy)
-		return (NULL);
-	while (len-- && s[start])
-		cpy[i++] = s[start++];
-	cpy[i] = '\0';
-	return (cpy);
+	char_str = (unsigned char *)memory;
+	while (i < len)
+		char_str[i++] = (unsigned char)c;
+	memory = (void *)char_str;
+	return (memory);
 }

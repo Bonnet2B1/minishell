@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 14:55:30 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/09/16 20:17:36 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/09/17 21:31:11 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,9 +151,9 @@ void	print_t_parsing(t_list *lst)
 void	print_input_line(char **input_line)
 {
 	printf("==================== INPUT LINE ====================\n");
-	if (input_line[0])
-		printf("quotes    : %s\n", input_line[1]);
 	if (input_line[1])
+		printf("quotes    : %s\n", input_line[1]);
+	if (input_line[0])
 		printf("input_line: %s\n", input_line[0]);
 	printf("====================================================\n");
 }

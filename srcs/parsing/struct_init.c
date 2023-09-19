@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 13:04:42 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/09/16 20:12:01 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/09/18 15:39:47 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ t_exec	*create_execution_node(void)
 	new_node = malloc(sizeof(t_exec));
 	if (!new_node)
 		return (perror("Malloc"), NULL);
+	new_node->execute = 1;
 	new_node->cmd = NULL;
 	new_node->in_struct = NULL;
 	new_node->out_struct = NULL;

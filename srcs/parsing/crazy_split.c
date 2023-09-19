@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 21:44:26 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/09/16 23:08:12 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/09/20 00:31:17 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ int	take_operator(char **line, int len, char operator)
 int	get_len(char **line, int len)
 {
 	if (line[1][len] != '0')
-		return (len = take_quote(line, len));
-	if (ft_isoperator(line[0][len]) && line[1][len] == '0')
+		len += take_quote(line, len);
+	else if (ft_isoperator(line[0][len]) && line[1][len] == '0')
 		return (len = take_operator(line, len, line[0][len]));
 	while (line[0][len]
 			&& line[1][len] == '0'
@@ -70,6 +70,8 @@ void	crazy_split(t_shell_memory *data, char **line)
 	{
 		len = get_len(line, start);
 		arg = ft_substr(line[0], start, len - start);
+		if (arg[0] == '\0')
+			break ;
 		start = get_start(line, len);
 		ft_lstadd_back(&data->parsing_lst, ft_lstnew(create_parsing_node(arg)));
 	}

@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 18:40:51 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/09/17 00:52:44 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/09/18 19:10:18 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,10 @@ void	ft_execve(t_shell_memory *data, char **cmd)
 	// 	ft_exit();
 	// else
 	if (execve(find_cmd_path(data, cmd[0]), cmd, NULL) == -1)
-		perror("execve");
-	exit(0);
+	{
+		ft_putstr_fd("minishell: ", 2);
+		ft_putstr_fd(cmd[0], 2);
+		ft_putstr_fd(": command not found\n", 2);
+		exit(127);
+	}
 }

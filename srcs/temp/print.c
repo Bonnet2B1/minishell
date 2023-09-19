@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 14:55:30 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/09/17 21:31:11 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/09/20 00:30:34 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ void	print_t_exec(t_list *lst)
 	printf("=============== Print Execution List ===============\n");
 	while(lst)
 	{
+		i = -1;
 		if (((t_exec *)lst->content)->cmd)
 		{
 			printf("commande  : ");
@@ -68,7 +69,7 @@ void	print_t_exec(t_list *lst)
 		}
 		if (((t_exec *)lst->content)->in_struct)
 		{
-			printf("\n|_entree  : ");
+			printf("\n|-entree  : ");
 			spaces = 12;
 			spaces -= printf("%s ", (((t_parsing *)((t_exec *)lst->content)->in_struct)->arg));
 			while (spaces-- > 0)
@@ -83,12 +84,14 @@ void	print_t_exec(t_list *lst)
 			else if (((t_parsing *)((t_exec *)lst->content)->in_struct)->token == REDIR_IN || ((t_parsing *)((t_exec *)lst->content)->in_struct)->token == REDIR_OUT || ((t_parsing *)((t_exec *)lst->content)->in_struct)->token == REDIR_APPEND)
 				printf("   %d", ((t_parsing *)((t_exec *)lst->content)->in_struct)->file_fd);
 		}
+		else if (((t_exec *)lst->content)->in_fd == -1)
+			printf("\n|-entree  :             TERMINAL/SPACE            %d", ((t_exec *)lst->content)->in_fd);
 		else
-			printf("\n|_entree  :             TERMINAL/SPACE             %d", ((t_exec *)lst->content)->in_fd);
-		printf("\n| |_fd_in : %d\n|", ((t_exec *)lst->content)->in_fd);
+			printf("\n|-entree  :             TERMINAL/SPACE             %d", ((t_exec *)lst->content)->in_fd);
+		printf("\n| |-fd_in : %d\n|", ((t_exec *)lst->content)->in_fd);
 		if (((t_exec *)lst->content)->out_struct)
 		{
-			printf("\n|_sortie  : ");
+			printf("\n|-sortie  : ");
 			spaces = 12;
 			spaces -= printf("%s ", (((t_parsing *)((t_exec *)lst->content)->out_struct)->arg));
 			while (spaces-- > 0)
@@ -103,9 +106,12 @@ void	print_t_exec(t_list *lst)
 			else if (((t_parsing *)((t_exec *)lst->content)->out_struct)->token == REDIR_IN || ((t_parsing *)((t_exec *)lst->content)->out_struct)->token == REDIR_OUT || ((t_parsing *)((t_exec *)lst->content)->out_struct)->token == REDIR_APPEND)
 				printf("   %d", ((t_parsing *)((t_exec *)lst->content)->out_struct)->file_fd);
 		}
+		else if (((t_exec *)lst->content)->out_fd == -1)
+			printf("\n|-sortie  :             TERMINAL/SPACE            %d", ((t_exec *)lst->content)->out_fd);
 		else
-			printf("\n|_sortie  :             TERMINAL/SPACE             %d", ((t_exec *)lst->content)->out_fd);
-		printf("\n  |_fd_out: %d", ((t_exec *)lst->content)->out_fd);
+			printf("\n|-sortie  :             TERMINAL/SPACE             %d", ((t_exec *)lst->content)->out_fd);
+		printf("\n|  |-fd_out: %d", ((t_exec *)lst->content)->out_fd);
+		printf("\n|-execute : %d", ((t_exec *)lst->content)->execute);
 		if (lst->next)
 			printf("\n");
 		printf("\n");

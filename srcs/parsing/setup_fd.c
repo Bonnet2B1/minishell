@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 14:00:50 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/09/14 19:32:58 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/09/18 16:08:23 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	pipe_next(t_list *exec_node)
 		((t_exec *)exec_node->content)->out_fd = ((t_exec *)exec_node->content)->out_struct->pipe_fd[INPIPE];
 		((t_exec *)exec_node->next->content)->in_fd = ((t_exec *)exec_node->next->content)->in_struct->pipe_fd[OUTPIPE];
 	}
-	else if (((t_exec *)exec_node->content)->out_struct->token == PIPE)
+	else if (((t_exec *)exec_node->content)->out_struct->token == PIPE && ((t_exec *)exec_node->next->content)->cmd)
 	{
 		((t_exec *)exec_node->content)->out_struct = NULL;
 		((t_exec *)exec_node->content)->out_fd = -1;
@@ -45,7 +45,7 @@ void	pipe_prev(t_list *exec_node)
 		((t_exec *)exec_node->content)->in_fd = ((t_exec *)exec_node->content)->in_struct->pipe_fd[OUTPIPE];
 		((t_exec *)exec_node->prev->content)->out_fd = ((t_exec *)exec_node->prev->content)->out_struct->pipe_fd[INPIPE];
 	}
-	else if (((t_exec *)exec_node->content)->in_struct->token == PIPE)
+	else if (((t_exec *)exec_node->content)->in_struct->token == PIPE && ((t_exec *)exec_node->prev->content)->cmd)
 	{
 		((t_exec *)exec_node->content)->in_struct = NULL;
 		((t_exec *)exec_node->content)->in_fd = -1;

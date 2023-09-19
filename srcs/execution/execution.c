@@ -6,44 +6,48 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 13:49:54 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/09/16 18:11:24 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/09/19 22:54:52 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	exec_node_stuff(t_shell_memory *data, t_exec *exec_node)
+void	exec_node_stuff(t_shell_memory *data, t_list *exec_lst)
 {
-	pid_t	pid;
+	t_exec *exec_node;
+	int		exit_code;
 
-	pid = fork();
-	if (pid == -1)
+	if (!exec_lst)
+		return ;
+	exec_node = exec_lst->content;
+	exit_code = 0;
+	exec_node->pid = fork();
+	if (exec_node->pid == -1)
 		return (perror("fork"));
-	if (pid == 0)
+	if (exec_node->pid == 0)
 	{
-		dup2(exec_node->in_fd, STDIN_FILENO);
-		dup2(exec_node->out_fd, STDOUT_FILENO);
-		if (exec_node->in_fd > 1)
+		if (dup2(exec_node->in_fd, STDIN_FILENO) == -1
+			|| dup2(exec_node->out_fd, STDOUT_FILENO) == -1)
+			exit(1);
+		if (exec_node->in_fd > 0)
 			close(exec_node->in_fd);
 		if (exec_node->out_fd > 1)
 			close(exec_node->out_fd);
 		close_pipes(data->parsing_lst);
 		ft_execve(data, exec_node->cmd);
 	}
-	waitpid(pid, NULL, 0);
-	if (exec_node->in_fd > 1)
+	if (exec_node->in_fd > 0)
 		close(exec_node->in_fd);
 	if (exec_node->out_fd > 1)
 		close(exec_node->out_fd);
+	exec_node_stuff(data, exec_lst->next);
+	waitpid(exec_node->pid, &exit_code, 0);
+	data->exit_status = WEXITSTATUS(exit_code);
 }
 
 void	pipex_minishell(t_shell_memory *data, t_list *exec_lst)
 {
-	while(exec_lst)
-	{
-		exec_node_stuff(data, exec_lst->content);
-		exec_lst = exec_lst->next;
-	}
+	exec_node_stuff(data, exec_lst);
 	close_pipes(data->parsing_lst);
 }
 

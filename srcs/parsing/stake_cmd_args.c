@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 22:29:20 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/09/17 17:01:07 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/09/18 15:31:11 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	stack_cmd_args(t_shell_memory *data, t_list *lst)
 	{
 		while (lst && ((t_parsing *)lst->content)->token != COMMAND)
 			lst = lst->next;
-		if (((t_parsing *)lst->content)->token == COMMAND)
+		if (lst && ((t_parsing *)lst->content)->token == COMMAND)
 		{
 			save = prepare_node(lst);
 			lst = lst->next;

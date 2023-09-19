@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 20:38:43 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/09/17 21:46:01 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/09/19 22:57:58 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 
 // - bug
 // ! crash
-
-// - "'$PATH'" ne doit pas etre traduit
-// - "$PATH" renvoie "/opt", il doit renvoyer PATH complet
 
 /*=============================== PROTECTIONS ================================*/
 
@@ -77,21 +74,24 @@ typedef struct s_parsing
 	char			*arg;
 
 	char			**cmd;
-	int			pipe_fd[2];
+	int				pipe_fd[2];
 	int				file_fd;
 }					t_parsing;
 
 typedef struct s_execution
 {
+	int				execute;
 	char			**cmd;
 	t_parsing		*in_struct;
 	t_parsing		*out_struct;
 	int				in_fd;
 	int				out_fd;
+	pid_t			pid;
 }					t_exec;
 
 typedef struct s_shell_memory
 {
+	int				exit_status;
 	char			**env;
 	char			**input_line;
 	char			**cmd_line_split;
@@ -144,6 +144,7 @@ void				clear_lst(t_list **lst);
 char				**ft_split_w_slash(const char *s, char c);
 char				**freetab(char **tab);
 void				*ft_memset(void *memory, int c, size_t len);
+char				*ft_itoa(int n);
 
 /* PARSING */
 void				parsing(t_shell_memory *data);

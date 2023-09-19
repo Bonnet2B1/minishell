@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 17:43:08 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/09/14 11:17:04 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/09/18 15:39:35 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,10 @@ void	get_parsing_data(t_shell_memory *data, t_list *parsing_lst)
 			if (((t_parsing *)parsing_lst->content)->token == PIPE && new_exec_node->out_struct == NULL)
 				new_exec_node->out_struct = parsing_lst->content;
 		}
-		if (new_exec_node->cmd)
-			ft_lstadd_back(&data->exec_lst, ft_lstnew(new_exec_node));
-		else
-			free_exec_node(new_exec_node);
+		if (!new_exec_node->cmd)
+			new_exec_node->execute = 0;
+		ft_lstadd_back(&data->exec_lst, ft_lstnew(new_exec_node));
+
 	}
 	clear_lst(&data->parsing_lst);
 }

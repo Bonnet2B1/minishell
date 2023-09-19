@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 23:13:02 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/09/17 22:18:59 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/09/20 00:16:00 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,17 +35,22 @@ void	tokenization(t_list *lst)
 	}
 }
 
-int	forbiddens_chars(char *input_line)
+int	forbiddens_chars(char **input_line)
 {
 	int	i;
 
 	i = -1;
-	while (input_line[++i])
+	while (input_line[0][++i])
 	{
-		if (input_line[i] == ';' || input_line[i] == '\\')
+		if (input_line[1][i] == '0' && (input_line[0][i] == ';' || input_line[0][i] == '\\' || input_line[0][i] == '(' || input_line[0][i] == ')'))
 		{
-			printf("minishell: syntax error near unexpected token `");
-			printf("%c'\n", input_line[i]);
+			printf("minishell: syntax error near unexpected token `%c\'\n", input_line[0][i]);
+			return (1);
+		}
+		if ((input_line[1][i] == '0' && input_line[0][i] == '&' && input_line[0][i + 1] == '&')
+			|| (input_line[1][i] == '0' && input_line[0][i] == '|' && input_line[0][i + 1] == '|'))
+		{
+			printf("minishell: syntax error near unexpected token \"%c%c\"\n", input_line[0][i], input_line[0][i + 1]);
 			return (1);
 		}
 	}
@@ -54,15 +59,12 @@ int	forbiddens_chars(char *input_line)
 
 void	parsing(t_shell_memory *data)
 {
-	if (!ft_strcmp(data->input_line[0], ""))
-		return ;
 	if (!quotes_gestion(data->input_line))
 		return ;
 	rm_quotes(data->input_line);
-	print_input_line(data->input_line);
 	env_var_gestion(data, data->input_line);
 	print_input_line(data->input_line);
-	if (forbiddens_chars(data->input_line[0]))
+	if (forbiddens_chars(data->input_line))
 		return ;
 	crazy_split(data, data->input_line);
 	tokenization(data->parsing_lst);

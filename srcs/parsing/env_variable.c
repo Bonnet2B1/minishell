@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 21:26:48 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/09/18 15:10:35 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/09/20 00:20:13 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,12 +64,10 @@ char	**take_var(char **line)
 		len++;
 	var[0] = ft_substr(line[0], start, len);
 	var[1] = ft_substr(line[1], start, len);
-	printf("var[0]: \"%s\"\n", var[0]);
-	printf("var[1]: \"%s\"\n", var[1]);
 	return (var);
 }
 
-char	**take_replacement(char **var, char **env)
+char	**take_replacement(t_shell_memory *data, char **var, char **env)
 {
 	int		i;
 	char	*joined;
@@ -77,6 +75,12 @@ char	**take_replacement(char **var, char **env)
 
 	replacement = malloc(sizeof(char *) * 2);
 	replacement[0] = NULL;
+	if (ft_strcmp(var[0], "?") == 0)
+	{
+		replacement[0] = ft_itoa(data->exit_status);
+		replacement[1] = ft_memset(ft_calloc(sizeof(char), (ft_strlen(replacement[0]) + 1)), var[1][0], ft_strlen(replacement[0]));
+		return (replacement);
+	}
 	joined = ft_strjoin(var[0], "=");
 	i = -1;
 	while (env[++i])
@@ -85,7 +89,7 @@ char	**take_replacement(char **var, char **env)
 		{
 			replacement[0] = ft_substr(env[i], ft_strlen(joined),
 					ft_strlen(env[i]) - ft_strlen(joined));
-			replacement[1] = ft_memset(malloc(sizeof(char) * (ft_strlen(replacement[0]) + 1)), var[1][0], ft_strlen(replacement[0]));
+			replacement[1] = ft_memset(ft_calloc(sizeof(char), (ft_strlen(replacement[0]) + 1)), var[1][0], ft_strlen(replacement[0]));
 			replacement[1][ft_strlen(replacement[0])] = '\0';
 			return (free(joined), replacement);
 		}
@@ -130,22 +134,22 @@ void	env_var_gestion(t_shell_memory *data, char **line)
 	while (there_is_a_env_var(line))
 	{
 		before = take_before(line);
-		printf("before[0]: \"%s\"\n", before[0]);
-		printf("before[1]: \"%s\"\n", before[1]);
-		replacement = take_replacement(take_var(line), data->env);
-		printf("replacement[0]: \"%s\"\n", replacement[0]);
-		printf("replacement[1]: \"%s\"\n", replacement[1]);
+		replacement = take_replacement(data, take_var(line), data->env);
 		after = take_after(line);
-		printf("after[0]: \"%s\"\n", after[0]);
-		printf("after[1]: \"%s\"\n", after[1]);
+		printf("before: %s\n", before[0]);
+		printf("before: %s\n", before[1]);
+		printf("var: %s\n", take_var(line)[0]);
+		printf("var: %s\n", take_var(line)[1]);
+		printf("replacement: %s\n", replacement[0]);
+		printf("replacement: %s\n", replacement[1]);
+		printf("after: %s\n", after[0]);
+		printf("after: %s\n", after[1]);
 		free(line[0]);
 		free(line[1]);
 		line[0] = ft_strjoin_freeall(before[0], replacement[0]);
 		line[0] = ft_strjoin_freeall(line[0], after[0]);
 		line[1] = ft_strjoin_freeall(before[1], replacement[1]);
 		line[1] = ft_strjoin_freeall(line[1], after[1]);
-		free(before);
-		free(replacement);
-		free(after);
+		return (free(before), free(replacement), free(after));
 	}
 }

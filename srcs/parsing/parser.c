@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 23:13:02 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/09/20 00:16:00 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/09/21 22:51:19 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,14 @@ void	tokenization(t_list *lst)
 			((t_parsing *)lst->content)->token = REDIR_APPEND;
 		else if (!ft_strncmp(((t_parsing *)lst->content)->arg, ">", 1))
 			((t_parsing *)lst->content)->token = REDIR_OUT;
+		else if (!ft_strncmp(((t_parsing *)lst->content)->arg, "<<", 2))
+			((t_parsing *)lst->content)->token = HERE_DOC;
 		else if (!ft_strncmp(((t_parsing *)lst->content)->arg, "<", 1))
 			((t_parsing *)lst->content)->token = REDIR_IN;
 		else if (lst->prev
 			&& (((t_parsing *)lst->prev->content)->token == REDIR_IN
 				|| ((t_parsing *)lst->prev->content)->token == REDIR_OUT
+				|| ((t_parsing *)lst->prev->content)->token == HERE_DOC
 				|| ((t_parsing *)lst->prev->content)->token == REDIR_APPEND))
 			((t_parsing *)lst->content)->token = FILEE;
 		else
@@ -70,6 +73,7 @@ void	parsing(t_shell_memory *data)
 	tokenization(data->parsing_lst);
 	stack_cmd_args(data, data->parsing_lst);
 	stake_n_open_files(data, data->parsing_lst);
+	here_doc_gestion(data, data->parsing_lst);
 	print_t_parsing(data->parsing_lst);
 	if (data->fatal_error)
 		return ;

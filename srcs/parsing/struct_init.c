@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 13:04:42 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/09/18 15:39:47 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/09/21 19:45:29 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ t_parsing	*create_parsing_node(char *arg)
 	if (!new_node)
 		return (perror("Malloc"), NULL);
 	new_node->to_del = 0;
+	new_node->to_unlink = 0;
 	new_node->token = NONE;
 	new_node->arg = arg;
 	new_node->cmd = NULL;

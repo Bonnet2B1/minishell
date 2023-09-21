@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 18:47:48 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/09/14 15:33:29 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/09/21 23:01:19 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,17 @@ void	stake_n_open_files(t_shell_memory *data, t_list *lst)
 			stake_redir_out(data, lst);
 		else if (((t_parsing *)lst->content)->token == REDIR_APPEND)
 			stake_redir_append(data, lst);
+		else if (((t_parsing *)lst->content)->token == HERE_DOC)
+		{
+			if (!lst->next || ((t_parsing *)lst->next->content)->token != FILEE)
+				redir_error(data, lst);
+			else
+			{
+				free(((t_parsing *)lst->content)->arg);
+				((t_parsing *)lst->content)->arg = ft_strdup(((t_parsing *)lst->next->content)->arg);
+				ft_lstdel_here(&data->parsing_lst, lst->next, (void *)free_parsing_node);
+			}
+		}
 		lst = lst->next;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 14:55:30 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/09/20 00:30:34 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/09/21 18:53:52 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ int	print_token(enum e_token token)
 		return (printf("REDIR_IN"));
 	else if (token == FILEE)
 		return (printf("FILEE"));
+	else if (token == HERE_DOC)
+		return (printf("HERE_DOC"));
 	else if (token == COMMAND)
 		return (printf("COMMAND"));
 	return (0);

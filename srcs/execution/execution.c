@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 13:49:54 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/09/19 22:54:52 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/09/21 23:38:37 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ void	exec_node_stuff(t_shell_memory *data, t_list *exec_lst)
 		close(exec_node->in_fd);
 	if (exec_node->out_fd > 1)
 		close(exec_node->out_fd);
+	if (exec_node->in_struct && ((t_parsing *)exec_node->in_struct)->to_unlink == 1)
+		unlink(((t_parsing *)exec_node->in_struct)->arg);
 	exec_node_stuff(data, exec_lst->next);
 	waitpid(exec_node->pid, &exit_code, 0);
 	data->exit_status = WEXITSTATUS(exit_code);

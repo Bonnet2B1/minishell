@@ -6,13 +6,13 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 17:43:08 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/09/18 15:39:35 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/09/21 23:15:53 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	get_parsing_data(t_shell_memory *data, t_list *parsing_lst)
+void	setup_execution_lst(t_shell_memory *data, t_list *parsing_lst)
 {
 	t_exec	*new_exec_node;
 
@@ -25,7 +25,7 @@ void	get_parsing_data(t_shell_memory *data, t_list *parsing_lst)
 			parsing_lst = parsing_lst->next;
 		}
 		while (parsing_lst && ((t_parsing *)parsing_lst->content)->token != PIPE)
-			{
+		{
 			if (((t_parsing *)parsing_lst->content)->token == COMMAND)
 			{
 				new_exec_node->cmd = ft_tabdup(((t_parsing *)parsing_lst->content)->cmd);
@@ -50,10 +50,4 @@ void	get_parsing_data(t_shell_memory *data, t_list *parsing_lst)
 
 	}
 	clear_lst(&data->parsing_lst);
-}
-
-void	setup_execution_lst(t_shell_memory *data, t_list *parsing_lst)
-{
-	(void)parsing_lst;
-	get_parsing_data(data, data->parsing_lst);
 }

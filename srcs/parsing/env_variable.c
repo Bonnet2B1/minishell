@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 21:26:48 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/09/20 00:20:13 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/09/21 22:51:26 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,14 +136,14 @@ void	env_var_gestion(t_shell_memory *data, char **line)
 		before = take_before(line);
 		replacement = take_replacement(data, take_var(line), data->env);
 		after = take_after(line);
-		printf("before: %s\n", before[0]);
-		printf("before: %s\n", before[1]);
-		printf("var: %s\n", take_var(line)[0]);
-		printf("var: %s\n", take_var(line)[1]);
-		printf("replacement: %s\n", replacement[0]);
-		printf("replacement: %s\n", replacement[1]);
-		printf("after: %s\n", after[0]);
-		printf("after: %s\n", after[1]);
+		// printf("before: %s\n", before[0]);
+		// printf("before: %s\n", before[1]);
+		// printf("var: %s\n", take_var(line)[0]);
+		// printf("var: %s\n", take_var(line)[1]);
+		// printf("replacement: %s\n", replacement[0]);
+		// printf("replacement: %s\n", replacement[1]);
+		// printf("after: %s\n", after[0]);
+		// printf("after: %s\n", after[1]);
 		free(line[0]);
 		free(line[1]);
 		line[0] = ft_strjoin_freeall(before[0], replacement[0]);

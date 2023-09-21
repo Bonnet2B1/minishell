@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 20:38:43 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/09/19 22:57:58 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/09/21 22:10:16 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@
 # include <sys/types.h>
 # include <unistd.h>
 # include <fcntl.h>
+# include <dirent.h>
 
 /*================================= DEFINES ==================================*/
 
@@ -54,6 +55,7 @@ enum				e_token
 	PIPE,
 	COMMAND,
 	REDIR_IN,
+	HERE_DOC,
 	REDIR_OUT,
 	REDIR_APPEND,
 	FILEE,
@@ -70,6 +72,7 @@ typedef struct s_list
 typedef struct s_parsing
 {
 	int				to_del;
+	int				to_unlink;
 	enum e_token	token;
 	char			*arg;
 
@@ -98,6 +101,7 @@ typedef struct s_shell_memory
 	t_list			*parsing_lst;
 	t_list			*exec_lst;
 	int				fatal_error;
+	char			**here_doc_files_names;
 	// exec data
 	char			**paths;
 	char			*cmd_path;
@@ -112,6 +116,7 @@ void				print_lst_size(t_list *lst);
 void				print_t_exec(t_list *lst);
 
 /* LIB */
+int					ft_there_is_char(char *str, char c);
 int					ft_iswhitespace(char c);
 int					ft_isascii(int c);
 int					ft_strlen(const char *str);
@@ -160,6 +165,7 @@ void				stake_n_open_files(t_shell_memory *data, t_list *lst);
 void				setup_fd(t_shell_memory *data, t_list *exec_lst);
 void				print_input_line(char **input_line);
 void				rm_quotes(char **line);
+void				here_doc_gestion(t_shell_memory *data, t_list *parsing_lst);
 
 /* EXECUTION */
 void				execution(t_shell_memory *data);

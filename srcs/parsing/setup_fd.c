@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 14:00:50 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/09/18 16:08:23 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/09/21 19:41:29 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,15 @@ void	setup_fd(t_shell_memory *data, t_list *exec_lst)
 			pipe_next(exec_lst);
 		if (exec_lst->prev)
 			pipe_prev(exec_lst);
-		if (((t_exec *)exec_lst->content)->in_struct && (((t_exec *)exec_lst->content)->in_struct->token == REDIR_IN || ((t_exec *)exec_lst->content)->in_struct->token == REDIR_APPEND || ((t_exec *)exec_lst->content)->in_struct->token == REDIR_OUT))
+		if (((t_exec *)exec_lst->content)->in_struct
+			&& (((t_exec *)exec_lst->content)->in_struct->token == REDIR_IN
+			|| ((t_exec *)exec_lst->content)->in_struct->token == REDIR_APPEND
+			|| ((t_exec *)exec_lst->content)->in_struct->token == REDIR_OUT))
 			((t_exec *)exec_lst->content)->in_fd = ((t_exec *)exec_lst->content)->in_struct->file_fd;
-		if (((t_exec *)exec_lst->content)->out_struct && (((t_exec *)exec_lst->content)->out_struct->token == REDIR_IN || ((t_exec *)exec_lst->content)->out_struct->token == REDIR_APPEND || ((t_exec *)exec_lst->content)->out_struct->token == REDIR_OUT))
+		if (((t_exec *)exec_lst->content)->out_struct
+			&& (((t_exec *)exec_lst->content)->out_struct->token == REDIR_IN
+			|| ((t_exec *)exec_lst->content)->out_struct->token == REDIR_APPEND
+			|| ((t_exec *)exec_lst->content)->out_struct->token == REDIR_OUT))
 			((t_exec *)exec_lst->content)->out_fd = ((t_exec *)exec_lst->content)->out_struct->file_fd;
 		exec_lst = exec_lst->next;
 	}

@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 18:40:51 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/09/21 22:26:22 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/09/21 23:44:05 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,10 @@ void	ft_execve(t_shell_memory *data, char **cmd)
 {
 	if (ft_there_is_char(cmd[0], '/') && opendir(cmd[0]))
 		return (printf("minishell: %s: is a directory\n", cmd[0]), (void)NULL);
-	if (ft_there_is_char(cmd[0], '/') && access(cmd[0], F_OK | X_OK) != 0)
-		return (printf("minishell: %s: No such file or directory\n", cmd[0]), (void)NULL);
+	if (ft_there_is_char(cmd[0], '/') && access(cmd[0], F_OK) != 0)
+		return (printf("minishell: %s: No such file or directory\n", cmd[0]), exit(127));
+	if (ft_there_is_char(cmd[0], '/') && access(cmd[0], X_OK) != 0)
+		return (printf("minishell: %s: Permissions denied\n", cmd[0]), exit(126));
 	// if (ft_strcmp(cmd[0], "echo") == 0)
 	// 	ft_echo();
 	// else if (ft_strcmp(cmd[0], "cd") == 0)

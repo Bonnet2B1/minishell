@@ -6,35 +6,35 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 18:55:33 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/09/21 23:29:06 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/09/22 10:08:29 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char	*find_name(t_shell_memory *data, t_list *parsing_lst)
-{
-	t_parsing	*node;
-	char		*name;
+// char	*find_name(t_shell_memory *data, t_list *parsing_lst)
+// {
+// 	t_parsing	*node;
+// 	char		*name;
 
-	name = ft_strdup(".here_doc");
-	while (parsing_lst)
-	{
-		node = parsing_lst->content;
-		if ((node->token == REDIR_IN
-			|| node->token == REDIR_APPEND
-			|| node->token == HERE_DOC
-			|| node->token == REDIR_OUT)
-			&& (!ft_strncmp(name, node->arg, ft_strlen(name) + 1)
-			|| access(name, F_OK) == 0))
-		{
-			name = ft_strjoin_free_s1(name, "_");
-			parsing_lst = data->parsing_lst;
-		}
-		parsing_lst = parsing_lst->next;
-	}
-	return (name);
-}
+// 	name = ft_strdup(".here_doc");
+// 	while (parsing_lst)
+// 	{
+// 		node = parsing_lst->content;
+// 		if ((node->token == REDIR_IN
+// 			|| node->token == REDIR_APPEND
+// 			|| node->token == HERE_DOC
+// 			|| node->token == REDIR_OUT)
+// 			&& (!ft_strncmp(name, node->arg, ft_strlen(name) + 1)
+// 			|| access(name, F_OK) == 0))
+// 		{
+// 			name = ft_strjoin_free_s1(name, "_");
+// 			parsing_lst = data->parsing_lst;
+// 		}
+// 		parsing_lst = parsing_lst->next;
+// 	}
+// 	return (name);
+// }
 
 void	fill_here_doc(int fd, char *delimiter)
 {
@@ -55,35 +55,56 @@ void	fill_here_doc(int fd, char *delimiter)
 	// - activer les signaux
 }
 
-char	*get_full_path(char *name)
-{
-	char	*path;
+// char	*get_full_path(char *name)
+// {
+// 	char	*path;
 
-	path = getcwd(NULL, 0);
-	path = ft_strjoin_free_s1(path, "/");
-	path = ft_strjoin_freeall(path, name);
-	return (path);
-}
+// 	path = getcwd(NULL, 0);
+// 	path = ft_strjoin_free_s1(path, "/");
+// 	path = ft_strjoin_freeall(path, name);
+// 	return (path);
+// }
 
 void	here_doc_gestion(t_shell_memory *data, t_list *parsing_lst)
 {
 	t_parsing	*node;
-	char		*name;
 
+	(void)data;
 	while (parsing_lst)
 	{
 		node = parsing_lst->content;
 		if (node->token == HERE_DOC)
 		{
-			name = find_name(data, parsing_lst);
-			node->file_fd = open(name ,O_RDWR | O_CREAT | O_TRUNC, 0644);
-			fill_here_doc(node->file_fd, node->arg);
-			close(node->file_fd);
+			pipe(node->pipe_fd);
+			fill_here_doc(node->pipe_fd[INPIPE], node->arg);
+			close(node->pipe_fd[INPIPE]);
 			node->token = REDIR_IN;
-			node->arg = get_full_path(name);
 			node->to_unlink = 1;
-			node->file_fd = open(node->arg, O_RDONLY);
+			node->file_fd = node->pipe_fd[OUTPIPE];
 		}
 		parsing_lst = parsing_lst->next;
 	}
 }
+
+// void	here_doc_gestion(t_shell_memory *data, t_list *parsing_lst)
+// {
+// 	t_parsing	*node;
+// 	char		*name;
+
+// 	while (parsing_lst)
+// 	{
+// 		node = parsing_lst->content;
+// 		if (node->token == HERE_DOC)
+// 		{
+// 			name = find_name(data, parsing_lst);
+// 			node->file_fd = open(name ,O_RDWR | O_CREAT | O_TRUNC, 0644);
+// 			fill_here_doc(node->file_fd, node->arg);
+// 			close(node->file_fd);
+// 			node->token = REDIR_IN;
+// 			node->arg = get_full_path(name);
+// 			node->to_unlink = 1;
+// 			node->file_fd = open(node->arg, O_RDONLY);
+// 		}
+// 		parsing_lst = parsing_lst->next;
+// 	}
+// }

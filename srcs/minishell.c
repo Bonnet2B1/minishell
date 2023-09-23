@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 20:32:39 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/09/19 22:53:11 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/09/23 17:37:37 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,6 @@ int	main(int argc, char **argv, char **env)
 
 	(void)argc;
 	(void)argv;
-	data.env = env;
+	data.env = ft_tabdup(env);
 	reader(&data);
 }

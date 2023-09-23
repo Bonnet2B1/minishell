@@ -1,31 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncmp.c                                       :+:      :+:    :+:   */
+/*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/23 21:45:53 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/09/23 17:21:54 by edelarbr         ###   ########.fr       */
+/*   Created: 2023/09/23 17:43:35 by edelarbr          #+#    #+#             */
+/*   Updated: 2023/09/23 18:06:06 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	ft_strncmp(const char *s1, const char *s2, size_t n)
+void	ft_env(char **cmd, char **env)
 {
-	size_t	i;
+	int	i;
 
 	i = 0;
-	while (s1 && s2 && (s1[i] || s2[i]) && i < n)
+	while (cmd[++i])
 	{
-		if (!ft_isascii(s1[i]) || !ft_isascii(s2[i]))
-			i++;
-		if ((s1[i] > s2[i]) || !s2[i])
-			return (1);
-		if ((s1[i] < s2[i]) || !s1[i])
-			return (-1);
-		i++;
+		if (cmd[i][ft_strlen(cmd[i]) - 1] == '/')
+			return (printf("env: %s: Not a directory\n", cmd[i]), exit(126));
+		if (ft_there_is_char(cmd[i], '/') && opendir(cmd[i]))
+			return (printf("env: %s: Permission denied\n", cmd[i]), exit(126));
+		else
+			return (printf("env: %s: No such file or directory\n", cmd[i]), exit(127));
 	}
-	return (0);
+	i = -1;
+	while (env[++i])
+		printf("%s\n", env[i]);
+	exit(0);
 }

@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 20:38:43 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/09/21 22:10:16 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/09/23 17:56:17 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ typedef struct s_list
 typedef struct s_parsing
 {
 	int				to_del;
-	int				to_unlink;
 	enum e_token	token;
 	char			*arg;
 
@@ -174,5 +173,7 @@ void				ft_execve(t_shell_memory *data, char **cmd);
 void				close_pipes(t_list *parsing_lst);
 
 /* BUILTINS */
+void				ft_unset(char **cmd, t_shell_memory *data);
+void				ft_env(char **cmd, char **env);
 
 #endif

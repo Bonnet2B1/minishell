@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 20:38:43 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/09/23 17:56:17 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/09/24 19:38:58 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@
 
 /*================================ LIBRAIRIES ================================*/
 
+# include <stdio.h>
 # include <readline/history.h>
 # include <readline/readline.h>
-# include <stdio.h>
 # include <stdlib.h>
 # include <sys/stat.h>
 # include <sys/types.h>
@@ -38,6 +38,9 @@
 # define FALSE 0
 # define INPIPE 1
 # define OUTPIPE 0
+# define ON 1
+# define OFF 0
+# define DEFAULT 2
 # define CLR_RMV \033[0m
 # define RED \033[1;31m
 # define GREEN \033[1;32m
@@ -175,5 +178,8 @@ void				close_pipes(t_list *parsing_lst);
 /* BUILTINS */
 void				ft_unset(char **cmd, t_shell_memory *data);
 void				ft_env(char **cmd, char **env);
+
+/* SIGNALS */
+void				ft_signal(int i);
 
 #endif

@@ -3,14 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gloms <rbrendle@student.42mulhouse.fr>     +#+  +:+       +#+        */
+/*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 20:20:07 by gloms             #+#    #+#             */
-/*   Updated: 2023/09/21 23:02:54 by gloms            ###   ########.fr       */
+/*   Updated: 2023/09/24 19:45:44 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/*
 #include "../minishell.h"
 
 void	sig_handler_quit(void)
@@ -29,12 +28,13 @@ void	sig_handler_int(void)
 
 void	ft_signal(int i)
 {
-	if (i == 0)
+	rl_catch_signals = 0;
+	if (i == OFF)
 	{
 		signal(SIGINT, SIG_IGN);
 		signal(SIGQUIT, SIG_IGN);
 	}
-	else if (i == 1)
+	else if (i == ON)
 	{
 		signal(SIGINT, (void *)sig_handler_int);
 		signal(SIGQUIT, (void *)sig_handler_quit);
@@ -45,4 +45,3 @@ void	ft_signal(int i)
 		signal(SIGQUIT, SIG_DFL);
 	}
 }
-*/

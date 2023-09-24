@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 18:55:33 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/09/23 17:13:27 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/09/24 19:43:45 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,31 @@
 
 void	fill_here_doc(int fd, char *delimiter)
 {
+	pid_t	pid;
 	char	*line;
 
 	// - desactiver les signaux
+	ft_signal(OFF);
 	// - activer les signaux here_doc
-	while (1)
+	pid = fork();
+	if (pid == 0)
 	{
-		line = readline("> ");
-		if (!ft_strncmp(line, delimiter, ft_strlen(delimiter) + 1))
-			return (free(line));
-		line = ft_strjoin_free_s1(line, "\n");
-		ft_putstr_fd(line, fd);
-		free(line);
+		while (1)
+		{
+			line = readline("> ");
+			if (!line)
+				break ;
+			if (!ft_strncmp(line, delimiter, ft_strlen(delimiter) + 1))
+				return (free(line));
+			line = ft_strjoin_free_s1(line, "\n");
+			ft_putstr_fd(line, fd);
+			free(line);
+		}
 	}
+	waitpid(pid, NULL, 0);
 	// - desactiver les signaux here_doc
 	// - activer les signaux
+	ft_signal(ON);
 }
 
 void	here_doc_gestion(t_shell_memory *data, t_list *parsing_lst)

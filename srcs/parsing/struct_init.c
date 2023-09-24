@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 13:04:42 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/09/22 17:12:36 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/09/24 21:20:25 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	data_init(t_shell_memory *data)
 {
+	data->input_line[1] = NULL;
 	data->input_line[2] = NULL;
 	data->parsing_lst = NULL;
 	data->exec_lst = NULL;

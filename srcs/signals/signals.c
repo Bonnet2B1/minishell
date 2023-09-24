@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 20:20:07 by gloms             #+#    #+#             */
-/*   Updated: 2023/09/24 19:45:44 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/09/24 22:15:37 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,14 @@ void	sig_handler_int(void)
 	rl_redisplay();
 }
 
+void	sig_handler_int_hd(void)
+{
+	write(1,"\n", 1);
+	exit(0);
+}
+
 void	ft_signal(int i)
 {
-	rl_catch_signals = 0;
 	if (i == OFF)
 	{
 		signal(SIGINT, SIG_IGN);
@@ -36,12 +41,19 @@ void	ft_signal(int i)
 	}
 	else if (i == ON)
 	{
+		rl_catch_signals = 0;
 		signal(SIGINT, (void *)sig_handler_int);
 		signal(SIGQUIT, (void *)sig_handler_quit);
 	}
-	else
+	else if (i == DEFAULT)
 	{
 		signal(SIGINT, SIG_DFL);
 		signal(SIGQUIT, SIG_DFL);
+	}
+	else if (i == SIG_HERE_DOC)
+	{
+		rl_catch_signals = 1;
+		signal(SIGINT, (void *)sig_handler_int_hd);
+		signal(SIGQUIT, (void *)sig_handler_quit);
 	}
 }

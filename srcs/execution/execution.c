@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 13:49:54 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/09/23 17:48:12 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/09/24 21:57:34 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,10 @@ void	exec_node_stuff(t_shell_memory *data, t_list *exec_lst)
 	exec_node->pid = fork();
 	if (exec_node->pid == -1)
 		return (perror("fork"));
+	ft_signal(OFF);
 	if (exec_node->pid == 0)
 	{
+		ft_signal(DEFAULT);
 		if (dup2(exec_node->in_fd, STDIN_FILENO) == -1
 			|| dup2(exec_node->out_fd, STDOUT_FILENO) == -1)
 			exit(1);
@@ -42,18 +44,16 @@ void	exec_node_stuff(t_shell_memory *data, t_list *exec_lst)
 		close(exec_node->out_fd);
 	exec_node_stuff(data, exec_lst->next);
 	waitpid(exec_node->pid, &exit_code, 0);
+	ft_signal(ON);
 	data->exit_status = WEXITSTATUS(exit_code);
-}
-
-void	pipex_minishell(t_shell_memory *data, t_list *exec_lst)
-{
-	exec_node_stuff(data, exec_lst);
-	close_pipes(data->parsing_lst);
 }
 
 void	execution(t_shell_memory *data)
 {
-	data->paths = get_paths(data->env);
-	pipex_minishell(data, data->exec_lst);
+	if (!((t_exec *)data->exec_lst->content)->cmd)
+		return ;
+	exec_node_stuff(data, data->exec_lst);
+	close_pipes(data->parsing_lst);
+	// pipex_minishell(data, data->exec_lst);
 	data->paths = freetab(data->paths);
 }

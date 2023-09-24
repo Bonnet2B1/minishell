@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 18:40:51 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/09/23 17:55:54 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/09/24 21:57:38 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ char	*find_cmd_path(t_shell_memory *data, char *cmd)
 	int	i;
 
 	i = -1;
+	data->paths = get_paths(data->env);
 	while (data->paths[++i])
 	{
 		data->cmd_path = ft_strjoin(data->paths[i], cmd);

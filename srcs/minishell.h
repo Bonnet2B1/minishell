@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 20:38:43 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/09/24 19:38:58 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/09/24 21:55:58 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@
 # define ON 1
 # define OFF 0
 # define DEFAULT 2
+# define SIG_HERE_DOC 3
 # define CLR_RMV \033[0m
 # define RED \033[1;31m
 # define GREEN \033[1;32m
@@ -154,7 +155,7 @@ void				*ft_memset(void *memory, int c, size_t len);
 char				*ft_itoa(int n);
 
 /* PARSING */
-void				parsing(t_shell_memory *data);
+int					parsing(t_shell_memory *data);
 int					quotes_gestion(char **input_line);
 void				crazy_split(t_shell_memory *data, char **line);
 t_parsing			*create_parsing_node(char *arg);
@@ -174,6 +175,7 @@ void				execution(t_shell_memory *data);
 char				**get_paths(char **env);
 void				ft_execve(t_shell_memory *data, char **cmd);
 void				close_pipes(t_list *parsing_lst);
+char				*find_cmd_path(t_shell_memory *data, char *cmd);
 
 /* BUILTINS */
 void				ft_unset(char **cmd, t_shell_memory *data);

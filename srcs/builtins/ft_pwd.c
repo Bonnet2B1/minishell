@@ -6,7 +6,7 @@
 /*   By: gloms <rbrendle@student.42mulhouse.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 14:03:15 by gloms             #+#    #+#             */
-/*   Updated: 2023/09/25 14:05:48 by gloms            ###   ########.fr       */
+/*   Updated: 2023/09/25 22:26:30 by gloms            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ int	ft_pwd(void)
 	if (!path)
 	{
 		perror("pwd");
-		ft_exit(-1);
+		exit(-1);
 	}
 	printf("%s\n", path);
 	free(path);
-	ft_exit(0);
+	exit(0);
 }

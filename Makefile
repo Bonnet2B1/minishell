@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+         #
+#    By: gloms <rbrendle@student.42mulhouse.fr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/22 16:59:43 by edelarbr          #+#    #+#              #
-#    Updated: 2023/09/25 18:10:48 by edelarbr         ###   ########.fr        #
+#    Updated: 2023/09/25 22:26:16 by gloms            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ SRCS		:=	srcs/temp/print.c \
 				srcs/builtins/ft_unset.c \
 				srcs/builtins/ft_env.c \
 				srcs/builtins/ft_cd.c \
-				srcs/builtins/pwd.c \
+				srcs/builtins/ft_pwd.c \
 				srcs/builtins/ft_echo.c \
 				srcs/execution/ft_execve.c \
 				srcs/execution/execution.c \
@@ -49,6 +49,7 @@ SRCS		:=	srcs/temp/print.c \
 				srcs/lib/ft_tabadd_back.c \
 				srcs/lib/ft_memset.c \
 				srcs/lib/ft_substr.c \
+				srcs/lib/ft_substr_free.c \
 				srcs/lib/ft_strncmp.c \
 				srcs/lib/ft_strtrim.c \
 				srcs/lib/ft_calloc.c \

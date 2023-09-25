@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
+/*   By: gloms <rbrendle@student.42mulhouse.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 20:38:43 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/09/24 21:55:58 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/09/25 22:30:55 by gloms            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,7 @@ int					ft_strlen(const char *str);
 char				*ft_rmchar(char *str, char c);
 char				*ft_strrchr(const char *s, int c);
 char				*ft_substr(char const *s, unsigned int start, size_t len);
+char				*ft_substr_free(char *s, unsigned int start, size_t len);
 char				*ft_strtrim(const char *s, const char *set);
 char				*ft_strchr(const char *s, int c);
 int					ft_strcmp(const char *s1, const char *s2);
@@ -180,6 +181,8 @@ char				*find_cmd_path(t_shell_memory *data, char *cmd);
 /* BUILTINS */
 void				ft_unset(char **cmd, t_shell_memory *data);
 void				ft_env(char **cmd, char **env);
+int					find(t_shell_memory *data, char *find, int len);
+int					ft_pwd(void);
 
 /* SIGNALS */
 void				ft_signal(int i);

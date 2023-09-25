@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
+/*   By: gloms <rbrendle@student.42mulhouse.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 17:54:21 by gloms             #+#    #+#             */
-/*   Updated: 2023/09/25 18:12:52 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/09/25 22:22:23 by gloms            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,13 +100,13 @@ int	ft_cd(t_shell_memory *data, char **args)
 		{
 			args[1] = ft_substr(args[1], 1, ft_strlen(args[1]) - 1);
 			if (cd_home(data) < 0)
-				ft_exit(1);
+				exit(1);
 		}
 		else if (!ft_strncmp(args[1], "/", 1))
 		{
 			args[1] = ft_substr(args[1], 1, ft_strlen(args[1]) - 1);
 			if (cd_root(data) < 0)
-				ft_exit(1);
+				exit(1);
 		}
 		change_path(data, args[1]);
 	}
@@ -114,5 +114,5 @@ int	ft_cd(t_shell_memory *data, char **args)
 		cd_home(data);
 	data->env[ind] = ft_strjoin(ft_substr_free(data->env[ind], 0, 7), tmp);
 	free(tmp);
-	ft_exit(0);
+	exit(0);
 }

@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 13:49:54 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/09/24 21:57:34 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/09/25 17:13:21 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,10 @@ void	exec_node_stuff(t_shell_memory *data, t_list *exec_lst)
 	if (exec_node->out_fd > 1)
 		close(exec_node->out_fd);
 	exec_node_stuff(data, exec_lst->next);
+	close_pipes(data->parsing_lst);
 	waitpid(exec_node->pid, &exit_code, 0);
-	ft_signal(ON);
 	data->exit_status = WEXITSTATUS(exit_code);
+	ft_signal(ON);
 }
 
 void	execution(t_shell_memory *data)
@@ -53,7 +54,6 @@ void	execution(t_shell_memory *data)
 	if (!((t_exec *)data->exec_lst->content)->cmd)
 		return ;
 	exec_node_stuff(data, data->exec_lst);
-	close_pipes(data->parsing_lst);
 	// pipex_minishell(data, data->exec_lst);
 	data->paths = freetab(data->paths);
 }

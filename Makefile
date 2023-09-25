@@ -6,7 +6,7 @@
 #    By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/22 16:59:43 by edelarbr          #+#    #+#              #
-#    Updated: 2023/09/24 19:17:53 by edelarbr         ###   ########.fr        #
+#    Updated: 2023/09/25 18:10:48 by edelarbr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,9 @@ SRCS		:=	srcs/temp/print.c \
 				srcs/signals/signals.c \
 				srcs/builtins/ft_unset.c \
 				srcs/builtins/ft_env.c \
+				srcs/builtins/ft_cd.c \
+				srcs/builtins/pwd.c \
+				srcs/builtins/ft_echo.c \
 				srcs/execution/ft_execve.c \
 				srcs/execution/execution.c \
 				srcs/execution/close_pipes.c \

@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 16:04:31 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/09/23 17:56:05 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/09/26 14:49:55 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,5 +88,5 @@ void	ft_unset(char **cmd, t_shell_memory *data)
 		else if (env_find_correlation(data->env, cmd[i]) != -1)
 			data->env = rm_tab_index(data->env, env_find_correlation(data->env, cmd[i]));
 	}
-	exit(exit_value);
+	ft_exit(data, exit_value);
 }

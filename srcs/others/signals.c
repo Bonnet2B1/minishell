@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 20:20:07 by gloms             #+#    #+#             */
-/*   Updated: 2023/09/24 22:15:37 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/09/26 17:19:47 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,17 +19,16 @@ void	sig_handler_quit(void)
 
 void	sig_handler_int(void)
 {
-	//printf("\n\033[1;35mminishell\033[0m-\033[1;31m3.2$ \033[0m");
 	write(1,"\n", 1);
 	rl_on_new_line();
 	rl_replace_line("", 0);
 	rl_redisplay();
 }
 
-void	sig_handler_int_hd(void)
+void	sig_handler_int_hd()
 {
 	write(1,"\n", 1);
-	exit(0);
+	ft_exit(NULL, 0); // ! leaks
 }
 
 void	ft_signal(int i)

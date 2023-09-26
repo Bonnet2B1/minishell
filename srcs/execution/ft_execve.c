@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 18:40:51 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/09/24 21:57:38 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/09/26 18:19:21 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,31 +37,28 @@ char	*find_cmd_path(t_shell_memory *data, char *cmd)
 void	ft_execve(t_shell_memory *data, char **cmd)
 {
 	if (ft_there_is_char(cmd[0], '/') && opendir(cmd[0]))
-		return (printf("minishell: %s: is a directory\n", cmd[0]), exit(126));
+		return (printf("minishell: %s: is a directory\n", cmd[0]), ft_exit(data, 126));
 	if (ft_there_is_char(cmd[0], '/') && access(cmd[0], F_OK) != 0)
-		return (printf("minishell: %s: No such file or directory\n", cmd[0]), exit(127));
+		return (printf("minishell: %s: No such file or directory\n", cmd[0]), ft_exit(data, 127));
 	if (ft_there_is_char(cmd[0], '/') && access(cmd[0], X_OK) != 0)
-		return (printf("minishell: %s: Permissions denied\n", cmd[0]), exit(126));
-	// if (ft_strcmp(cmd[0], "echo") == 0)
-	// 	ft_echo();
-	// else if (ft_strcmp(cmd[0], "cd") == 0)
-	// 	ft_cd();
-	// else if (ft_strcmp(cmd[0], "pwd") == 0)
-	// 	ft_pwd();
-	// else if (ft_strcmp(cmd[0], "export") == 0)
-	// 	ft_export();
+		return (printf("minishell: %s: Permissions denied\n", cmd[0]), ft_exit(data, 126));
+	if (ft_strcmp(cmd[0], "echo") == 0)
+		ft_echo(data, cmd);
+	else if (ft_strcmp(cmd[0], "cd") == 0)
+		ft_cd(data, cmd);
+	else if (ft_strcmp(cmd[0], "pwd") == 0)
+		ft_pwd(data);
 	else if (ft_strcmp(cmd[0], "unset") == 0)
 		ft_unset(cmd, data);
 	else if (ft_strcmp(cmd[0], "env") == 0)
-		ft_env(cmd, data->env);
-	// else if (ft_strcmp(cmd[0], "exit") == 0)
-	// 	ft_exit();
-	// else
-	if (execve(find_cmd_path(data, cmd[0]), cmd, NULL) == -1)
+		ft_env(data, cmd, data->env);
+	// else if (ft_strcmp(cmd[0], "export") == 0)
+	// 	ft_export();
+	else if (execve(find_cmd_path(data, cmd[0]), cmd, NULL) == -1)
 	{
 		ft_putstr_fd("minishell: ", 2);
 		ft_putstr_fd(cmd[0], 2);
 		ft_putstr_fd(": command not found\n", 2);
-		exit(127);
+		ft_exit(data, 127);
 	}
 }

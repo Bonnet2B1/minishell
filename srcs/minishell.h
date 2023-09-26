@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gloms <rbrendle@student.42mulhouse.fr>     +#+  +:+       +#+        */
+/*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 20:38:43 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/09/25 22:30:55 by gloms            ###   ########.fr       */
+/*   Updated: 2023/09/26 18:19:02 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,6 @@ typedef struct s_shell_memory
 	t_list			*parsing_lst;
 	t_list			*exec_lst;
 	int				fatal_error;
-	char			**here_doc_files_names;
 	// exec data
 	char			**paths;
 	char			*cmd_path;
@@ -137,6 +136,7 @@ void				ft_lstadd_front(t_list **lst, t_list *new);
 t_list				*ft_lstnew(void *content);
 void				ft_lstadd_here(t_list **lst, t_list *new);
 void				ft_lstdel_here(t_list **first, t_list *node_to_delete, void (*del)(void*));
+void				ft_lstclear(t_list **lst, void (*del)(void *));
 char				*ft_strjoin(char const *s1, char const *s2);
 char				*ft_strjoin_free_s1(char *s1, char *s2);
 char				*ft_strjoin_freeall(char *s1, char *s2);
@@ -149,11 +149,12 @@ void				ft_putstr_fd(char *s, int fd);
 void				setup_execution_lst(t_shell_memory *data, t_list *parsing_lst);
 t_exec				*create_execution_node(void);
 char 				**ft_tabdup(char **tab);
-void				clear_lst(t_list **lst);
+void				epure_lst(t_list **lst);
 char				**ft_split_w_slash(const char *s, char c);
 char				**freetab(char **tab);
 void				*ft_memset(void *memory, int c, size_t len);
 char				*ft_itoa(int n);
+void				ft_lstdelone(t_list *lst, void (*del)(void *));
 
 /* PARSING */
 int					parsing(t_shell_memory *data);
@@ -180,11 +181,15 @@ char				*find_cmd_path(t_shell_memory *data, char *cmd);
 
 /* BUILTINS */
 void				ft_unset(char **cmd, t_shell_memory *data);
-void				ft_env(char **cmd, char **env);
+void				ft_env(t_shell_memory *data, char **cmd, char **env);
 int					find(t_shell_memory *data, char *find, int len);
-int					ft_pwd(void);
+void				ft_pwd(t_shell_memory *data);
+void				ft_exit(t_shell_memory *data, int exit_code);
+void				ft_cd(t_shell_memory *data, char **args);
+void				ft_echo(t_shell_memory *data,char  **args);
 
-/* SIGNALS */
+/* OTHERS */
 void				ft_signal(int i);
+void				*freeall(t_shell_memory *data);
 
 #endif

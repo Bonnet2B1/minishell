@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: gloms <rbrendle@student.42mulhouse.fr>     +#+  +:+       +#+         #
+#    By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/22 16:59:43 by edelarbr          #+#    #+#              #
-#    Updated: 2023/09/25 22:26:16 by gloms            ###   ########.fr        #
+#    Updated: 2023/09/26 18:19:24 by edelarbr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,18 +17,20 @@ NAME		:=	minishell
 # SRCS		:=	srcs/*.c \
 # 				srcs/*/*.c \
 
-SRCS		:=	srcs/temp/print.c \
-				srcs/signals/signals.c \
+SRCS		:=	srcs/others/signals.c \
+				srcs/others/freeall.c \
 				srcs/builtins/ft_unset.c \
 				srcs/builtins/ft_env.c \
 				srcs/builtins/ft_cd.c \
 				srcs/builtins/ft_pwd.c \
 				srcs/builtins/ft_echo.c \
+				srcs/builtins/ft_exit.c \
 				srcs/execution/ft_execve.c \
 				srcs/execution/execution.c \
 				srcs/execution/close_pipes.c \
 				srcs/execution/get_path.c \
 				srcs/lib/ft_isenvchar.c \
+				srcs/lib/ft_lstclear.c \
 				srcs/lib/ft_lstadd_back.c \
 				srcs/lib/ft_putstr_fd.c \
 				srcs/lib/ft_lstnew.c \
@@ -60,6 +62,7 @@ SRCS		:=	srcs/temp/print.c \
 				srcs/lib/ft_itoa.c \
 				srcs/lib/freetab.c \
 				srcs/lib/ft_strcmp.c \
+				srcs/lib/ft_lstdelone.c \
 				srcs/parsing/here_doc_gestion.c \
 				srcs/parsing/env_variable.c \
 				srcs/parsing/stake_cmd_args.c \
@@ -73,14 +76,15 @@ SRCS		:=	srcs/temp/print.c \
 				srcs/parsing/free_structs.c \
 				srcs/parsing/execution_lst.c \
 				srcs/minishell.c \
+				srcs/temp/print.c \
 
 OBJS		:=	$(SRCS:.c=.o)
 
 # ------------------------------ Flags -------------------------------
 
-READLINE	:=	$(shell brew --prefix readline)
-INC_RL		:= -I /opt/homebrew/Cellar/readline/8.2.1/include/
-LINK_RL		:= -lreadline -L /opt/homebrew/Cellar/readline/8.2.1/lib
+BREW		:=	$(shell brew --prefix)
+INC_RL		:=	-I $(BREW)/Cellar/readline/8.2.1/include/
+LINK_RL		:=	-lreadline -L $(BREW)/Cellar/readline/8.2.1/lib
 CC			:=	gcc
 FLAGS		:=	-Wall -Wextra -Werror -g3 -fsanitize=address
 

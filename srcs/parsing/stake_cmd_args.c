@@ -6,13 +6,13 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 22:29:20 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/09/18 15:31:11 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/09/26 14:58:42 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	clear_lst(t_list **lst)
+void	epure_lst(t_list **lst)
 {
 	t_list	*tmp;
 	t_list	*next;
@@ -59,5 +59,5 @@ void	stack_cmd_args(t_shell_memory *data, t_list *lst)
 			}
 		}
 	}
-	clear_lst(&data->parsing_lst);
+	epure_lst(&data->parsing_lst);
 }

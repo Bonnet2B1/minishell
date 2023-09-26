@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 23:13:02 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/09/25 16:34:03 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/09/26 18:19:21 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ int	parsing(t_shell_memory *data)
 {
 	if (ft_strncmp(data->input_line[0], "", 1) == 0)
 		return (0);
+	if (ft_strncmp(data->input_line[0], "exit", 5) == 0)
+		ft_exit(data, 0);
 	if (!quotes_gestion(data->input_line))
 		return (0);
 	rm_quotes(data->input_line);

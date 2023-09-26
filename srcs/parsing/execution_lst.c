@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 17:43:08 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/09/21 23:15:53 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/09/26 14:58:42 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,5 +49,5 @@ void	setup_execution_lst(t_shell_memory *data, t_list *parsing_lst)
 		ft_lstadd_back(&data->exec_lst, ft_lstnew(new_exec_node));
 
 	}
-	clear_lst(&data->parsing_lst);
+	epure_lst(&data->parsing_lst);
 }

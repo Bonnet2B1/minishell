@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 18:55:33 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/09/24 22:10:09 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/09/26 14:49:55 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,9 @@ void	fill_here_doc(t_shell_memory *data, int fd, char *delimiter)
 		{
 			line = readline("> ");
 			if (!line)
-				return (rewind_line(data), printf("> "), exit(0));
+				return (rewind_line(data), printf("> "), ft_exit(data, 0));
 			if (!ft_strncmp(line, delimiter, ft_strlen(delimiter) + 1))
-				return (free(line), exit(0));
+				return (free(line), ft_exit(data, 0));
 			line = ft_strjoin_free_s1(line, "\n");
 			ft_putstr_fd(line, fd);
 			free(line);

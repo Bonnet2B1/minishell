@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 13:49:54 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/09/25 17:13:21 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/09/26 14:49:55 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	exec_node_stuff(t_shell_memory *data, t_list *exec_lst)
 		ft_signal(DEFAULT);
 		if (dup2(exec_node->in_fd, STDIN_FILENO) == -1
 			|| dup2(exec_node->out_fd, STDOUT_FILENO) == -1)
-			exit(1);
+			ft_exit(data, 1);
 		if (exec_node->in_fd > 0)
 			close(exec_node->in_fd);
 		if (exec_node->out_fd > 1)

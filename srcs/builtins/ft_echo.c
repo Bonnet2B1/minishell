@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gloms <rbrendle@student.42mulhouse.fr>     +#+  +:+       +#+        */
+/*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 17:05:06 by gloms             #+#    #+#             */
-/*   Updated: 2023/09/25 13:58:01 by gloms            ###   ########.fr       */
+/*   Updated: 2023/09/26 18:19:02 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	lentab(char **args)
 	return (i);
 }
 
-int	ft_echo(char **args)
+void	ft_echo(t_shell_memory *data, char  **args)
 {
 	int	ac;
 	int	i;
@@ -48,16 +48,16 @@ int	ft_echo(char **args)
 	i = 0;
 	ac = lentab(args);
 	if (ac == 1)
-		return (write (1, "\n", 1), 0);
+		return (write (1, "\n", 1), ft_exit(data, 0));
 	else if (ac == 2 && !ft_strcmp(args[1], "-n"))
-		return (0);
+		return (ft_exit(data, 0));
 	else if (ac > 2 && !ft_strcmp(args[1], "-n"))
 	{
 		print_no_nl(args, ac);
-		return (0);
+		ft_exit(data, 0);
 	}
 	while (args[++i] && i < ac - 1)
 		printf("%s ", args[i]);
 	printf("%s\n", args[i]);
-	return (0);
+	ft_exit(data, 0);
 }

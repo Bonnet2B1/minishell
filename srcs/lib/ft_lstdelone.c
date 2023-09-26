@@ -1,29 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pwd.c                                           :+:      :+:    :+:   */
+/*   ft_lstdelone.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/25 14:03:15 by gloms             #+#    #+#             */
-/*   Updated: 2023/09/26 18:19:25 by edelarbr         ###   ########.fr       */
+/*   Created: 2022/11/21 14:43:18 by edelarbr          #+#    #+#             */
+/*   Updated: 2023/09/26 18:19:23 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ft_pwd(t_shell_memory *data)
+void	ft_lstdelone(t_list *lst, void (*del)(void *))
 {
-	char	*path;
-
-	path = getcwd(NULL, 0);
-	printf("%s\n", data->env[find(data, "PWD=", 4)]);
-	if (!path)
-	{
-		perror("pwd");
-		ft_exit(data, -1);
-	}
-	printf("%s\n", path);
-	free(path);
-	ft_exit(data, 0);
+	if (!lst || !del)
+		return ;
+	del(lst->content);
+	free(lst);
 }

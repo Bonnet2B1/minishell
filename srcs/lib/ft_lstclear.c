@@ -1,29 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pwd.c                                           :+:      :+:    :+:   */
+/*   ft_lstclear_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/25 14:03:15 by gloms             #+#    #+#             */
-/*   Updated: 2023/09/26 18:19:25 by edelarbr         ###   ########.fr       */
+/*   Created: 2022/11/21 15:54:17 by edelarbr          #+#    #+#             */
+/*   Updated: 2023/09/26 14:58:55 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ft_pwd(t_shell_memory *data)
+void	ft_lstclear(t_list **lst, void (*del)(void *))
 {
-	char	*path;
+	t_list	*tmp;
 
-	path = getcwd(NULL, 0);
-	printf("%s\n", data->env[find(data, "PWD=", 4)]);
-	if (!path)
+	if (!lst || !del)
+		return ;
+	while (*lst)
 	{
-		perror("pwd");
-		ft_exit(data, -1);
+		tmp = (*lst)->next;
+		ft_lstdelone(*lst, del);
+		*lst = tmp;
 	}
-	printf("%s\n", path);
-	free(path);
-	ft_exit(data, 0);
 }

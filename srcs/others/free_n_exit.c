@@ -1,27 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstclear.c                                      :+:      :+:    :+:   */
+/*   free_n_exit.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/21 15:54:17 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/09/29 22:00:01 by edelarbr         ###   ########.fr       */
+/*   Created: 2023/09/29 19:10:23 by edelarbr          #+#    #+#             */
+/*   Updated: 2023/09/29 23:23:28 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ft_lstclear(t_list **lst, void (*del)(void *))
+void	free_n_exit(t_shell_memory *data, int exit_code)
 {
-	t_list	*tmp;
-
-	if (!lst || !del)
-		return ;
-	while (*lst)
-	{
-		tmp = (*lst)->next;
-		ft_lstdelone(*lst, del);
-		*lst = tmp;
-	}
+	(void)data;
+	// data = freeall(data);
+	exit(exit_code);
 }

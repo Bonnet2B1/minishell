@@ -6,14 +6,29 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 20:38:43 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/09/26 18:19:02 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/10/01 18:04:58 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 /*================================ BUGS/CRASH ================================*/
 
-// - bug
 // ! crash
+// @nevaspid
+
+// @Bonnet2B1
+
+// - bug
+// @nevaspid
+// echo -nnnn -n -nnn -nm fdsa devrait donner "-nm fsda"
+// print "exit\n" quand ctrl + D
+
+// @Bonnet2B1
+
+// ? trus à gerer si on a vraaaaaaaiment le temps
+// @nevaspid
+
+// @Bonnet2B1
+// cat <<l | cat <<b | cat << c>
 
 /*=============================== PROTECTIONS ================================*/
 
@@ -97,7 +112,7 @@ typedef struct s_execution
 
 typedef struct s_shell_memory
 {
-	int				exit_status;
+	int				exit_code;
 	char			**env;
 	char			**input_line;
 	char			**cmd_line_split;
@@ -118,6 +133,8 @@ void				print_lst_size(t_list *lst);
 void				print_t_exec(t_list *lst);
 
 /* LIB */
+int					ft_tablen(char **tab);
+int					ft_atoi(const char *str);
 int					ft_there_is_char(char *str, char c);
 int					ft_iswhitespace(char c);
 int					ft_isascii(int c);
@@ -146,10 +163,7 @@ char				**ft_tabadd_back(char **tab, char *new_str);
 t_list				*ft_lstfirst(t_list *lst);
 char				*ft_strdup(const char *src);
 void				ft_putstr_fd(char *s, int fd);
-void				setup_execution_lst(t_shell_memory *data, t_list *parsing_lst);
-t_exec				*create_execution_node(void);
 char 				**ft_tabdup(char **tab);
-void				epure_lst(t_list **lst);
 char				**ft_split_w_slash(const char *s, char c);
 char				**freetab(char **tab);
 void				*ft_memset(void *memory, int c, size_t len);
@@ -157,6 +171,10 @@ char				*ft_itoa(int n);
 void				ft_lstdelone(t_list *lst, void (*del)(void *));
 
 /* PARSING */
+int					is_empty_or_whitespaces(char *str);
+void				epure_lst(t_list **lst);
+t_exec				*create_execution_node(void);
+void				setup_execution_lst(t_shell_memory *data, t_list *parsing_lst);
 int					parsing(t_shell_memory *data);
 int					quotes_gestion(char **input_line);
 void				crazy_split(t_shell_memory *data, char **line);
@@ -170,7 +188,7 @@ void				stake_n_open_files(t_shell_memory *data, t_list *lst);
 void				setup_fd(t_shell_memory *data, t_list *exec_lst);
 void				print_input_line(char **input_line);
 void				rm_quotes(char **line);
-void				here_doc_gestion(t_shell_memory *data, t_list *parsing_lst);
+int					here_doc_gestion(t_shell_memory *data, t_list *parsing_lst);
 
 /* EXECUTION */
 void				execution(t_shell_memory *data);
@@ -178,18 +196,19 @@ char				**get_paths(char **env);
 void				ft_execve(t_shell_memory *data, char **cmd);
 void				close_pipes(t_list *parsing_lst);
 char				*find_cmd_path(t_shell_memory *data, char *cmd);
+int					find(t_shell_memory *data, char *find, int len);
 
 /* BUILTINS */
-void				ft_unset(char **cmd, t_shell_memory *data);
+int					ft_unset(t_shell_memory *data, t_list *node, char **cmd);
 void				ft_env(t_shell_memory *data, char **cmd, char **env);
-int					find(t_shell_memory *data, char *find, int len);
 void				ft_pwd(t_shell_memory *data);
-void				ft_exit(t_shell_memory *data, int exit_code);
-void				ft_cd(t_shell_memory *data, char **args);
+int					ft_cd(t_shell_memory *data, char **args);
 void				ft_echo(t_shell_memory *data,char  **args);
+void				ft_exit(t_shell_memory *data, char **cmd);
 
 /* OTHERS */
 void				ft_signal(int i);
 void				*freeall(t_shell_memory *data);
+void				free_n_exit(t_shell_memory *data, int exit_code);
 
 #endif

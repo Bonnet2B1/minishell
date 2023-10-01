@@ -1,27 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstclear.c                                      :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/21 15:54:17 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/09/29 22:00:01 by edelarbr         ###   ########.fr       */
+/*   Created: 2022/08/02 19:51:17 by edelarbr          #+#    #+#             */
+/*   Updated: 2023/09/29 21:05:33 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ft_lstclear(t_list **lst, void (*del)(void *))
+int	ft_atoi(const char *str)
 {
-	t_list	*tmp;
+	int	i;
+	int	sign;
+	int	nbr;
 
-	if (!lst || !del)
-		return ;
-	while (*lst)
+	i = 0;
+	sign = 1;
+	nbr = 0;
+	if (!str)
+		return (0);
+	while (str[i] == ' ' || (str[i] >= 9 && str[i] <= 13))
+		i++;
+	if (str[i] == '-' || str[i] == '+')
 	{
-		tmp = (*lst)->next;
-		ft_lstdelone(*lst, del);
-		*lst = tmp;
+		if (str[i] == '-')
+			sign *= -1;
+		i++;
 	}
+	if (str[i] == '-' || str[i] == '+')
+		return (0);
+	while (str[i] >= '0' && str[i] <= '9')
+	{
+		nbr = nbr * 10 + (str[i] - 48);
+		i++;
+	}
+	return (sign * nbr);
 }

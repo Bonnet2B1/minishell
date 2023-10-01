@@ -6,7 +6,7 @@
 #    By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/22 16:59:43 by edelarbr          #+#    #+#              #
-#    Updated: 2023/09/26 18:19:24 by edelarbr         ###   ########.fr        #
+#    Updated: 2023/09/30 18:22:35 by edelarbr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@ NAME		:=	minishell
 
 SRCS		:=	srcs/others/signals.c \
 				srcs/others/freeall.c \
+				srcs/others/free_n_exit.c \
 				srcs/builtins/ft_unset.c \
 				srcs/builtins/ft_env.c \
 				srcs/builtins/ft_cd.c \
@@ -29,6 +30,8 @@ SRCS		:=	srcs/others/signals.c \
 				srcs/execution/execution.c \
 				srcs/execution/close_pipes.c \
 				srcs/execution/get_path.c \
+				srcs/lib/ft_tablen.c \
+				srcs/lib/ft_atoi.c \
 				srcs/lib/ft_isenvchar.c \
 				srcs/lib/ft_lstclear.c \
 				srcs/lib/ft_lstadd_back.c \
@@ -63,6 +66,7 @@ SRCS		:=	srcs/others/signals.c \
 				srcs/lib/freetab.c \
 				srcs/lib/ft_strcmp.c \
 				srcs/lib/ft_lstdelone.c \
+				srcs/parsing/is_empty_or_whitespaces.c \
 				srcs/parsing/here_doc_gestion.c \
 				srcs/parsing/env_variable.c \
 				srcs/parsing/stake_cmd_args.c \
@@ -78,7 +82,8 @@ SRCS		:=	srcs/others/signals.c \
 				srcs/minishell.c \
 				srcs/temp/print.c \
 
-OBJS		:=	$(SRCS:.c=.o)
+OBJ_DIR		:=	.objs
+OBJS		:=	$(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
 
 # ------------------------------ Flags -------------------------------
 
@@ -87,9 +92,11 @@ INC_RL		:=	-I $(BREW)/Cellar/readline/8.2.1/include/
 LINK_RL		:=	-lreadline -L $(BREW)/Cellar/readline/8.2.1/lib
 CC			:=	gcc
 FLAGS		:=	-Wall -Wextra -Werror -g3 -fsanitize=address
+RM			:=	rm -rf
 
-.c.o:
-	@ $(CC) $(FLAGS) $(INC_RL) -c $< -o $(<:.c=.o)
+$(OBJ_DIR)/%.o :%.c
+	@ mkdir -p $(dir $@)
+	@ $(CC) $(FLAGS) $(INC_RL) -c $< -o $@
 
 # ------------------------------ Colors ------------------------------
 
@@ -112,7 +119,7 @@ $(NAME):		$(OBJS)
 # -------------------------------- Rules -----------------------------
 
 clean:
-				@ $(RM) $(OBJS)
+				@ $(RM) $(OBJ_DIR)
 				@ echo "$(RED)Deleting $(CYAN)$(NAME) $(CLR_RMV)objs ✔️"
 
 fclean:			clean

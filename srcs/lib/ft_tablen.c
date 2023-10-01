@@ -1,27 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstclear.c                                      :+:      :+:    :+:   */
+/*   ft_tablen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/21 15:54:17 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/09/29 22:00:01 by edelarbr         ###   ########.fr       */
+/*   Created: 2023/09/30 18:18:27 by edelarbr          #+#    #+#             */
+/*   Updated: 2023/09/30 18:19:12 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ft_lstclear(t_list **lst, void (*del)(void *))
+int	ft_tablen(char **tab)
 {
-	t_list	*tmp;
+	int	i;
 
-	if (!lst || !del)
-		return ;
-	while (*lst)
-	{
-		tmp = (*lst)->next;
-		ft_lstdelone(*lst, del);
-		*lst = tmp;
-	}
+	if (!tab)
+		return (0);
+	i = -1;
+	while (tab[++i])
+		continue ;
+	return (i);
 }

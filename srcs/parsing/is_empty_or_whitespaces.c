@@ -1,27 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstclear.c                                      :+:      :+:    :+:   */
+/*   is_empty_or_whitespaces.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/21 15:54:17 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/09/29 22:00:01 by edelarbr         ###   ########.fr       */
+/*   Created: 2023/09/29 23:25:38 by edelarbr          #+#    #+#             */
+/*   Updated: 2023/09/29 23:34:05 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ft_lstclear(t_list **lst, void (*del)(void *))
+int	is_empty_or_whitespaces(char *str)
 {
-	t_list	*tmp;
+	int	i;
 
-	if (!lst || !del)
-		return ;
-	while (*lst)
+	if (str[0] == '\0')
+		return (1);
+	i = -1;
+	while (str[++i])
 	{
-		tmp = (*lst)->next;
-		ft_lstdelone(*lst, del);
-		*lst = tmp;
+		if (!ft_iswhitespace(str[i]))
+			return (0);
 	}
+	return (1);
 }

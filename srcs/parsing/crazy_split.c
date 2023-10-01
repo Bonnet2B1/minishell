@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 21:44:26 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/09/21 22:34:43 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/09/29 21:49:07 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	take_operator(char **line, int len, char operator)
 int	get_len(char **line, int len)
 {
 	if (line[1][len] != '0')
-		len += take_quote(line, len);
+		len = take_quote(line, len);
 	else if (ft_isoperator(line[0][len]) && line[1][len] == '0')
 		return (len = take_operator(line, len, line[0][len]));
 	while (line[0][len]

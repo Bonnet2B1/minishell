@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 21:26:48 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/09/21 22:51:26 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/09/29 19:38:38 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ char	**take_replacement(t_shell_memory *data, char **var, char **env)
 	replacement[0] = NULL;
 	if (ft_strcmp(var[0], "?") == 0)
 	{
-		replacement[0] = ft_itoa(data->exit_status);
+		replacement[0] = ft_itoa(data->exit_code);
 		replacement[1] = ft_memset(ft_calloc(sizeof(char), (ft_strlen(replacement[0]) + 1)), var[1][0], ft_strlen(replacement[0]));
 		return (replacement);
 	}

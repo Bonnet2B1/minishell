@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gloms <rbrendle@student.42mulhouse.fr>     +#+  +:+       +#+        */
+/*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 20:38:43 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/10/02 18:23:12 by gloms            ###   ########.fr       */
+/*   Updated: 2023/10/02 18:28:58 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,7 +213,6 @@ void				ft_pwd(t_shell_memory *data);
 int					ft_cd(t_shell_memory *data, char **args);
 void				ft_echo(t_shell_memory *data,char  **args);
 int					ft_exit(t_shell_memory *data, char **cmd);
-int					lentab(char **args);
 char				**ft_tabdup_join(char **tab);
 char				**ft_tabdup_add_nl_free(char **tab, char *str);
 int					is_letter(int c);

@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 17:05:06 by gloms             #+#    #+#             */
-/*   Updated: 2023/09/29 19:08:37 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/10/02 18:28:46 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,23 +30,13 @@ void	print_no_nl(char **args, int ac)
 	return ;
 }
 
-int	lentab(char **args)
-{
-	int	i;
-
-	i = 0;
-	while (args[i])
-		i++;
-	return (i);
-}
-
 void	ft_echo(t_shell_memory *data, char  **args)
 {
 	int	ac;
 	int	i;
 
 	i = 0;
-	ac = lentab(args);
+	ac = ft_tablen(args);
 	if (ac == 1)
 		return (write (1, "\n", 1), free_n_exit(data, 0));
 	else if (ac == 2 && !ft_strcmp(args[1], "-n"))

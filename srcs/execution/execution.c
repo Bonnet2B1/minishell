@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 13:49:54 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/10/01 22:07:51 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/10/02 18:32:46 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	builtins_no_fork(t_shell_memory *data, t_list *node, char **cmd)
 	}
 	// else if (ft_strcmp(cmd[0], "export") == 0 && cmd[1] == NULL)
 	// {
-	// 	data->exit_code = ft_export(data, cmd);
+	// 	data->exit_code = ft_export_no_fork(data, cmd);
 	// 	return (1);
 	// }
 	else if (ft_strcmp(cmd[0], "exit") == 0)

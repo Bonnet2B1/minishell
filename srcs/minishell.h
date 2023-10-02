@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 20:38:43 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/10/02 18:28:58 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/10/02 18:58:30 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,8 +195,11 @@ void				*free_exec_node(t_exec *node);
 void				stake_n_open_files(t_shell_memory *data, t_list *lst);
 void				setup_fd(t_shell_memory *data, t_list *exec_lst);
 void				print_input_line(char **input_line);
-void				rm_quotes(char **line);
+void				rm_quotes(t_list *parsing_lst);
+// void				rm_quotes(char **line);
 int					here_doc_gestion(t_shell_memory *data, t_list *parsing_lst);
+void				tokenization(t_list *lst);
+int					forbiddens_chars(char **input_line);
 
 /* EXECUTION */
 void				execution(t_shell_memory *data);

@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 18:40:51 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/10/01 22:14:55 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/10/02 18:34:55 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	ft_execve(t_shell_memory *data, char **cmd)
 	if (ft_strcmp(cmd[0], "echo") == 0)
 		ft_echo(data, cmd);
 	// else if (ft_strcmp(cmd[0], "export") == 0)
-	// 	free_n_exit(data, ft_export(data, cmd));
+	// 	free_n_exit(data, ft_export_fork(data, cmd));
 	else if (ft_strcmp(cmd[0], "pwd") == 0)
 		ft_pwd(data);
 	else if (ft_strcmp(cmd[0], "env") == 0)

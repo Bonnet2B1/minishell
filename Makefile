@@ -3,19 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: gloms <rbrendle@student.42mulhouse.fr>     +#+  +:+       +#+         #
+#    By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/22 16:59:43 by edelarbr          #+#    #+#              #
-#    Updated: 2023/10/02 18:21:08 by gloms            ###   ########.fr        #
+#    Updated: 2023/10/02 18:42:56 by edelarbr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		:=	minishell
 
 # ------------------------------ Sources -----------------------------
-
-# SRCS		:=	srcs/*.c \
-# 				srcs/*/*.c \
 
 SRCS		:=	srcs/others/signals.c \
 				srcs/others/freeall.c \
@@ -69,6 +66,8 @@ SRCS		:=	srcs/others/signals.c \
 				srcs/lib/ft_strcmp.c \
 				srcs/lib/ft_lstdelone.c \
 				srcs/parsing/is_empty_or_whitespaces.c \
+				srcs/parsing/tokenization.c \
+				srcs/parsing/forbiddens_chars.c \
 				srcs/parsing/here_doc_gestion.c \
 				srcs/parsing/env_variable.c \
 				srcs/parsing/stake_cmd_args.c \

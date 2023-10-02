@@ -6,7 +6,7 @@
 /*   By: gloms <rbrendle@student.42mulhouse.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 18:58:26 by gloms             #+#    #+#             */
-/*   Updated: 2023/10/02 23:55:14 by gloms            ###   ########.fr       */
+/*   Updated: 2023/10/03 00:38:03 by gloms            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ int	check_tab(char **tab)
 
 char	**ft_tabdup_join(char **tab)
 {
-	int i;
-	char **new_tab;
+	int		i;
+	char	**new_tab;
 
 	i = 0;
 	while (tab[i])
@@ -49,8 +49,8 @@ char	**ft_tabdup_join(char **tab)
 
 char	**ft_tabdup_add_nl_free(char **tab, char *str)
 {
-	int i;
-	char **new_tab;
+	int		i;
+	char	**new_tab;
 
 	i = 0;
 	while (tab[i])

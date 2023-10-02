@@ -6,18 +6,15 @@
 /*   By: gloms <rbrendle@student.42mulhouse.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 21:04:52 by gloms             #+#    #+#             */
-/*   Updated: 2023/10/03 00:05:43 by gloms            ###   ########.fr       */
+/*   Updated: 2023/10/03 00:38:38 by gloms            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-//- traiter les arguments
-//- ajouter les arguments dans l'env mais ne pas les afficher si ils sont pas setup
-
 void	swap_str(char **s1, char **s2, int fre)
 {
-	char *temp;
+	char	*temp;
 
 	temp = *s1;
 	*s1 = *s2;

@@ -6,7 +6,7 @@
 /*   By: gloms <rbrendle@student.42mulhouse.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 21:52:56 by gloms             #+#    #+#             */
-/*   Updated: 2023/10/03 00:21:23 by gloms            ###   ########.fr       */
+/*   Updated: 2023/10/03 00:38:56 by gloms            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int	is_letter(int c)
 		return (1);
 	return (0);
 }
+
 int	is_valid(int c)
 {
 	if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))
@@ -30,7 +31,7 @@ int	is_valid(int c)
 int	ft_srch(char *s)
 {
 	int	i;
-	int eq;
+	int	eq;
 
 	eq = 0;
 	i = 0;
@@ -58,7 +59,7 @@ char	*rtn_arg(char *str)
 	while (str[++i])
 	{
 		if (str[i] == '=')
-			break;
+			break ;
 	}
 	new = ft_substr(str, 0, i);
 	return (new);

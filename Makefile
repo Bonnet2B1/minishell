@@ -6,7 +6,7 @@
 #    By: gloms <rbrendle@student.42mulhouse.fr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/22 16:59:43 by edelarbr          #+#    #+#              #
-#    Updated: 2023/10/02 18:21:08 by gloms            ###   ########.fr        #
+#    Updated: 2023/10/03 00:31:00 by gloms            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,6 +27,7 @@ SRCS		:=	srcs/others/signals.c \
 				srcs/builtins/ft_echo.c \
 				srcs/builtins/ft_exit.c \
 				srcs/builtins/ft_export/ft_export.c \
+				srcs/builtins/ft_export/ft_export_fork.c \
 				srcs/builtins/ft_export/export_utils.c \
 				srcs/execution/ft_execve.c \
 				srcs/execution/execution.c \

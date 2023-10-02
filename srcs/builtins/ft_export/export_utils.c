@@ -6,7 +6,7 @@
 /*   By: gloms <rbrendle@student.42mulhouse.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 21:52:56 by gloms             #+#    #+#             */
-/*   Updated: 2023/10/02 18:50:14 by gloms            ###   ########.fr       */
+/*   Updated: 2023/10/03 00:21:23 by gloms            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ int	ft_srch(char *s)
 		if (s[i] == '=' && eq == 0)
 		{
 			eq = 1;
-			i++;
+			if (s[i + 1])
+				i++;
 		}
 		if (!is_valid(s[i]) && eq == 0)
 			return (0);
@@ -48,47 +49,19 @@ int	ft_srch(char *s)
 	return (1);
 }
 
-char	**ft_tabdup_join(char **tab)
+char	*rtn_arg(char *str)
 {
-	int i;
-	char **new_tab;
+	int		i;
+	char	*new;
 
-	i = 0;
-	while (tab[i])
-		i++;
-	new_tab = malloc(sizeof(char *) * (i + 1));
-	if (!new_tab)
-		return (perror("Malloc"), NULL);
-	i = 0;
-	while (tab[i])
+	i = -1;
+	while (str[++i])
 	{
-		new_tab[i] = ft_strjoin("declare -x ", tab[i]);
-		i++;
+		if (str[i] == '=')
+			break;
 	}
-	new_tab[i] = NULL;
-	return (new_tab);
-}
-char	**ft_tabdup_add_nl_free(char **tab, char *str)
-{
-	int i;
-	char **new_tab;
-
-	i = 0;
-	while (tab[i])
-		i++;
-	new_tab = malloc(sizeof(char *) * (i + 2));
-	if (!new_tab)
-		return (perror("Malloc"), NULL);
-	i = 0;
-	while (tab[i])
-	{
-		new_tab[i] = ft_strdup(tab[i]);
-		i++;
-	}
-	new_tab[i] = ft_strdup(str);
-	new_tab[i + 1] = NULL;
-	freetab(tab);
-	return (new_tab);
+	new = ft_substr(str, 0, i);
+	return (new);
 }
 
 void	tab_print(char **tab)

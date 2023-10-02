@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
+/*   By: gloms <rbrendle@student.42mulhouse.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 13:49:54 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/10/01 22:07:51 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/10/03 00:23:49 by gloms            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,11 @@ int	builtins_no_fork(t_shell_memory *data, t_list *node, char **cmd)
 		data->exit_code = ft_unset(data, node, cmd);
 		return (1);
 	}
-	// else if (ft_strcmp(cmd[0], "export") == 0 && cmd[1] == NULL)
-	// {
-	// 	data->exit_code = ft_export(data, cmd);
-	// 	return (1);
-	// }
+	else if (ft_strcmp(cmd[0], "export") == 0 && cmd[1])
+	{
+		data->exit_code = ft_export(data, cmd);
+		return (1);
+	}
 	else if (ft_strcmp(cmd[0], "exit") == 0)
 	{
 		data->exit_code = ft_exit(data, cmd);

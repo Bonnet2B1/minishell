@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 21:26:48 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/09/29 19:38:38 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/10/02 18:12:51 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,6 +150,5 @@ void	env_var_gestion(t_shell_memory *data, char **line)
 		line[0] = ft_strjoin_freeall(line[0], after[0]);
 		line[1] = ft_strjoin_freeall(before[1], replacement[1]);
 		line[1] = ft_strjoin_freeall(line[1], after[1]);
-		return (free(before), free(replacement), free(after));
 	}
 }

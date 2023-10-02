@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 23:13:02 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/09/30 00:35:39 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/10/02 18:13:18 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,9 @@ int	parsing(t_shell_memory *data)
 		return (0);
 	if (!quotes_gestion(data->input_line))
 		return (0);
-	// print_input_line(data->input_line);
 	rm_quotes(data->input_line);
 	env_var_gestion(data, data->input_line);
+	// print_input_line(data->input_line);
 	if (forbiddens_chars(data->input_line))
 		return (0);
 	crazy_split(data, data->input_line);

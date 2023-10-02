@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 20:38:43 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/10/01 18:04:58 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/10/02 18:14:05 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,23 @@
 // @nevaspid
 
 // @Bonnet2B1
+// minishell-3.2$ rm outfile
 
 // - bug
 // @nevaspid
 // echo -nnnn -n -nnn -nm fdsa devrait donner "-nm fsda"
 // print "exit\n" quand ctrl + D
+// minishell-3.2$ cd gjnuesoif
+// minishell-3.2$ cd ../minishell/correction.pdf
 
 // @Bonnet2B1
+// minishell-3.2$ cat ""
 
 // ? trus à gerer si on a vraaaaaaaiment le temps
 // @nevaspid
+// Essayez ctrI-C après avoir lancé une commande bloquante, comme cat ou grep sans argument.
+// Essayez ctr-\ après avoir lancé une commande bloquante, comme cat ou grep sans argument.
+// Essayez ctrI-D après avoir lancé une commande bloquante, comme cat ou grep sans argument.
 
 // @Bonnet2B1
 // cat <<l | cat <<b | cat << c>
@@ -204,7 +211,7 @@ void				ft_env(t_shell_memory *data, char **cmd, char **env);
 void				ft_pwd(t_shell_memory *data);
 int					ft_cd(t_shell_memory *data, char **args);
 void				ft_echo(t_shell_memory *data,char  **args);
-void				ft_exit(t_shell_memory *data, char **cmd);
+int					ft_exit(t_shell_memory *data, char **cmd);
 
 /* OTHERS */
 void				ft_signal(int i);

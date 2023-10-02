@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 20:37:20 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/09/12 20:45:23 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/10/02 02:42:24 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ char **ft_tabdup(char **tab)
 	char **new_tab;
 
 	i = 0;
+	if (!tab)
+		return (NULL);
 	while (tab[i])
 		i++;
 	new_tab = malloc(sizeof(char *) * (i + 1));

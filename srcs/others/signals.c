@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 20:20:07 by gloms             #+#    #+#             */
-/*   Updated: 2023/09/26 17:19:47 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/09/30 17:40:00 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	sig_handler_int(void)
 void	sig_handler_int_hd()
 {
 	write(1,"\n", 1);
-	ft_exit(NULL, 0); // ! leaks
+	free_n_exit(NULL, 0); // ! leaks
 }
 
 void	ft_signal(int i)

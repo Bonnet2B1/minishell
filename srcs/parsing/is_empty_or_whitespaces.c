@@ -1,28 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pwd.c                                           :+:      :+:    :+:   */
+/*   is_empty_or_whitespaces.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gloms <rbrendle@student.42mulhouse.fr>     +#+  +:+       +#+        */
+/*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/25 14:03:15 by gloms             #+#    #+#             */
-/*   Updated: 2023/10/02 18:24:29 by gloms            ###   ########.fr       */
+/*   Created: 2023/09/29 23:25:38 by edelarbr          #+#    #+#             */
+/*   Updated: 2023/09/29 23:34:05 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ft_pwd(t_shell_memory *data)
+int	is_empty_or_whitespaces(char *str)
 {
-	char	*path;
+	int	i;
 
-	path = getcwd(NULL, 0);
-	if (!path)
+	if (str[0] == '\0')
+		return (1);
+	i = -1;
+	while (str[++i])
 	{
-		perror("pwd");
-		free_n_exit(data, -1);
+		if (!ft_iswhitespace(str[i]))
+			return (0);
 	}
-	printf("%s\n", path);
-	free(path);
-	free_n_exit(data, 0);
+	return (1);
 }

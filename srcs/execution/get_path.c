@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 17:25:39 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/09/14 18:38:24 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/10/01 12:58:20 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ char	**get_paths(char **env)
 	char	**path;
 
 	i = -1;
-	while (env[++i])
+	path = NULL;
+	while (env && env[++i])
 	{
 		if (ft_strncmp(env[i], "PATH=", 5) == 0)
 			path = ft_split_w_slash(env[i] + 5, ':');

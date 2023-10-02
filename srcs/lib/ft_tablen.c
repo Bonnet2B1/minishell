@@ -1,28 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pwd.c                                           :+:      :+:    :+:   */
+/*   ft_tablen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gloms <rbrendle@student.42mulhouse.fr>     +#+  +:+       +#+        */
+/*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/25 14:03:15 by gloms             #+#    #+#             */
-/*   Updated: 2023/10/02 18:24:29 by gloms            ###   ########.fr       */
+/*   Created: 2023/09/30 18:18:27 by edelarbr          #+#    #+#             */
+/*   Updated: 2023/09/30 18:19:12 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ft_pwd(t_shell_memory *data)
+int	ft_tablen(char **tab)
 {
-	char	*path;
+	int	i;
 
-	path = getcwd(NULL, 0);
-	if (!path)
-	{
-		perror("pwd");
-		free_n_exit(data, -1);
-	}
-	printf("%s\n", path);
-	free(path);
-	free_n_exit(data, 0);
+	if (!tab)
+		return (0);
+	i = -1;
+	while (tab[++i])
+		continue ;
+	return (i);
 }

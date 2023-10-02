@@ -6,11 +6,24 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 18:55:33 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/09/26 14:49:55 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/09/30 00:34:17 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+int	str_is_here_doc_char(char *str)
+{
+	int	i;
+
+	i = -1;
+	while (str[++i])
+	{
+		if (str[i] == '<' || str[i] == '>' || str[i] == '|')
+			return (0);
+	}
+	return (1);
+}
 
 void	rewind_line(t_shell_memory *data)
 {
@@ -40,14 +53,16 @@ void	fill_here_doc(t_shell_memory *data, int fd, char *delimiter)
 	pid = fork();
 	if (pid == 0)
 	{
+		if (!str_is_here_doc_char(delimiter))
+			return (free_n_exit(data, 258));
 		ft_signal(SIG_HERE_DOC);
 		while (1)
 		{
 			line = readline("> ");
 			if (!line)
-				return (rewind_line(data), printf("> "), ft_exit(data, 0));
+				return (rewind_line(data), printf("> "), free_n_exit(data, 0));
 			if (!ft_strncmp(line, delimiter, ft_strlen(delimiter) + 1))
-				return (free(line), ft_exit(data, 0));
+				return (free(line), free_n_exit(data, 0));
 			line = ft_strjoin_free_s1(line, "\n");
 			ft_putstr_fd(line, fd);
 			free(line);
@@ -57,7 +72,7 @@ void	fill_here_doc(t_shell_memory *data, int fd, char *delimiter)
 	ft_signal(ON);
 }
 
-void	here_doc_gestion(t_shell_memory *data, t_list *parsing_lst)
+int	here_doc_gestion(t_shell_memory *data, t_list *parsing_lst)
 {
 	t_parsing	*node;
 
@@ -72,7 +87,10 @@ void	here_doc_gestion(t_shell_memory *data, t_list *parsing_lst)
 			close(node->pipe_fd[INPIPE]);
 			node->token = REDIR_IN;
 			node->file_fd = node->pipe_fd[OUTPIPE];
+			if (!str_is_here_doc_char(node->arg))
+				return (0);
 		}
 		parsing_lst = parsing_lst->next;
 	}
+	return (1);
 }

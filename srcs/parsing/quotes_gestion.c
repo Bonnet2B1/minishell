@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 19:01:23 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/09/24 17:23:34 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/09/26 19:03:06 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,3 +50,21 @@ int	quotes_gestion(char **line)
 	else
 		return (1);
 }
+
+// char	is_between_quote(char *str, int index)
+// {
+// 	int i;
+// 	char quote;
+
+// 	quote = '0';
+// 	i = 0;
+// 	while (line[i] && i != index)
+// 	{
+// 		if (quote == '0' && (line[i] == '\'' || line[i] == '\"'))
+// 			quote = line[i];
+// 		else if (quote != '0' && line[i] == quote)
+// 			quote = '0';
+// 		i++;
+// 	}
+// 	return (quote);
+// }

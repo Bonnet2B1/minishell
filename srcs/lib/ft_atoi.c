@@ -1,36 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_tabdup.c                                        :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/12 20:37:20 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/10/02 02:42:24 by edelarbr         ###   ########.fr       */
+/*   Created: 2022/08/02 19:51:17 by edelarbr          #+#    #+#             */
+/*   Updated: 2023/09/29 21:05:33 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char **ft_tabdup(char **tab)
+int	ft_atoi(const char *str)
 {
-	int i;
-	char **new_tab;
+	int	i;
+	int	sign;
+	int	nbr;
 
 	i = 0;
-	if (!tab)
-		return (NULL);
-	while (tab[i])
+	sign = 1;
+	nbr = 0;
+	if (!str)
+		return (0);
+	while (str[i] == ' ' || (str[i] >= 9 && str[i] <= 13))
 		i++;
-	new_tab = malloc(sizeof(char *) * (i + 1));
-	if (!new_tab)
-		return (perror("Malloc"), NULL);
-	i = 0;
-	while (tab[i])
+	if (str[i] == '-' || str[i] == '+')
 	{
-		new_tab[i] = ft_strdup(tab[i]);
+		if (str[i] == '-')
+			sign *= -1;
 		i++;
 	}
-	new_tab[i] = NULL;
-	return (new_tab);
+	if (str[i] == '-' || str[i] == '+')
+		return (0);
+	while (str[i] >= '0' && str[i] <= '9')
+	{
+		nbr = nbr * 10 + (str[i] - 48);
+		i++;
+	}
+	return (sign * nbr);
 }

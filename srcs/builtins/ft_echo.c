@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 17:05:06 by gloms             #+#    #+#             */
-/*   Updated: 2023/09/26 18:19:02 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/09/29 19:08:37 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,16 +48,16 @@ void	ft_echo(t_shell_memory *data, char  **args)
 	i = 0;
 	ac = lentab(args);
 	if (ac == 1)
-		return (write (1, "\n", 1), ft_exit(data, 0));
+		return (write (1, "\n", 1), free_n_exit(data, 0));
 	else if (ac == 2 && !ft_strcmp(args[1], "-n"))
-		return (ft_exit(data, 0));
+		return (free_n_exit(data, 0));
 	else if (ac > 2 && !ft_strcmp(args[1], "-n"))
 	{
 		print_no_nl(args, ac);
-		ft_exit(data, 0);
+		free_n_exit(data, 0);
 	}
 	while (args[++i] && i < ac - 1)
 		printf("%s ", args[i]);
 	printf("%s\n", args[i]);
-	ft_exit(data, 0);
+	free_n_exit(data, 0);
 }

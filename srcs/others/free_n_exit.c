@@ -1,28 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pwd.c                                           :+:      :+:    :+:   */
+/*   free_n_exit.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gloms <rbrendle@student.42mulhouse.fr>     +#+  +:+       +#+        */
+/*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/25 14:03:15 by gloms             #+#    #+#             */
-/*   Updated: 2023/10/02 18:24:29 by gloms            ###   ########.fr       */
+/*   Created: 2023/09/29 19:10:23 by edelarbr          #+#    #+#             */
+/*   Updated: 2023/09/29 23:23:28 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ft_pwd(t_shell_memory *data)
+void	free_n_exit(t_shell_memory *data, int exit_code)
 {
-	char	*path;
-
-	path = getcwd(NULL, 0);
-	if (!path)
-	{
-		perror("pwd");
-		free_n_exit(data, -1);
-	}
-	printf("%s\n", path);
-	free(path);
-	free_n_exit(data, 0);
+	(void)data;
+	// data = freeall(data);
+	exit(exit_code);
 }

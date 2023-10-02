@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 17:54:21 by gloms             #+#    #+#             */
-/*   Updated: 2023/09/26 18:18:19 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/09/30 17:22:24 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ int	cd_home(t_shell_memory *data)
 	return (0);
 }
 
-void	ft_cd(t_shell_memory *data, char **args)
+int	ft_cd(t_shell_memory *data, char **args)
 {
 	int		ind;
 	char	*tmp;
@@ -100,13 +100,13 @@ void	ft_cd(t_shell_memory *data, char **args)
 		{
 			args[1] = ft_substr(args[1], 1, ft_strlen(args[1]) - 1);
 			if (cd_home(data) < 0)
-				ft_exit(data, 1);
+				return (1);
 		}
 		else if (!ft_strncmp(args[1], "/", 1))
 		{
 			args[1] = ft_substr(args[1], 1, ft_strlen(args[1]) - 1);
 			if (cd_root(data) < 0)
-				ft_exit(data, 1);
+				return (1);
 		}
 		change_path(data, args[1]);
 	}
@@ -114,5 +114,5 @@ void	ft_cd(t_shell_memory *data, char **args)
 		cd_home(data);
 	data->env[ind] = ft_strjoin(ft_substr_free(data->env[ind], 0, 7), tmp);
 	free(tmp);
-	ft_exit(data, 0);
+	return (0);
 }

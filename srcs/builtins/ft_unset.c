@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 16:04:31 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/09/26 14:49:55 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/10/01 13:19:11 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,28 +15,26 @@
 char **rm_tab_index(char **tab, int index)
 {
 	char	**new_tab;
-	int		size;
 	int		i;
 	int		j;
 
-	size = -1;
-	while (tab && tab[++size])
-		continue ;
-	if (index > size)
+	if (!tab)
+		return (NULL);
+	if (index > ft_tablen(tab) -1)
 		return (tab);
-	new_tab = malloc(sizeof(char *) * size);
+	new_tab = malloc(sizeof(char *) * ft_tablen(tab));
 	if (!new_tab)
 		return (NULL);
 	i = 0;
 	j = 0;
-	while (i < size)
+	while (tab[i])
 	{
-		if (j == index)
-			j++;
+		if (i == index)
+			i++;
 		else
-			tab[i++] = tab[j++];
+			new_tab[j++] = tab[i++];
 	}
-	new_tab[i - 1] = NULL;
+	new_tab[j] = NULL;
 	free(tab[index]);
 	free(tab);
 	return(new_tab);
@@ -65,19 +63,21 @@ int	env_find_correlation(char **env, char *str)
 	i = -1;
 	while (env[++i])
 	{
-		if (ft_strncmp(prompt, env[i], ft_strlen(prompt)))
+		if (ft_strncmp(prompt, env[i], ft_strlen(prompt)) == 0)
 			return (free(prompt), i);
 	}
 	return (free(prompt), -1);
 }
 
-void	ft_unset(char **cmd, t_shell_memory *data)
+int	ft_unset(t_shell_memory *data, t_list *node, char **cmd)
 {
 	int	i;
 	int	exit_value;
 
 	exit_value = 0;
 	i = 0;
+	if (node->prev || node->next)
+		return (exit_value);
 	while (cmd[++i])
 	{
 		if (there_is_banned_char(cmd[i]))
@@ -88,5 +88,5 @@ void	ft_unset(char **cmd, t_shell_memory *data)
 		else if (env_find_correlation(data->env, cmd[i]) != -1)
 			data->env = rm_tab_index(data->env, env_find_correlation(data->env, cmd[i]));
 	}
-	ft_exit(data, exit_value);
+	return (exit_value);
 }

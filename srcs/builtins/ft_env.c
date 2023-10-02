@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
+/*   By: gloms <rbrendle@student.42mulhouse.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 17:43:35 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/09/26 17:21:53 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/10/01 15:52:45 by gloms            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,10 @@ void	ft_env(t_shell_memory *data, char **cmd, char **env)
 	}
 	i = -1;
 	while (env[++i])
+	{
+		if (!ft_strchr(env[i], 61))
+			i++;
 		printf("%s\n", env[i]);
+	}
 	ft_exit(data, 0);
 }

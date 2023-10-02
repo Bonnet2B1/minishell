@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
+/*   By: gloms <rbrendle@student.42mulhouse.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 20:38:43 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/09/26 18:19:02 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/10/01 17:46:54 by gloms            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,11 +113,12 @@ typedef struct s_shell_memory
 
 /* TEMP */
 void				print_t_parsing(t_list *lst);
-void				print_tab(char **tab);
 void				print_lst_size(t_list *lst);
 void				print_t_exec(t_list *lst);
+void				print_tab(char **tab);
 
 /* LIB */
+void				tab_print(char **tab);
 int					ft_there_is_char(char *str, char c);
 int					ft_iswhitespace(char c);
 int					ft_isascii(int c);
@@ -187,8 +188,13 @@ void				ft_pwd(t_shell_memory *data);
 void				ft_exit(t_shell_memory *data, int exit_code);
 void				ft_cd(t_shell_memory *data, char **args);
 void				ft_echo(t_shell_memory *data,char  **args);
+int					lentab(char **args);
+char				**ft_tabdup_join(char **tab);
+char				**ft_tabdup_add_nl_free(char **tab, char *str);
+int					is_letter(int c);
+int					ft_srch(char *s);
 
-/* OTHERS */
+/* 0THERS */
 void				ft_signal(int i);
 void				*freeall(t_shell_memory *data);
 

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+         #
+#    By: gloms <rbrendle@student.42mulhouse.fr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/22 16:59:43 by edelarbr          #+#    #+#              #
-#    Updated: 2023/09/26 18:19:24 by edelarbr         ###   ########.fr        #
+#    Updated: 2023/10/01 17:47:12 by gloms            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,8 @@ SRCS		:=	srcs/others/signals.c \
 				srcs/builtins/ft_pwd.c \
 				srcs/builtins/ft_echo.c \
 				srcs/builtins/ft_exit.c \
+				srcs/builtins/ft_export/ft_export.c \
+				srcs/builtins/ft_export/export_utils.c \
 				srcs/execution/ft_execve.c \
 				srcs/execution/execution.c \
 				srcs/execution/close_pipes.c \

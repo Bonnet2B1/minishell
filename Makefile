@@ -6,16 +6,13 @@
 #    By: gloms <rbrendle@student.42mulhouse.fr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/22 16:59:43 by edelarbr          #+#    #+#              #
-#    Updated: 2023/10/03 00:31:00 by gloms            ###   ########.fr        #
+#    Updated: 2023/10/03 00:33:42 by gloms            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		:=	minishell
 
 # ------------------------------ Sources -----------------------------
-
-# SRCS		:=	srcs/*.c \
-# 				srcs/*/*.c \
 
 SRCS		:=	srcs/others/signals.c \
 				srcs/others/freeall.c \
@@ -70,6 +67,8 @@ SRCS		:=	srcs/others/signals.c \
 				srcs/lib/ft_strcmp.c \
 				srcs/lib/ft_lstdelone.c \
 				srcs/parsing/is_empty_or_whitespaces.c \
+				srcs/parsing/tokenization.c \
+				srcs/parsing/forbiddens_chars.c \
 				srcs/parsing/here_doc_gestion.c \
 				srcs/parsing/env_variable.c \
 				srcs/parsing/stake_cmd_args.c \

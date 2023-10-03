@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gloms <rbrendle@student.42mulhouse.fr>     +#+  +:+       +#+        */
+/*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 17:54:21 by gloms             #+#    #+#             */
-/*   Updated: 2023/10/03 01:59:31 by gloms            ###   ########.fr       */
+/*   Updated: 2023/10/04 01:14:28 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,14 @@
 int	find(t_shell_memory *data, char *find, int len)
 {
 	int	i;
-	int	len_env;
 
-	i = 0;
-	len_env = ft_tablen(data->env);
-	while (ft_strncmp(data->env[i], find, len))
+	i = -1;
+	while (data->env[++i])
 	{
-		if (i == len_env)
-			return (0);
-		i++;
+		if (ft_strncmp(data->env[i], find, len) == 0)
+			return (i);
 	}
-	if (i == len_env)
-		return (0);
-	return (i);
+	return (-1);
 }
 
 int	cd_root(t_shell_memory *data)

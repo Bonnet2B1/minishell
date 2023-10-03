@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gloms <rbrendle@student.42mulhouse.fr>     +#+  +:+       +#+        */
+/*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 20:20:07 by gloms             #+#    #+#             */
-/*   Updated: 2023/10/02 21:36:33 by gloms            ###   ########.fr       */
+/*   Updated: 2023/10/04 01:11:27 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	sig_handler_int(void)
 void	sig_handler_int_hd()
 {
 	write(1,"\n", 1);
-	free_n_exit(NULL, 0); // ! leaks
+	free_n_exit(NULL, 0);
 }
 
 void	ft_signal(int i)

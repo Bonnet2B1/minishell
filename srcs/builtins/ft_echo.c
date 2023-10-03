@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gloms <rbrendle@student.42mulhouse.fr>     +#+  +:+       +#+        */
+/*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 17:05:06 by gloms             #+#    #+#             */
-/*   Updated: 2023/10/03 01:59:04 by gloms            ###   ########.fr       */
+/*   Updated: 2023/10/04 01:12:56 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,11 @@ void	ft_echo(t_shell_memory *data, char **args)
 		free_n_exit(data, 0);
 	}
 	while (args[++i] && i < ac - 1)
-		printf("%s ", args[i]);
+	{
+		printf("%s", args[i]);
+		if (args[i + 1])
+			printf(" ");
+	}
 	printf("%s\n", args[i]);
 	free_n_exit(data, 0);
 }

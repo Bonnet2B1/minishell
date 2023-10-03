@@ -6,7 +6,7 @@
 /*   By: gloms <rbrendle@student.42mulhouse.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 17:43:35 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/10/02 18:25:22 by gloms            ###   ########.fr       */
+/*   Updated: 2023/10/03 00:13:42 by gloms            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,10 @@ void	ft_env(t_shell_memory *data, char **cmd, char **env)
 	i = -1;
 	while (env[++i])
 	{
-		if (!ft_strchr(env[i], 61))
-			i++;
-		printf("%s\n", env[i]);
+		if (!ft_strchr(env[i], 61) && i < ft_tablen(env))
+			continue;
+		else
+			printf("%s\n", env[i]);
 	}
 	free_n_exit(data, 0);
 }

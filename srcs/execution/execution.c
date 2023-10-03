@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 13:49:54 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/10/03 23:23:34 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/10/04 01:12:52 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,11 @@ int	builtins_no_fork(t_shell_memory *data, t_list *node, char **cmd)
 		data->exit_code = ft_unset(data, node, cmd);
 		return (1);
 	}
-	// else if (ft_strcmp(cmd[0], "export") == 0 && cmd[1] == NULL)
-	// {
-	// 	data->exit_code = ft_export_no_fork(data, cmd);
-	// 	return (1);
-	// }
+	else if (ft_strcmp(cmd[0], "export") == 0 && cmd[1])
+	{
+		data->exit_code = ft_export(data, cmd);
+		return (1);
+	}
 	else if (ft_strcmp(cmd[0], "exit") == 0)
 	{
 		data->exit_code = ft_exit(data, cmd);
@@ -45,13 +45,13 @@ void	exec_node_stuff(t_shell_memory *data, t_list *exec_lst)
 	if (!exec_lst)
 		return ;
 	exec_node = exec_lst->content;
+	exit_code = 0;
 	if (exec_node->execute == 0)
 	{
 		data->exit_code = 1;
 		exec_node_stuff(data, exec_lst->next);
 		return ;
 	}
-	exit_code = 0;
 	if (builtins_no_fork(data, exec_lst, exec_node->cmd))
 	{
 		exec_node_stuff(data, exec_lst->next);

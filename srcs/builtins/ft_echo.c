@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 17:05:06 by gloms             #+#    #+#             */
-/*   Updated: 2023/10/03 00:43:52 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/10/04 01:12:56 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	print_no_nl(char **args, int ac)
 	return ;
 }
 
-void	ft_echo(t_shell_memory *data, char  **args)
+void	ft_echo(t_shell_memory *data, char **args)
 {
 	int	ac;
 	int	i;

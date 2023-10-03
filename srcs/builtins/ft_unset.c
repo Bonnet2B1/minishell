@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
+/*   By: gloms <rbrendle@student.42mulhouse.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 16:04:31 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/10/01 13:19:11 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/10/03 02:00:25 by gloms            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char **rm_tab_index(char **tab, int index)
+char	**rm_tab_index(char **tab, int index)
 {
 	char	**new_tab;
 	int		i;
@@ -20,7 +20,7 @@ char **rm_tab_index(char **tab, int index)
 
 	if (!tab)
 		return (NULL);
-	if (index > ft_tablen(tab) -1)
+	if (index > ft_tablen(tab) - 1)
 		return (tab);
 	new_tab = malloc(sizeof(char *) * ft_tablen(tab));
 	if (!new_tab)
@@ -37,7 +37,7 @@ char **rm_tab_index(char **tab, int index)
 	new_tab[j] = NULL;
 	free(tab[index]);
 	free(tab);
-	return(new_tab);
+	return (new_tab);
 }
 
 char	there_is_banned_char(char *str)
@@ -46,10 +46,9 @@ char	there_is_banned_char(char *str)
 
 	i = -1;
 	while (str[++i])
-		if ((str[0] >= '0' && str[0] <= '9')
-			|| !((str[i] >= 'A' && str[i] <= 'Z')
-			|| (str[i] >= 'a' && str[i] <= 'z')
-			|| str[i] == '_'))
+		if ((str[0] >= '0' && str[0] <= '9') || !((str[i] >= 'A'
+					&& str[i] <= 'Z') || (str[i] >= 'a' && str[i] <= 'z')
+				|| str[i] == '_'))
 			return (1);
 	return (0);
 }
@@ -86,7 +85,8 @@ int	ft_unset(t_shell_memory *data, t_list *node, char **cmd)
 			exit_value = 1;
 		}
 		else if (env_find_correlation(data->env, cmd[i]) != -1)
-			data->env = rm_tab_index(data->env, env_find_correlation(data->env, cmd[i]));
+			data->env = rm_tab_index(data->env, env_find_correlation(data->env,
+						cmd[i]));
 	}
 	return (exit_value);
 }

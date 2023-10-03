@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
+/*   By: gloms <rbrendle@student.42mulhouse.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 17:05:06 by gloms             #+#    #+#             */
-/*   Updated: 2023/10/02 18:28:46 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/10/03 01:59:04 by gloms            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	print_no_nl(char **args, int ac)
 	return ;
 }
 
-void	ft_echo(t_shell_memory *data, char  **args)
+void	ft_echo(t_shell_memory *data, char **args)
 {
 	int	ac;
 	int	i;

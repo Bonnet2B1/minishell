@@ -6,7 +6,7 @@
 /*   By: gloms <rbrendle@student.42mulhouse.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 21:04:52 by gloms             #+#    #+#             */
-/*   Updated: 2023/10/03 00:38:38 by gloms            ###   ########.fr       */
+/*   Updated: 2023/10/03 01:57:24 by gloms            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,16 +26,24 @@ void	swap_str(char **s1, char **s2, int fre)
 int	ft_export(t_shell_memory *data, char **args)
 {
 	char	*rp;
+	int		i;
 
-	rp = rtn_arg(args[1]);
-	if (args[1] && (!is_letter(args[1][0]) || !ft_srch(args[1])))
+	i = 1;
+	while (args[i])
 	{
-		printf("minishell: export: `%s': not a valid identifier", args[1]);
-		return (1);
+		rp = rtn_arg(args[i]);
+		if (args[i] && (!is_letter(args[i][0]) || !ft_srch(args[i])))
+		{
+			printf("minishell: export: `%s': not a valid identifier\n", args[i]);
+			if (!args[i + 1])
+				return (1);
+		}
+		else if (!find(data, rp, ft_strlen(rp)))
+			data->env = ft_tabdup_add_nl_free(data->env, args[i]);
+		else if (find(data, rp, ft_strlen(rp)))
+			swap_str(&data->env[find(data, rp, ft_strlen(rp))], &args[i], 1);
+		free(rp);
+		i++;
 	}
-	else if (!find(data, rp, ft_strlen(rp)))
-		data->env = ft_tabdup_add_nl_free(data->env, args[1]);
-	else if (find(data, rp, ft_strlen(rp)))
-		swap_str(&data->env[find(data, rp, ft_strlen(rp))], &args[1], 1);
 	return (0);
 }

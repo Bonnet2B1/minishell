@@ -6,7 +6,7 @@
 /*   By: gloms <rbrendle@student.42mulhouse.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 17:54:21 by gloms             #+#    #+#             */
-/*   Updated: 2023/10/02 23:19:34 by gloms            ###   ########.fr       */
+/*   Updated: 2023/10/03 01:59:31 by gloms            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,11 @@ int	find(t_shell_memory *data, char *find, int len)
 	while (ft_strncmp(data->env[i], find, len))
 	{
 		if (i == len_env)
-			return(0);
+			return (0);
 		i++;
 	}
 	if (i == len_env)
-		return(0);
+		return (0);
 	return (i);
 }
 

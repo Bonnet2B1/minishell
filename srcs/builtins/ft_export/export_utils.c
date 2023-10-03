@@ -6,7 +6,7 @@
 /*   By: gloms <rbrendle@student.42mulhouse.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 21:52:56 by gloms             #+#    #+#             */
-/*   Updated: 2023/10/03 00:38:56 by gloms            ###   ########.fr       */
+/*   Updated: 2023/10/03 01:29:11 by gloms            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,8 @@ int	ft_srch(char *s)
 	while (s[i])
 	{
 		if (s[i] == '=' && eq == 0)
-		{
 			eq = 1;
-			if (s[i + 1])
-				i++;
-		}
-		if (!is_valid(s[i]) && eq == 0)
+		else if (!is_valid(s[i]) && eq == 0)
 			return (0);
 		i++;
 	}
@@ -61,8 +57,12 @@ char	*rtn_arg(char *str)
 		if (str[i] == '=')
 			break ;
 	}
-	new = ft_substr(str, 0, i);
-	return (new);
+	if (i > 0)
+	{
+		new = ft_substr(str, 0, i);
+		return (new);
+	}
+	return (NULL);
 }
 
 void	tab_print(char **tab)

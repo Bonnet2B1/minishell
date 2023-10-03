@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 17:43:08 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/09/26 14:58:42 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/10/03 22:32:38 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,23 @@ void	setup_execution_lst(t_shell_memory *data, t_list *parsing_lst)
 				((t_parsing *)parsing_lst->content)->to_del = 1;
 			}
 			if (((t_parsing *)parsing_lst->content)->token == REDIR_IN)
+			{
 				new_exec_node->in_struct = parsing_lst->content;
+				if (((t_parsing *)parsing_lst->content)->open_error == 1)
+					new_exec_node->execute = 0;
+			}
 			if (((t_parsing *)parsing_lst->content)->token == REDIR_OUT)
+			{
 				new_exec_node->out_struct = parsing_lst->content;
+				if (((t_parsing *)parsing_lst->content)->open_error == 1)
+					new_exec_node->execute = 0;
+			}
 			if (((t_parsing *)parsing_lst->content)->token == REDIR_APPEND)
+			{
 				new_exec_node->out_struct = parsing_lst->content;
+				if (((t_parsing *)parsing_lst->content)->open_error == 1)
+					new_exec_node->execute = 0;
+			}
 			parsing_lst = parsing_lst->next;
 		}
 		if (parsing_lst)

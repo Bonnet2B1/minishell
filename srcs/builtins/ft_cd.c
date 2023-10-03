@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 17:54:21 by gloms             #+#    #+#             */
-/*   Updated: 2023/09/30 17:22:24 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/10/03 22:01:09 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,14 @@
 int	find(t_shell_memory *data, char *find, int len)
 {
 	int	i;
-	int	len_env;
 
 	i = -1;
-	len_env = -1;
-	while (data->env[++len_env])
-		;
-	while (ft_strncmp(data->env[++i], find, len))
+	while (data->env[++i])
 	{
-		if (i == len_env)
-			return(-1);
+		if (ft_strncmp(data->env[i], find, len) == 0)
+			return (i);
 	}
-	return (i);
+	return (-1);
 }
 
 int	cd_root(t_shell_memory *data)

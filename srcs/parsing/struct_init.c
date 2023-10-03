@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 13:04:42 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/09/29 21:40:10 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/10/03 22:31:51 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ t_parsing	*create_parsing_node(char *arg)
 	new_node->token = NONE;
 	new_node->arg = arg;
 	new_node->cmd = NULL;
+	new_node->open_error = 0;
 	return (new_node);
 }
 

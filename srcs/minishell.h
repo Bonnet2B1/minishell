@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 20:38:43 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/10/02 18:58:30 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/10/03 22:29:56 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@
 # define OFF 0
 # define DEFAULT 2
 # define SIG_HERE_DOC 3
+
+/* COLORS */
 # define CLR_RMV \033[0m
 # define RED \033[1;31m
 # define GREEN \033[1;32m
@@ -104,6 +106,7 @@ typedef struct s_parsing
 	char			**cmd;
 	int				pipe_fd[2];
 	int				file_fd;
+	int				open_error;
 }					t_parsing;
 
 typedef struct s_execution
@@ -195,8 +198,7 @@ void				*free_exec_node(t_exec *node);
 void				stake_n_open_files(t_shell_memory *data, t_list *lst);
 void				setup_fd(t_shell_memory *data, t_list *exec_lst);
 void				print_input_line(char **input_line);
-void				rm_quotes(t_list *parsing_lst);
-// void				rm_quotes(char **line);
+void				rm_quotes(char **line);
 int					here_doc_gestion(t_shell_memory *data, t_list *parsing_lst);
 void				tokenization(t_list *lst);
 int					forbiddens_chars(char **input_line);
@@ -208,6 +210,7 @@ void				ft_execve(t_shell_memory *data, char **cmd);
 void				close_pipes(t_list *parsing_lst);
 char				*find_cmd_path(t_shell_memory *data, char *cmd);
 int					find(t_shell_memory *data, char *find, int len);
+char				is_between_quote(char *str, int index);
 
 /* BUILTINS */
 int					ft_unset(t_shell_memory *data, t_list *node, char **cmd);

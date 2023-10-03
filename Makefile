@@ -6,7 +6,7 @@
 #    By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/22 16:59:43 by edelarbr          #+#    #+#              #
-#    Updated: 2023/10/02 18:42:56 by edelarbr         ###   ########.fr        #
+#    Updated: 2023/10/03 21:49:09 by edelarbr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -66,6 +66,7 @@ SRCS		:=	srcs/others/signals.c \
 				srcs/lib/ft_strcmp.c \
 				srcs/lib/ft_lstdelone.c \
 				srcs/parsing/is_empty_or_whitespaces.c \
+				srcs/parsing/rm_quotes.c \
 				srcs/parsing/tokenization.c \
 				srcs/parsing/forbiddens_chars.c \
 				srcs/parsing/here_doc_gestion.c \
@@ -74,7 +75,6 @@ SRCS		:=	srcs/others/signals.c \
 				srcs/parsing/struct_init.c \
 				srcs/parsing/setup_fd.c \
 				srcs/parsing/stake_n_open_redirections.c \
-				srcs/parsing/rm_quotes.c \
 				srcs/parsing/crazy_split.c \
 				srcs/parsing/parser.c \
 				srcs/parsing/quotes_gestion.c \
@@ -92,7 +92,7 @@ BREW		:=	$(shell brew --prefix)
 INC_RL		:=	-I $(BREW)/Cellar/readline/8.2.1/include/
 LINK_RL		:=	-lreadline -L $(BREW)/Cellar/readline/8.2.1/lib
 CC			:=	gcc
-FLAGS		:=	-Wall -Wextra -Werror -g3 -fsanitize=address
+FLAGS		:=	-Wall -Wextra -Werror #-g3 -fsanitize=address
 RM			:=	rm -rf
 
 $(OBJ_DIR)/%.o :%.c

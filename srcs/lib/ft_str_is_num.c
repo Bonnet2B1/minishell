@@ -1,30 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_str_is_num.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/04 12:13:13 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/10/04 02:21:30 by edelarbr         ###   ########.fr       */
+/*   Created: 2023/10/04 01:29:16 by edelarbr          #+#    #+#             */
+/*   Updated: 2023/10/04 01:29:43 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char	*ft_strdup(const char *src)
+int	ft_str_is_num(char *str)
 {
-	int		i;
-	char	*dup;
+	int	i;
 
-	if (!src)
-		return (NULL);
 	i = -1;
-	dup = malloc(sizeof(char) * (ft_strlen(src) + 1));
-	if (!dup)
-		return (NULL);
-	while (src[++i])
-		dup[i] = src[i];
-	dup[i] = '\0';
-	return (dup);
+	while (str[++i])
+	{
+		if (str[i] < '0' || str[i] > '9')
+			return (0);
+	}
+	return (1);
 }

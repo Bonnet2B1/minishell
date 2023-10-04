@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 14:50:08 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/10/01 21:24:12 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/10/04 01:35:59 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,9 @@ int	ft_exit(t_shell_memory *data, char **cmd)
 		}
 	}
 	if (cmd[1] && !cmd[2])
+	{
 		return (printf("exit\n"), free_n_exit(data, ft_atoi(cmd[1])) , ft_atoi(cmd[1]));
+	}
 	if (cmd[0] && cmd[1] && cmd[2])
 		return (printf("exit\nminishell: exit: too many arguments\n"), 1);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 20:38:43 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/10/04 01:11:58 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/10/04 19:15:18 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 // ! crash
 // @nevaspid
+// export bite='ls -la'
 
 // @Bonnet2B1
-// minishell-3.2$ rm outfile
 
 // - bug
 // @nevaspid
@@ -143,6 +143,7 @@ void				print_t_exec(t_list *lst);
 void				print_tab(char **tab);
 
 /* LIB */
+int					ft_str_is_num(char *str);
 int					ft_tablen(char **tab);
 int					ft_atoi(const char *str);
 void				tab_print(char **tab);
@@ -182,6 +183,7 @@ char				*ft_itoa(int n);
 void				ft_lstdelone(t_list *lst, void (*del)(void *));
 
 /* PARSING */
+int					syntax_error(t_shell_memory *data, t_list *parsing_lst);
 int					is_empty_or_whitespaces(char *str);
 void				epure_lst(t_list **lst);
 t_exec				*create_execution_node(void);
@@ -198,7 +200,7 @@ void				*free_exec_node(t_exec *node);
 void				stake_n_open_files(t_shell_memory *data, t_list *lst);
 void				setup_fd(t_shell_memory *data, t_list *exec_lst);
 void				print_input_line(char **input_line);
-void				rm_quotes(char **line);
+void				rm_quotes(t_list *parsing_lst);
 int					here_doc_gestion(t_shell_memory *data, t_list *parsing_lst);
 void				tokenization(t_list *lst);
 int					forbiddens_chars(char **input_line);

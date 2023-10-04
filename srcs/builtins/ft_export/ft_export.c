@@ -6,7 +6,7 @@
 /*   By: gloms <rbrendle@student.42mulhouse.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 21:04:52 by gloms             #+#    #+#             */
-/*   Updated: 2023/10/04 01:44:57 by gloms            ###   ########.fr       */
+/*   Updated: 2023/10/04 19:26:48 by gloms            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@ int	ft_export(t_shell_memory *data, char **args)
 			if (!args[i + 1])
 				return (1);
 		}
-		else if (!find(data, rp, ft_strlen(rp)))
+		else if (find(data, rp, ft_strlen(rp)) == -1)
 			data->env = ft_tabdup_add_nl_free(data->env, args[i]);
-		else if (find(data, rp, ft_strlen(rp)))
+		else if (find(data, rp, ft_strlen(rp)) != -1)
 			swap_str(&data->env[find(data, rp, ft_strlen(rp))], &args[i], 1);
 		free(rp);
 		i++;

@@ -6,16 +6,16 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 20:37:20 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/10/02 02:42:24 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/10/04 20:01:59 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char **ft_tabdup(char **tab)
+char	**ft_tabdup(char **tab)
 {
-	int i;
-	char **new_tab;
+	int		i;
+	char	**new_tab;
 
 	i = 0;
 	if (!tab)

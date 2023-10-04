@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 01:55:38 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/10/04 01:56:17 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/10/04 20:42:03 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,13 @@
 
 int	syntax_error(t_shell_memory *data, t_list *parsing_lst)
 {
-	t_parsing *node;
+	t_parsing	*node;
 
 	while (parsing_lst)
 	{
 		node = (t_parsing *)parsing_lst->content;
-		if (node->token == PIPE && (!parsing_lst->next || !parsing_lst->prev || ((t_parsing *)parsing_lst->next->content)->token == PIPE))
+		if (node->token == PIPE && (!parsing_lst->next || !parsing_lst->prev
+				|| ((t_parsing *)parsing_lst->next->content)->token == PIPE))
 		{
 			printf("minishell: syntax error near unexpected token `|'\n");
 			return (data->exit_code = 258);

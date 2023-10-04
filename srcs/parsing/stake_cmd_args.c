@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 22:29:20 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/09/26 14:58:42 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/10/04 20:22:46 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,9 @@ void	stack_cmd_args(t_shell_memory *data, t_list *lst)
 			{
 				if (((t_parsing *)lst->content)->token == COMMAND)
 				{
-					((t_parsing *)save->content)->cmd = ft_tabadd_back(((t_parsing *)save->content)->cmd, ft_strdup(((t_parsing *)lst->content)->arg));
+					((t_parsing *)save->content)->cmd
+						= ft_tabadd_back(((t_parsing *)save->content)->cmd,
+							ft_strdup(((t_parsing *)lst->content)->arg));
 					((t_parsing *)lst->content)->to_del = 1;
 				}
 				lst = lst->next;

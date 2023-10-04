@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 20:20:07 by gloms             #+#    #+#             */
-/*   Updated: 2023/10/04 01:11:27 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/10/04 19:40:12 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,15 @@ void	sig_handler_quit(void)
 
 void	sig_handler_int(void)
 {
-	write(1,"\n", 1);
+	write(1, "\n", 1);
 	rl_on_new_line();
 	rl_replace_line("", 0);
 	rl_redisplay();
 }
 
-void	sig_handler_int_hd()
+void	sig_handler_int_hd(void)
 {
-	write(1,"\n", 1);
+	write(1, "\n", 1);
 	free_n_exit(NULL, 0);
 }
 

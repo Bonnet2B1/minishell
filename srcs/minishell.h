@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 20:38:43 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/10/04 19:15:18 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/10/04 20:48:46 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 // ! crash
 // @nevaspid
-// export bite='ls -la'
 
 // @Bonnet2B1
 
@@ -26,7 +25,6 @@
 // minishell-3.2$ cd ../minishell/correction.pdf
 
 // @Bonnet2B1
-// minishell-3.2$ cat ""
 
 // ? trus à gerer si on a vraaaaaaaiment le temps
 // @nevaspid
@@ -36,6 +34,10 @@
 
 // @Bonnet2B1
 // cat <<l | cat <<b | cat << c>
+// Ecrire :
+// The default interactive shell is now zsh.
+// To update your account to use zsh, please run `chsh -s /bin/zsh`.
+// For more details, please visit https://support.apple.com/kb/HT208050.
 
 /*=============================== PROTECTIONS ================================*/
 
@@ -64,16 +66,6 @@
 # define OFF 0
 # define DEFAULT 2
 # define SIG_HERE_DOC 3
-
-/* COLORS */
-# define CLR_RMV \033[0m
-# define RED \033[1;31m
-# define GREEN \033[1;32m
-# define YELLOW \033[1;33m
-# define BLUE \033[1;34m
-# define CYAN \033[1;36m
-# define MAGENTA \033[1;35m
-# define BOLD \033[1m
 
 /*================================= STRUCTS ==================================*/
 
@@ -129,7 +121,6 @@ typedef struct s_shell_memory
 	t_list			*parsing_lst;
 	t_list			*exec_lst;
 	int				fatal_error;
-	// exec data
 	char			**paths;
 	char			*cmd_path;
 }					t_shell_memory;
@@ -164,7 +155,8 @@ void				ft_lstadd_back(t_list **lst, t_list *new);
 void				ft_lstadd_front(t_list **lst, t_list *new);
 t_list				*ft_lstnew(void *content);
 void				ft_lstadd_here(t_list **lst, t_list *new);
-void				ft_lstdel_here(t_list **first, t_list *node_to_delete, void (*del)(void*));
+void				ft_lstdel_here(t_list **first,
+						t_list *node_to_delete, void (*del)(void*));
 void				ft_lstclear(t_list **lst, void (*del)(void *));
 char				*ft_strjoin(char const *s1, char const *s2);
 char				*ft_strjoin_free_s1(char *s1, char *s2);
@@ -175,7 +167,7 @@ char				**ft_tabadd_back(char **tab, char *new_str);
 t_list				*ft_lstfirst(t_list *lst);
 char				*ft_strdup(const char *src);
 void				ft_putstr_fd(char *s, int fd);
-char 				**ft_tabdup(char **tab);
+char				**ft_tabdup(char **tab);
 char				**ft_split_w_slash(const char *s, char c);
 char				**freetab(char **tab);
 void				*ft_memset(void *memory, int c, size_t len);
@@ -187,7 +179,8 @@ int					syntax_error(t_shell_memory *data, t_list *parsing_lst);
 int					is_empty_or_whitespaces(char *str);
 void				epure_lst(t_list **lst);
 t_exec				*create_execution_node(void);
-void				setup_execution_lst(t_shell_memory *data, t_list *parsing_lst);
+void				setup_execution_lst(t_shell_memory *data,
+						t_list *parsing_lst);
 int					parsing(t_shell_memory *data);
 int					quotes_gestion(char **input_line);
 void				crazy_split(t_shell_memory *data, char **line);
@@ -219,7 +212,7 @@ int					ft_unset(t_shell_memory *data, t_list *node, char **cmd);
 void				ft_env(t_shell_memory *data, char **cmd, char **env);
 void				ft_pwd(t_shell_memory *data);
 int					ft_cd(t_shell_memory *data, char **args);
-void				ft_echo(t_shell_memory *data,char  **args);
+void				ft_echo(t_shell_memory *data, char **args);
 int					ft_exit(t_shell_memory *data, char **cmd);
 int					ft_export(t_shell_memory *data, char **args);
 int					ft_export_fork(t_shell_memory *data);
@@ -229,7 +222,6 @@ int					is_letter(int c);
 int					ft_srch(char *s);
 char				*rtn_arg(char *str);
 void				swap_str(char **s1, char **s2, int fre);
-
 
 /* 0THERS */
 void				ft_signal(int i);

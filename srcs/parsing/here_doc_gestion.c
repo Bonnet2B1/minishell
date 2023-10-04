@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 18:55:33 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/09/30 00:34:17 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/10/04 20:08:02 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	str_is_here_doc_char(char *str)
 void	rewind_line(t_shell_memory *data)
 {
 	pid_t	pid;
-	char 	*cmd[5];
+	char	*cmd[5];
 
 	pid = fork();
 	if (pid == 0)

@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 13:04:42 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/10/03 22:31:51 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/10/04 19:47:59 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ t_parsing	*create_parsing_node(char *arg)
 
 t_exec	*create_execution_node(void)
 {
-	t_exec *new_node;
+	t_exec	*new_node;
 
 	new_node = malloc(sizeof(t_exec));
 	if (!new_node)

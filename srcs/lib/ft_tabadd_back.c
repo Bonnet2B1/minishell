@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 22:41:14 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/09/21 19:51:33 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/10/04 20:01:51 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,6 @@ char	**ft_tabadd_back(char **tab, char *new_str)
 
 	if (!new_str)
 		return (NULL);
-	// if (!tab)
-	// {
-	// 	new_tab = malloc(sizeof(char *) * 2);
-	// 	new_tab[0] = new_str;
-	// 	new_tab[1] = NULL;
-	// 	return (new_tab);
-	// }
 	len = 0;
 	while (tab && tab[len])
 		len++;

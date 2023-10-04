@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 16:10:13 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/10/04 19:14:52 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/10/04 20:08:55 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ char	*erase_quote(char *str, int *index_tab)
 {
 	char	*new;
 	int		index_tab_len;
-	int 	i;
-	int 	j;
-	int 	k;
+	int		i;
+	int		j;
+	int		k;
 
 	index_tab_len = 0;
 	while (index_tab[index_tab_len] != -1)
@@ -90,6 +90,7 @@ char	*quote_remove(char *str)
 void	rm_quotes(t_list *parsing_lst)
 {
 	t_parsing	*node;
+
 	while (parsing_lst)
 	{
 		node = parsing_lst->content;

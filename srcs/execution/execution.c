@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 13:49:54 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/10/04 01:12:52 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/10/04 19:58:29 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	builtins_no_fork(t_shell_memory *data, t_list *node, char **cmd)
 
 void	exec_node_stuff(t_shell_memory *data, t_list *exec_lst)
 {
-	t_exec *exec_node;
+	t_exec	*exec_node;
 	int		exit_code;
 
 	if (!exec_lst)

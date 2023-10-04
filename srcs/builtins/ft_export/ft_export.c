@@ -6,11 +6,40 @@
 /*   By: gloms <rbrendle@student.42mulhouse.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 21:04:52 by gloms             #+#    #+#             */
-/*   Updated: 2023/10/04 19:26:48 by gloms            ###   ########.fr       */
+/*   Updated: 2023/10/04 20:10:20 by gloms            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
+
+char	*ft_strjoin_putkot(char const *s1, char const *s2)
+{
+	char	*str;
+	int		eq;
+	size_t	i;
+
+	i = 0;
+	eq = 0;
+	if (!s1 || !s2)
+		return (NULL);
+	str = ft_calloc((ft_strlen(s1) + ft_strlen(s2)) + 3, sizeof(char));
+	if (!str)
+		return (NULL);
+	while (*s1)
+		str[i++] = *s1++;
+	while (*s2)
+	{
+		if (*s2 == '=' && eq == 0)
+		{
+			str[i++] = *s2++;
+			str[i++] = '"';
+			eq = 1;
+		}
+		str[i++] = *s2++;
+	}
+	str[i++] = '"';
+	return (str);
+}
 
 void	swap_str(char **s1, char **s2, int fre)
 {

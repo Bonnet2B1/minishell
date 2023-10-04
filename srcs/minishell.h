@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 20:38:43 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/10/04 23:24:33 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/10/04 23:32:30 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,6 @@
 // - bug
 // @nevaspid
 // echo -nnnn -n -nnn -nm fdsa devrait donner "-nm fsda"
-// print "exit\n" quand ctrl + D
-// minishell-3.2$ cd gjnuesoif
-// minishell-3.2$ cd ../minishell/correction.pdf
 
 // @Bonnet2B1
 
@@ -239,6 +236,8 @@ int					is_letter(int c);
 int					ft_srch(char *s);
 char				*rtn_arg(char *str);
 void				swap_str(char **s1, char **s2, int fre);
+char				*ft_strjoin_putkot(char const *s1, char const *s2);
+
 
 /* 0THERS */
 void				ft_signal(int i);

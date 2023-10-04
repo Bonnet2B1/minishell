@@ -6,7 +6,7 @@
 /*   By: gloms <rbrendle@student.42mulhouse.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 18:58:26 by gloms             #+#    #+#             */
-/*   Updated: 2023/10/03 23:49:49 by gloms            ###   ########.fr       */
+/*   Updated: 2023/10/04 20:01:54 by gloms            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ char	**ft_tabdup_join(char **tab)
 	i = 0;
 	while (tab[i])
 	{
-		new_tab[i] = ft_strjoin("declare -x ", tab[i]);
+		new_tab[i] = ft_strjoin_putkot("declare -x ", tab[i]);
 		i++;
 	}
 	new_tab[i] = NULL;

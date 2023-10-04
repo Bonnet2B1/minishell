@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
+/*   By: gloms <rbrendle@student.42mulhouse.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 17:54:21 by gloms             #+#    #+#             */
-/*   Updated: 2023/10/04 01:14:28 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/10/04 20:48:22 by gloms            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	cd_root(t_shell_memory *data)
 	index_pwd = find(data, "PWD=", 4);
 	if (chdir("/") == -1)
 	{
-		perror("cd");
+		perror("bash: cd: ");
 		return (-1);
 	}
 	free(data->env[index_pwd]);
@@ -50,7 +50,10 @@ int	change_path(t_shell_memory *data, char *args)
 	pat = ft_strjoin_free_s1(pat, ft_substr(args, 0, ft_strlen(args)));
 	if (chdir(pat) == -1)
 	{
-		perror("cd");
+		ft_putstr_fd("bash: cd: ", 2);
+		ft_putstr_fd(args, 2);
+		ft_putstr_fd(": ", 2);
+		perror(NULL);
 		return (-1);
 	}
 	free(data->env[index_pwd]);
@@ -59,7 +62,7 @@ int	change_path(t_shell_memory *data, char *args)
 	return (0);
 }
 
-int	cd_home(t_shell_memory *data)
+int	cd_home(t_shell_memory *data, char *str)
 {
 	char	*home;
 	int		len;
@@ -75,7 +78,10 @@ int	cd_home(t_shell_memory *data)
 	}
 	if (chdir(home) == -1)
 	{
-		perror("cd");
+		ft_putstr_fd("bash: cd: ", 2);
+		ft_putstr_fd(str, 2);
+		ft_putstr_fd(": ", 2);
+		perror(NULL);
 		return (-1);
 	}
 	free(data->env[index_home]);
@@ -95,7 +101,7 @@ int	ft_cd(t_shell_memory *data, char **args)
 		if (!ft_strncmp(args[1], "~", 1))
 		{
 			args[1] = ft_substr(args[1], 1, ft_strlen(args[1]) - 1);
-			if (cd_home(data) < 0)
+			if (cd_home(data, args[1]) < 0)
 				return (1);
 		}
 		else if (!ft_strncmp(args[1], "/", 1))
@@ -107,7 +113,7 @@ int	ft_cd(t_shell_memory *data, char **args)
 		change_path(data, args[1]);
 	}
 	else
-		cd_home(data);
+		cd_home(data, args[1]);
 	data->env[ind] = ft_strjoin(ft_substr_free(data->env[ind], 0, 7), tmp);
 	free(tmp);
 	return (0);

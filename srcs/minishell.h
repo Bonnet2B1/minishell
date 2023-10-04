@@ -6,7 +6,7 @@
 /*   By: gloms <rbrendle@student.42mulhouse.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 20:38:43 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/10/04 20:52:06 by gloms            ###   ########.fr       */
+/*   Updated: 2023/10/04 20:54:06 by gloms            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@
 // - bug
 // @nevaspid
 // echo -nnnn -n -nnn -nm fdsa devrait donner "-nm fsda"
-// minishell-3.2$ cd gjnuesoif
-// minishell-3.2$ cd ../minishell/correction.pdf
 
 // @Bonnet2B1
 

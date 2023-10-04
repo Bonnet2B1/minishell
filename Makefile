@@ -6,7 +6,7 @@
 #    By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/22 16:59:43 by edelarbr          #+#    #+#              #
-#    Updated: 2023/10/04 20:42:30 by edelarbr         ###   ########.fr        #
+#    Updated: 2023/10/04 23:27:13 by edelarbr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -74,11 +74,14 @@ SRCS		:=	srcs/others/signals.c \
 				srcs/parsing/forbiddens_chars.c \
 				srcs/parsing/here_doc_gestion.c \
 				srcs/parsing/env_variable.c \
+				srcs/parsing/env_variable_utils.c \
 				srcs/parsing/stake_cmd_args.c \
 				srcs/parsing/struct_init.c \
 				srcs/parsing/setup_fd.c \
 				srcs/parsing/stake_n_open_redirections.c \
+				srcs/parsing/stake_n_open_redirections_utils.c \
 				srcs/parsing/crazy_split.c \
+				srcs/parsing/crazy_split_utils.c \
 				srcs/parsing/parser.c \
 				srcs/parsing/quotes_gestion.c \
 				srcs/parsing/free_structs.c \

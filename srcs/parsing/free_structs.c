@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 18:46:28 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/09/13 17:11:44 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/10/04 23:13:06 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	*free_parsing_node(t_parsing *node)
 	free(node);
 	return (NULL);
 }
+
 void	*free_exec_node(t_exec *node)
 {
 	int	i;

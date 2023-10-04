@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 14:50:08 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/10/04 19:55:28 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/10/04 22:13:18 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,26 @@ int	need_exec_to_exec(t_shell_memory *data)
 		return (0);
 }
 
+int	check_num(t_shell_memory *data, char **cmd, int i)
+{
+	if (cmd[1][i] < '0' || cmd[1][i] > '9')
+	{
+		if (need_exec_to_exec(data))
+		{
+			printf("exit\nminishell: exit: %s: numeric argument required\n",
+				cmd[1]);
+			return (free_n_exit(data, data->exit_code = 255), 255);
+		}
+		else
+		{
+			printf("minishell: exit: %s: numeric argument required\n",
+				cmd[1]);
+			return (1);
+		}
+	}
+	return (0);
+}
+
 int	ft_exit(t_shell_memory *data, char **cmd)
 {
 	int	i;
@@ -38,27 +58,14 @@ int	ft_exit(t_shell_memory *data, char **cmd)
 	{
 		if (cmd[1][i] == '-' && i == 0)
 			continue ;
-		if (cmd[1][i] < '0' || cmd[1][i] > '9')
-		{
-			if (need_exec_to_exec(data))
-			{
-				printf("exit\nminishell: exit: %s: numeric argument required\n",
-					cmd[1]);
-				return (free_n_exit(data, data->exit_code = 255), 255);
-			}
-			else
-			{
-				printf("minishell: exit: %s: numeric argument required\n",
-					cmd[1]);
-				return (1);
-			}
-		}
+		if (check_num(data, cmd, i) == 1)
+			return (1);
 	}
 	if (cmd[1] && !cmd[2])
 	{
-		ft_atoi(cmd[1]);
+		printf("exit\n");
 		free_n_exit(data, ft_atoi(cmd[1]));
-		return (printf("exit\n"));
+		return (ft_atoi(cmd[1]));
 	}
 	if (cmd[0] && cmd[1] && cmd[2])
 		return (printf("exit\nminishell: exit: too many arguments\n"), 1);

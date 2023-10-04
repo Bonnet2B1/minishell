@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 18:40:51 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/10/04 19:59:58 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/10/04 22:18:52 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,8 @@ char	*find_cmd_path(t_shell_memory *data, char *cmd)
 	return (NULL);
 }
 
-void	ft_execve(t_shell_memory *data, char **cmd)
+void	error_gestion(t_shell_memory *data, char **cmd)
 {
-	char	*cmd_path;
-
 	if (ft_there_is_char(cmd[0], '/') && opendir(cmd[0]))
 		return (printf("minishell: %s: is a directory\n", cmd[0]),
 			free_n_exit(data, 126));
@@ -49,6 +47,13 @@ void	ft_execve(t_shell_memory *data, char **cmd)
 	if (ft_there_is_char(cmd[0], '/') && access(cmd[0], X_OK) != 0)
 		return (printf("minishell: %s: Permissions denied\n", cmd[0]),
 			free_n_exit(data, 126));
+}
+
+void	ft_execve(t_shell_memory *data, char **cmd)
+{
+	char	*cmd_path;
+
+	error_gestion(data, cmd);
 	if (ft_strcmp(cmd[0], "echo") == 0)
 		ft_echo(data, cmd);
 	else if (ft_strcmp(cmd[0], "export") == 0 && cmd[1] == NULL)

@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 20:38:43 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/10/04 20:48:46 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/10/04 23:24:33 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,12 @@
 
 // ? trus à gerer si on a vraaaaaaaiment le temps
 // @nevaspid
-// Essayez ctrI-C après avoir lancé une commande bloquante, comme cat ou grep sans argument.
-// Essayez ctr-\ après avoir lancé une commande bloquante, comme cat ou grep sans argument.
-// Essayez ctrI-D après avoir lancé une commande bloquante, comme cat ou grep sans argument.
+// Essayez ctrI-C après avoir lancé une commande bloquante,
+// comme cat ou grep sans argument.
+// Essayez ctr-\ après avoir lancé une commande bloquante,
+// comme cat ou grep sans argument.
+// Essayez ctrI-D après avoir lancé une commande bloquante,
+// comme cat ou grep sans argument.
 
 // @Bonnet2B1
 // cat <<l | cat <<b | cat << c>
@@ -184,13 +187,27 @@ void				setup_execution_lst(t_shell_memory *data,
 int					parsing(t_shell_memory *data);
 int					quotes_gestion(char **input_line);
 void				crazy_split(t_shell_memory *data, char **line);
+int					ft_isoperator(char c);
+int					take_quote(char **line, int len);
+int					take_operator(char **line, int len, char operator);
+int					get_len(char **line, int len);
+int					get_start(char **line, int start);
 t_parsing			*create_parsing_node(char *arg);
 void				data_init(t_shell_memory *data);
 void				env_var_gestion(t_shell_memory *data, char **line);
+int					there_is_a_env_var(char **line);
+int					there_is_exitcode(char **line);
+int					env_var_len(char **line);
+char				**take_before(char **line);
+char				**take_var(char **line);
 void				stack_cmd_args(t_shell_memory *data, t_list *lst);
 void				*free_parsing_node(t_parsing *node);
 void				*free_exec_node(t_exec *node);
 void				stake_n_open_files(t_shell_memory *data, t_list *lst);
+void				redir_error(t_shell_memory *data, t_list *lst);
+void				stake_redir_in(t_shell_memory *data, t_list *lst);
+void				stake_redir_out(t_shell_memory *data, t_list *lst);
+void				stake_redir_append(t_shell_memory *data, t_list *lst);
 void				setup_fd(t_shell_memory *data, t_list *exec_lst);
 void				print_input_line(char **input_line);
 void				rm_quotes(t_list *parsing_lst);

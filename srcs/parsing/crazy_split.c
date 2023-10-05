@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 21:44:26 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/10/05 02:04:42 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/10/06 01:08:50 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	crazy_split(t_shell_memory *data, char **line)
 		if (arg[0] == '\0')
 			break ;
 		start = get_start(line, len);
-		ft_lstadd_back(&data->parsing_lst, ft_lstnew(data, create_parsing_node(data, arg)));
+		ft_lstadd_back(&data->parsing_lst,
+			ft_lstnew(data, create_parsing_node(data, arg)));
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edelarbr <edelarbr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 17:54:21 by gloms             #+#    #+#             */
-/*   Updated: 2023/10/05 22:15:28 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/10/06 00:56:43 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	find(t_shell_memory *data, char *find, int len)
 
 int	cd_root(t_shell_memory *data)
 {
-	int	index_pwd;
+	int		index_pwd;
 	char	*path;
 
 	index_pwd = find(data, "PWD=", 4);
@@ -72,7 +72,7 @@ int	cd_home(t_shell_memory *data, char *str)
 	char	*home;
 	int		len;
 	int		index_home;
-	int 	index_pwd;
+	int		index_pwd;
 	char	*path;
 
 	index_home = find(data, "HOME=", 5);
@@ -97,11 +97,9 @@ int	cd_home(t_shell_memory *data, char *str)
 
 int	ft_cd(t_shell_memory *data, char **args)
 {
-	int		ind;
 	char	*tmp;
 
 	tmp = getcwd(NULL, 0);
-	ind = find(data, "OLDPWD=", 7);
 	if (args[1])
 	{
 		if (!ft_strncmp(args[1], "~", 1))
@@ -120,7 +118,8 @@ int	ft_cd(t_shell_memory *data, char **args)
 	}
 	else
 		cd_home(data, args[1]);
-	data->env[ind] = ft_strjoin(data, ft_substr(data, data->env[ind], 0, 7), tmp);
+	data->env[find(data, "OLDPWD=", 7)] = ft_strjoin(data, ft_substr(
+				data, data->env[find(data, "OLDPWD=", 7)], 0, 7), tmp);
 	free(tmp);
 	return (0);
 }

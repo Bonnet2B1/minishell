@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 13:49:54 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/10/05 02:11:15 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/10/06 01:46:23 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,22 @@
 
 int	builtins_no_fork(t_shell_memory *data, t_list *node, char **cmd)
 {
-	if (ft_strcmp(cmd[0], "cd") == 0)
-	{
-		data->exit_code = ft_cd(data, cmd);
-		return (1);
-	}
+	if (ft_strcmp(cmd[0], "cd") == 0 && node->next == NULL)
+		return (data->exit_code = ft_cd(data, cmd), 1);
+	else if (ft_strcmp(cmd[0], "cd") == 0)
+		return (ft_cd(data, cmd), 1);
+	else if (ft_strcmp(cmd[0], "unset") == 0 && node->next == NULL)
+		return (data->exit_code = ft_unset(data, node, cmd), 1);
 	else if (ft_strcmp(cmd[0], "unset") == 0)
-	{
-		data->exit_code = ft_unset(data, node, cmd);
-		return (1);
-	}
+		return (ft_unset(data, node, cmd), 1);
+	else if (ft_strcmp(cmd[0], "export") == 0 && cmd[1] && node->next == NULL)
+		return (data->exit_code = ft_export(data, cmd), 1);
 	else if (ft_strcmp(cmd[0], "export") == 0 && cmd[1])
-	{
-		data->exit_code = ft_export(data, cmd);
-		return (1);
-	}
+		return (ft_export(data, cmd), 1);
+	else if (ft_strcmp(cmd[0], "exit") == 0 && node->next == NULL)
+		return (data->exit_code = ft_exit(data, cmd), 1);
 	else if (ft_strcmp(cmd[0], "exit") == 0)
-	{
-		data->exit_code = ft_exit(data, cmd);
-		return (1);
-	}
+		return (ft_exit(data, cmd), 1);
 	return (0);
 }
 
@@ -62,13 +58,12 @@ void	close_fd(t_exec *exec_node)
 void	exec_node_stuff(t_shell_memory *data, t_list *exec_lst)
 {
 	t_exec	*exec_node;
-	int		exit_code;
 
 	if (!exec_lst)
 		return ;
 	exec_node = exec_lst->content;
-	if (exec_node->execute == 0)
-		return (data->exit_code = 1, exec_node_stuff(data, exec_lst->next));
+	if (exec_node->open_error == 1)
+		return ;
 	if (builtins_no_fork(data, exec_lst, exec_node->cmd))
 		return (exec_node_stuff(data, exec_lst->next));
 	exec_node->pid = fork();
@@ -79,12 +74,13 @@ void	exec_node_stuff(t_shell_memory *data, t_list *exec_lst)
 		child(data, exec_node);
 	close_fd(exec_node);
 	exec_node_stuff(data, exec_lst->next);
-	close_pipes(data->parsing_lst);
-	exit_code = 0;
-	waitpid(exec_node->pid, &exit_code, 0);
 	if (exec_lst->next == NULL)
-		data->exit_code = WEXITSTATUS(exit_code);
-	ft_signal(ON);
+	{
+		waitpid(exec_node->pid, &data->exit_code, 0);
+		data->exit_code = WEXITSTATUS(data->exit_code);
+	}
+	else
+		waitpid(exec_node->pid, NULL, 0);
 }
 
 void	execution(t_shell_memory *data)
@@ -93,4 +89,6 @@ void	execution(t_shell_memory *data)
 	if (!((t_exec *)data->exec_lst->content)->cmd)
 		return ;
 	exec_node_stuff(data, data->exec_lst);
+	close_pipes(data->parsing_lst);
+	ft_signal(ON);
 }

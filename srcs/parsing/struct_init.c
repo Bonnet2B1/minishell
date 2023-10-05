@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 13:04:42 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/10/05 02:03:37 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/10/05 23:42:20 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,5 +51,6 @@ t_exec	*create_execution_node(t_shell_memory *data)
 	new_node->out_struct = NULL;
 	new_node->in_fd = 0;
 	new_node->out_fd = 1;
+	new_node->open_error = 0;
 	return (new_node);
 }

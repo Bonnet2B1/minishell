@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc_gestion.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edelarbr <edelarbr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 18:55:33 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/10/05 22:01:04 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/10/06 01:32:27 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	fill_here_doc(t_shell_memory *data, int fd, char *delimiter)
 			line = ft_strjoin_hd(data, line, "\n");
 			ft_putstr_fd(line, fd);
 		}
-}
+	}
 	waitpid(pid, 0, 0);
 	ft_signal(ON);
 }

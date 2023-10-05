@@ -12,7 +12,8 @@
 
 #include "../minishell.h"
 
-char	*ft_substr(t_shell_memory *data, char const *s, unsigned int start, size_t len)
+char	*ft_substr(t_shell_memory *data, char const *s,
+		unsigned int start, size_t len)
 {
 	char	*cpy;
 	size_t	i;

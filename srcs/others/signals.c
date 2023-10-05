@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 20:20:07 by gloms             #+#    #+#             */
-/*   Updated: 2023/10/05 18:58:47 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/10/06 00:21:44 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,11 @@ void	sig_handler_int_hd(void)
 	free_n_exit(NULL, 0);
 }
 
+void	sig_handler_int_dfl(void)
+{
+	printf("bite\n");
+}
+
 void	ft_signal(int i)
 {
 	if (i == OFF)
@@ -46,8 +51,8 @@ void	ft_signal(int i)
 	}
 	else if (i == DEFAULT)
 	{
-		signal(SIGINT, SIG_DFL);
-		signal(SIGQUIT, SIG_DFL);
+		signal(SIGINT, (void *)sig_handler_int_dfl);
+		signal(SIGQUIT, (void *)sig_handler_int_dfl);
 	}
 	else if (i == SIG_HERE_DOC)
 	{

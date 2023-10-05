@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/20 19:27:22 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/10/05 01:55:18 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/10/06 00:59:07 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ char	*ft_rmchar(t_shell_memory *data, char *str, char c)
 
 	i = 0;
 	j = 0;
-	new = calloc_tuning(&data->malloc_chain, sizeof(char) * ft_strlen_rmchar(str, c) + 1);
+	new = calloc_tuning(&data->malloc_chain,
+			sizeof(char) * ft_strlen_rmchar(str, c) + 1);
 	while (str[i])
 	{
 		if (str[i] != c)

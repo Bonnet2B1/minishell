@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 20:38:43 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/10/05 20:14:44 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/10/06 01:23:52 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,10 @@
 
 // ! crash
 // @nevaspid
+// unset PWD => cd
 
 // @Bonnet2B1
-
+// cat > file | cat
 // - bug
 // @nevaspid
 // echo -nnnn -n -nnn -nm fdsa devrait donner "-nm fsda"
@@ -24,11 +25,6 @@
 // Ne pas afficher la variable _ dans export sans args
 
 // @Bonnet2B1
-// exit avec le dernier exit_status
-// 258 quand syntax error
-// Exit quand ctrl-D a la ligne
-// export ab (sans valeur) => unset ne l'unset pas (voir probleme nevaspid)
-// Ligne vide dans l'historique
 
 // ? trus à gerer si on a vraaaaaaaiment le temps
 // @nevaspid
@@ -106,6 +102,7 @@ typedef struct s_parsing
 typedef struct s_execution
 {
 	int				execute;
+	int				open_error;
 	char			**cmd;
 	t_parsing		*in_struct;
 	t_parsing		*out_struct;
@@ -147,8 +144,10 @@ int					ft_isascii(int c);
 int					ft_strlen(const char *str);
 char				*ft_rmchar(t_shell_memory *data, char *str, char c);
 char				*ft_strrchr(const char *s, int c);
-char				*ft_substr(t_shell_memory *data, char const *s, unsigned int start, size_t len);
-char				*ft_strtrim(t_shell_memory *data, const char *s, const char *set);
+char				*ft_substr(t_shell_memory *data, char const *s,
+						unsigned int start, size_t len);
+char				*ft_strtrim(t_shell_memory *data,
+						const char *s, const char *set);
 char				*ft_strchr(const char *s, int c);
 int					ft_strcmp(const char *s1, const char *s2);
 int					ft_strncmp(const char *s1, const char *s2, size_t n);
@@ -160,15 +159,18 @@ void				ft_lstadd_here(t_list **lst, t_list *new);
 void				ft_lstdel_here(t_list **first,
 						t_list *node_to_delete, void (*del)(void*));
 void				ft_lstclear(t_list **lst, void (*del)(void *));
-char				*ft_strjoin(t_shell_memory *data, char const *s1, char const *s2);
+char				*ft_strjoin(t_shell_memory *data,
+						char const *s1, char const *s2);
 void				*ft_calloc(t_shell_memory *data, size_t size, size_t count);
 int					ft_isenvchar(int c);
-char				**ft_tabadd_back(t_shell_memory *data, char **tab, char *new_str);
+char				**ft_tabadd_back(t_shell_memory *data,
+						char **tab, char *new_str);
 t_list				*ft_lstfirst(t_list *lst);
 char				*ft_strdup(t_shell_memory *data, const char *src);
 void				ft_putstr_fd(char *s, int fd);
 char				**ft_tabdup(t_shell_memory *data, char **tab);
-char				**ft_split_w_slash(t_shell_memory *data, const char *s, char c);
+char				**ft_split_w_slash(t_shell_memory *data,
+						const char *s, char c);
 void				*ft_memset(void *memory, int c, size_t len);
 char				*ft_itoa(t_shell_memory *data, int n);
 void				ft_lstdelone(t_list *lst, void (*del)(void *));
@@ -207,7 +209,7 @@ void				print_input_line(char **input_line);
 void				rm_quotes(t_shell_memory *data, t_list *parsing_lst);
 int					here_doc_gestion(t_shell_memory *data, t_list *parsing_lst);
 void				tokenization(t_list *lst);
-int					forbiddens_chars(char **input_line);
+int					forbiddens_chars(t_shell_memory *data, char **input_line);
 
 /* EXECUTION */
 void				execution(t_shell_memory *data);
@@ -228,12 +230,14 @@ int					ft_exit(t_shell_memory *data, char **cmd);
 int					ft_export(t_shell_memory *data, char **args);
 int					ft_export_fork(t_shell_memory *data);
 char				**ft_tabdup_join(t_shell_memory *data, char **tab);
-char				**ft_tabdup_add_nl(t_shell_memory *data, char **tab, char *str);
+char				**ft_tabdup_add_nl(t_shell_memory *data,
+						char **tab, char *str);
 int					is_letter(int c);
 int					ft_srch(char *s);
 char				*rtn_arg(t_shell_memory *data, char *str);
 void				swap_str(char **s1, char **s2);
-char				*ft_strjoin_putkot(t_shell_memory *data, char const *s1, char const *s2);
+char				*ft_strjoin_putkot(t_shell_memory *data,
+						char const *s1, char const *s2);
 
 /* 0THERS */
 void				ft_signal(int i);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edelarbr <edelarbr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 20:32:39 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/10/05 22:22:43 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/10/06 00:46:58 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	reader(t_shell_memory *data)
 {
-	char *temp;
+	char	*temp;
 
 	data->input_line = calloc_tuning(&data->malloc_chain, sizeof(char *) * 3);
 	while (1)
@@ -28,7 +28,8 @@ void	reader(t_shell_memory *data)
 			return ;
 		}
 		data_init(data);
-		add_history(data->input_line[0]);
+		if (data->input_line[0][0])
+			add_history(data->input_line[0]);
 		if (parsing(data))
 			execution(data);
 	}

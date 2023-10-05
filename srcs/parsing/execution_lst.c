@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 17:43:08 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/10/05 02:06:43 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/10/06 01:32:18 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,19 +24,19 @@ void	join_attributs(t_shell_memory *data, t_list *parsing_lst,
 	{
 		new_exec_node->in_struct = parsing_lst->content;
 		if (parsing_node->open_error == 1)
-			new_exec_node->execute = 0;
+			new_exec_node->open_error = 1;
 	}
 	if (parsing_node->token == REDIR_OUT)
 	{
 		new_exec_node->out_struct = parsing_lst->content;
 		if (parsing_node->open_error == 1)
-			new_exec_node->execute = 0;
+			new_exec_node->open_error = 1;
 	}
 	if (parsing_node->token == REDIR_APPEND)
 	{
 		new_exec_node->out_struct = parsing_lst->content;
 		if (parsing_node->open_error == 1)
-			new_exec_node->execute = 0;
+			new_exec_node->open_error = 1;
 	}
 }
 
@@ -55,8 +55,8 @@ void	setup_execution_lst(t_shell_memory *data, t_list *parsing_lst)
 		while (parsing_lst
 			&& ((t_parsing *)parsing_lst->content)->token != PIPE)
 		{
-			join_attributs(data, parsing_lst, ((t_parsing *)parsing_lst->content),
-				new_exec_node);
+			join_attributs(data, parsing_lst,
+				((t_parsing *)parsing_lst->content), new_exec_node);
 			parsing_lst = parsing_lst->next;
 		}
 		if (parsing_lst && ((t_parsing *)parsing_lst->content)->token == PIPE

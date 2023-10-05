@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execve.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
+/*   By: edelarbr <edelarbr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 18:40:51 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/10/04 22:18:52 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/10/05 22:29:49 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,20 +17,16 @@ char	*find_cmd_path(t_shell_memory *data, char *cmd)
 	int	i;
 
 	i = -1;
-	data->paths = get_paths(data->env);
 	while (data->paths && data->paths[++i])
 	{
-		data->cmd_path = ft_strjoin(data->paths[i], cmd);
+		data->cmd_path = ft_strjoin(data, data->paths[i], cmd);
 		if (access(data->cmd_path, F_OK | X_OK) == 0)
 			return (data->cmd_path);
 	}
 	if (access(cmd, F_OK | X_OK) == 0)
 	{
 		if (data->cmd_path)
-		{
-			free(data->cmd_path);
 			data->cmd_path = NULL;
-		}
 		return (cmd);
 	}
 	return (NULL);
@@ -64,13 +60,13 @@ void	ft_execve(t_shell_memory *data, char **cmd)
 		ft_env(data, cmd, data->env);
 	else
 	{
-		cmd_path = ft_strdup(find_cmd_path(data, cmd[0]));
+		cmd_path = ft_strdup(data, find_cmd_path(data, cmd[0]));
 		if (cmd_path == NULL && data->paths == NULL)
 		{
 			printf("minishell: %s: No such file or directory\n", cmd[0]);
 			free_n_exit(data, 127);
 		}
-		if (execve(cmd_path, cmd, NULL) == -1)
+		if (execve(cmd_path, cmd, data->env) == -1)
 		{
 			printf("minishell: %s: command not found\n", cmd[0]);
 			free_n_exit(data, 127);

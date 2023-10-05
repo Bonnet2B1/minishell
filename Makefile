@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+         #
+#    By: edelarbr <edelarbr@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/22 16:59:43 by edelarbr          #+#    #+#              #
-#    Updated: 2023/10/04 23:27:13 by edelarbr         ###   ########.fr        #
+#    Updated: 2023/10/05 22:21:31 by edelarbr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,8 +15,8 @@ NAME		:=	minishell
 # ------------------------------ Sources -----------------------------
 
 SRCS		:=	srcs/others/signals.c \
-				srcs/others/freeall.c \
 				srcs/others/free_n_exit.c \
+				srcs/others/tuning_memory.c \
 				srcs/builtins/ft_unset.c \
 				srcs/builtins/ft_env.c \
 				srcs/builtins/ft_cd.c \
@@ -37,11 +37,9 @@ SRCS		:=	srcs/others/signals.c \
 				srcs/lib/ft_lstadd_back.c \
 				srcs/lib/ft_putstr_fd.c \
 				srcs/lib/ft_lstnew.c \
-				srcs/lib/ft_strjoin_free_s1.c \
 				srcs/lib/ft_strlen.c \
 				srcs/lib/ft_lstlast.c \
 				srcs/lib/ft_rmchar.c \
-				srcs/lib/ft_strjoin_freeall.c \
 				srcs/lib/ft_tabdup.c \
 				srcs/lib/ft_strchr.c \
 				srcs/lib/ft_lstdel_here.c \
@@ -54,7 +52,6 @@ SRCS		:=	srcs/others/signals.c \
 				srcs/lib/ft_tabadd_back.c \
 				srcs/lib/ft_memset.c \
 				srcs/lib/ft_substr.c \
-				srcs/lib/ft_substr_free.c \
 				srcs/lib/ft_strncmp.c \
 				srcs/lib/ft_strtrim.c \
 				srcs/lib/ft_calloc.c \
@@ -63,7 +60,6 @@ SRCS		:=	srcs/others/signals.c \
 				srcs/lib/ft_split_w_slash.c \
 				srcs/lib/ft_iswhitespace.c \
 				srcs/lib/ft_itoa.c \
-				srcs/lib/freetab.c \
 				srcs/lib/ft_strcmp.c \
 				srcs/lib/ft_lstdelone.c \
 				srcs/lib/ft_str_is_num.c \
@@ -84,7 +80,6 @@ SRCS		:=	srcs/others/signals.c \
 				srcs/parsing/crazy_split_utils.c \
 				srcs/parsing/parser.c \
 				srcs/parsing/quotes_gestion.c \
-				srcs/parsing/free_structs.c \
 				srcs/parsing/execution_lst.c \
 				srcs/minishell.c \
 				srcs/temp/print.c \
@@ -98,7 +93,7 @@ BREW		:=	$(shell brew --prefix)
 INC_RL		:=	-I $(BREW)/Cellar/readline/8.2.1/include/
 LINK_RL		:=	-lreadline -L $(BREW)/Cellar/readline/8.2.1/lib
 CC			:=	gcc
-FLAGS		:=	-Wall -Wextra -Werror #-g3 -fsanitize=address
+FLAGS		:=	-Wall -Wextra -Werror -g3 -fsanitize=address
 RM			:=	rm -rf
 
 $(OBJ_DIR)/%.o :%.c

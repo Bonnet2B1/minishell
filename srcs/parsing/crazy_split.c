@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 21:44:26 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/10/04 22:23:38 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/10/05 02:04:42 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@ void	crazy_split(t_shell_memory *data, char **line)
 	while (line[0][start])
 	{
 		len = get_len(line, start);
-		arg = ft_substr(line[0], start, len - start);
+		arg = ft_substr(data, line[0], start, len - start);
 		if (arg[0] == '\0')
 			break ;
 		start = get_start(line, len);
-		ft_lstadd_back(&data->parsing_lst, ft_lstnew(create_parsing_node(arg)));
+		ft_lstadd_back(&data->parsing_lst, ft_lstnew(data, create_parsing_node(data, arg)));
 	}
 }

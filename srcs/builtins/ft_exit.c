@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 14:50:08 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/10/04 22:13:18 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/10/04 23:35:57 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	ft_exit(t_shell_memory *data, char **cmd)
 	i = -1;
 	while (cmd[1][++i])
 	{
-		if (cmd[1][i] == '-' && i == 0)
+		if (i == 0 && (cmd[1][i] == '-' || cmd[1][i] == '+'))
 			continue ;
 		if (check_num(data, cmd, i) == 1)
 			return (1);

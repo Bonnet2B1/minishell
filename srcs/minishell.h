@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 20:38:43 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/10/04 23:32:30 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/10/05 20:14:44 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,19 @@
 // - bug
 // @nevaspid
 // echo -nnnn -n -nnn -nm fdsa devrait donner "-nm fsda"
+// export ab (sans valeur) => export tout seul montre une quote "
+// Ne pas afficher la variable _ dans export sans args
 
 // @Bonnet2B1
+// exit avec le dernier exit_status
+// 258 quand syntax error
+// Exit quand ctrl-D a la ligne
+// export ab (sans valeur) => unset ne l'unset pas (voir probleme nevaspid)
+// Ligne vide dans l'historique
 
 // ? trus à gerer si on a vraaaaaaaiment le temps
 // @nevaspid
-// Essayez ctrI-C après avoir lancé une commande bloquante,
-// comme cat ou grep sans argument.
-// Essayez ctr-\ après avoir lancé une commande bloquante,
-// comme cat ou grep sans argument.
-// Essayez ctrI-D après avoir lancé une commande bloquante,
-// comme cat ou grep sans argument.
+// export GHOST=123 | env | grep GHOST
 
 // @Bonnet2B1
 // cat <<l | cat <<b | cat << c>
@@ -123,6 +125,7 @@ typedef struct s_shell_memory
 	int				fatal_error;
 	char			**paths;
 	char			*cmd_path;
+	t_list			*malloc_chain;
 }					t_shell_memory;
 
 /*================================ FUNCTIONS =================================*/
@@ -142,64 +145,58 @@ int					ft_there_is_char(char *str, char c);
 int					ft_iswhitespace(char c);
 int					ft_isascii(int c);
 int					ft_strlen(const char *str);
-char				*ft_rmchar(char *str, char c);
+char				*ft_rmchar(t_shell_memory *data, char *str, char c);
 char				*ft_strrchr(const char *s, int c);
-char				*ft_substr(char const *s, unsigned int start, size_t len);
-char				*ft_substr_free(char *s, unsigned int start, size_t len);
-char				*ft_strtrim(const char *s, const char *set);
+char				*ft_substr(t_shell_memory *data, char const *s, unsigned int start, size_t len);
+char				*ft_strtrim(t_shell_memory *data, const char *s, const char *set);
 char				*ft_strchr(const char *s, int c);
 int					ft_strcmp(const char *s1, const char *s2);
 int					ft_strncmp(const char *s1, const char *s2, size_t n);
 t_list				*ft_lstlast(t_list *lst);
 void				ft_lstadd_back(t_list **lst, t_list *new);
 void				ft_lstadd_front(t_list **lst, t_list *new);
-t_list				*ft_lstnew(void *content);
+t_list				*ft_lstnew(t_shell_memory *data, void *content);
 void				ft_lstadd_here(t_list **lst, t_list *new);
 void				ft_lstdel_here(t_list **first,
 						t_list *node_to_delete, void (*del)(void*));
 void				ft_lstclear(t_list **lst, void (*del)(void *));
-char				*ft_strjoin(char const *s1, char const *s2);
-char				*ft_strjoin_free_s1(char *s1, char *s2);
-char				*ft_strjoin_freeall(char *s1, char *s2);
-void				*ft_calloc(size_t size, size_t count);
+char				*ft_strjoin(t_shell_memory *data, char const *s1, char const *s2);
+void				*ft_calloc(t_shell_memory *data, size_t size, size_t count);
 int					ft_isenvchar(int c);
-char				**ft_tabadd_back(char **tab, char *new_str);
+char				**ft_tabadd_back(t_shell_memory *data, char **tab, char *new_str);
 t_list				*ft_lstfirst(t_list *lst);
-char				*ft_strdup(const char *src);
+char				*ft_strdup(t_shell_memory *data, const char *src);
 void				ft_putstr_fd(char *s, int fd);
-char				**ft_tabdup(char **tab);
-char				**ft_split_w_slash(const char *s, char c);
-char				**freetab(char **tab);
+char				**ft_tabdup(t_shell_memory *data, char **tab);
+char				**ft_split_w_slash(t_shell_memory *data, const char *s, char c);
 void				*ft_memset(void *memory, int c, size_t len);
-char				*ft_itoa(int n);
+char				*ft_itoa(t_shell_memory *data, int n);
 void				ft_lstdelone(t_list *lst, void (*del)(void *));
 
 /* PARSING */
 int					syntax_error(t_shell_memory *data, t_list *parsing_lst);
 int					is_empty_or_whitespaces(char *str);
 void				epure_lst(t_list **lst);
-t_exec				*create_execution_node(void);
+t_exec				*create_execution_node(t_shell_memory *data);
 void				setup_execution_lst(t_shell_memory *data,
 						t_list *parsing_lst);
 int					parsing(t_shell_memory *data);
-int					quotes_gestion(char **input_line);
+int					quotes_gestion(t_shell_memory *data, char **input_line);
 void				crazy_split(t_shell_memory *data, char **line);
 int					ft_isoperator(char c);
 int					take_quote(char **line, int len);
 int					take_operator(char **line, int len, char operator);
 int					get_len(char **line, int len);
 int					get_start(char **line, int start);
-t_parsing			*create_parsing_node(char *arg);
+t_parsing			*create_parsing_node(t_shell_memory *data, char *arg);
 void				data_init(t_shell_memory *data);
 void				env_var_gestion(t_shell_memory *data, char **line);
 int					there_is_a_env_var(char **line);
 int					there_is_exitcode(char **line);
 int					env_var_len(char **line);
-char				**take_before(char **line);
-char				**take_var(char **line);
+char				**take_before(t_shell_memory *data, char **line);
+char				**take_var(t_shell_memory *data, char **line);
 void				stack_cmd_args(t_shell_memory *data, t_list *lst);
-void				*free_parsing_node(t_parsing *node);
-void				*free_exec_node(t_exec *node);
 void				stake_n_open_files(t_shell_memory *data, t_list *lst);
 void				redir_error(t_shell_memory *data, t_list *lst);
 void				stake_redir_in(t_shell_memory *data, t_list *lst);
@@ -207,14 +204,14 @@ void				stake_redir_out(t_shell_memory *data, t_list *lst);
 void				stake_redir_append(t_shell_memory *data, t_list *lst);
 void				setup_fd(t_shell_memory *data, t_list *exec_lst);
 void				print_input_line(char **input_line);
-void				rm_quotes(t_list *parsing_lst);
+void				rm_quotes(t_shell_memory *data, t_list *parsing_lst);
 int					here_doc_gestion(t_shell_memory *data, t_list *parsing_lst);
 void				tokenization(t_list *lst);
 int					forbiddens_chars(char **input_line);
 
 /* EXECUTION */
 void				execution(t_shell_memory *data);
-char				**get_paths(char **env);
+char				**get_paths(t_shell_memory *data, char **env);
 void				ft_execve(t_shell_memory *data, char **cmd);
 void				close_pipes(t_list *parsing_lst);
 char				*find_cmd_path(t_shell_memory *data, char *cmd);
@@ -230,18 +227,18 @@ void				ft_echo(t_shell_memory *data, char **args);
 int					ft_exit(t_shell_memory *data, char **cmd);
 int					ft_export(t_shell_memory *data, char **args);
 int					ft_export_fork(t_shell_memory *data);
-char				**ft_tabdup_join(char **tab);
-char				**ft_tabdup_add_nl_free(char **tab, char *str);
+char				**ft_tabdup_join(t_shell_memory *data, char **tab);
+char				**ft_tabdup_add_nl(t_shell_memory *data, char **tab, char *str);
 int					is_letter(int c);
 int					ft_srch(char *s);
-char				*rtn_arg(char *str);
-void				swap_str(char **s1, char **s2, int fre);
-char				*ft_strjoin_putkot(char const *s1, char const *s2);
-
+char				*rtn_arg(t_shell_memory *data, char *str);
+void				swap_str(char **s1, char **s2);
+char				*ft_strjoin_putkot(t_shell_memory *data, char const *s1, char const *s2);
 
 /* 0THERS */
 void				ft_signal(int i);
-void				*freeall(t_shell_memory *data);
 void				free_n_exit(t_shell_memory *data, int exit_code);
+void				*calloc_tuning(t_list **lst, size_t size);
+void				free_tuning(t_list **lst);
 
 #endif

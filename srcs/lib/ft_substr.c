@@ -12,7 +12,7 @@
 
 #include "../minishell.h"
 
-char	*ft_substr(char const *s, unsigned int start, size_t len)
+char	*ft_substr(t_shell_memory *data, char const *s, unsigned int start, size_t len)
 {
 	char	*cpy;
 	size_t	i;
@@ -26,7 +26,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 		len = 0;
 	if (slen - start < len)
 		len = slen - start;
-	cpy = malloc(sizeof(char) * (len + 1));
+	cpy = calloc_tuning(&data->malloc_chain, sizeof(char) * (len + 1));
 	if (!cpy)
 		return (NULL);
 	while (len-- && s[start])

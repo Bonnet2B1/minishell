@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 14:43:18 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/09/26 18:19:23 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/10/05 01:47:46 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,5 +17,4 @@ void	ft_lstdelone(t_list *lst, void (*del)(void *))
 	if (!lst || !del)
 		return ;
 	del(lst->content);
-	free(lst);
 }

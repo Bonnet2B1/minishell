@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
+/*   By: edelarbr <edelarbr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 20:32:39 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/10/04 19:42:26 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/10/05 22:22:43 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,23 @@
 
 void	reader(t_shell_memory *data)
 {
+	char *temp;
+
+	data->input_line = calloc_tuning(&data->malloc_chain, sizeof(char *) * 3);
 	while (1)
 	{
-		data->input_line = malloc(sizeof(char *) * 3);
-		data->input_line[0] = readline("minishell-3.2$ ");
+		temp = readline("minishell-3.2$ ");
+		data->input_line[0] = ft_strdup(data, temp);
+		free(temp);
 		if (!data->input_line[0])
-			break ;
+		{
+			printf("\033[1A\033[15Cexit\n");
+			return ;
+		}
 		data_init(data);
 		add_history(data->input_line[0]);
 		if (parsing(data))
 			execution(data);
-		freetab(data->input_line);
 	}
 }
 
@@ -35,6 +41,10 @@ int	main(int argc, char **argv, char **env)
 	(void)argc;
 	(void)argv;
 	ft_signal(ON);
-	data.env = ft_tabdup(env);
+	if (!env || !env[0])
+		return (printf("Error: no environment\n"));
+	data.malloc_chain = NULL;
+	data.env = ft_tabdup(&data, env);
 	reader(&data);
+	free_n_exit(&data, 0);
 }

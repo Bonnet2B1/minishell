@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gloms <rbrendle@student.42mulhouse.fr>     +#+  +:+       +#+        */
+/*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 16:04:31 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/10/03 02:00:25 by gloms            ###   ########.fr       */
+/*   Updated: 2023/10/05 01:55:18 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char	**rm_tab_index(char **tab, int index)
+char	**rm_tab_index(t_shell_memory *data, char **tab, int index)
 {
 	char	**new_tab;
 	int		i;
@@ -22,7 +22,8 @@ char	**rm_tab_index(char **tab, int index)
 		return (NULL);
 	if (index > ft_tablen(tab) - 1)
 		return (tab);
-	new_tab = malloc(sizeof(char *) * ft_tablen(tab));
+	new_tab = calloc_tuning(&data->malloc_chain, sizeof(char *)
+			* ft_tablen(tab));
 	if (!new_tab)
 		return (NULL);
 	i = 0;
@@ -35,8 +36,6 @@ char	**rm_tab_index(char **tab, int index)
 			new_tab[j++] = tab[i++];
 	}
 	new_tab[j] = NULL;
-	free(tab[index]);
-	free(tab);
 	return (new_tab);
 }
 
@@ -53,19 +52,19 @@ char	there_is_banned_char(char *str)
 	return (0);
 }
 
-int	env_find_correlation(char **env, char *str)
+int	env_find_correlation(t_shell_memory *data, char **env, char *str)
 {
 	char	*prompt;
 	int		i;
 
-	prompt = ft_strjoin(str, "=");
+	prompt = ft_strjoin(data, str, "=");
 	i = -1;
 	while (env[++i])
 	{
 		if (ft_strncmp(prompt, env[i], ft_strlen(prompt)) == 0)
-			return (free(prompt), i);
+			return (i);
 	}
-	return (free(prompt), -1);
+	return (-1);
 }
 
 int	ft_unset(t_shell_memory *data, t_list *node, char **cmd)
@@ -84,9 +83,9 @@ int	ft_unset(t_shell_memory *data, t_list *node, char **cmd)
 			printf("minishell: unset: `%s': not a valid identifier\n", cmd[i]);
 			exit_value = 1;
 		}
-		else if (env_find_correlation(data->env, cmd[i]) != -1)
-			data->env = rm_tab_index(data->env, env_find_correlation(data->env,
-						cmd[i]));
+		else if (env_find_correlation(data, data->env, cmd[i]) != -1)
+			data->env = rm_tab_index(data, data->env,
+					env_find_correlation(data, data->env, cmd[i]));
 	}
 	return (exit_value);
 }

@@ -6,18 +6,18 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 17:43:08 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/10/04 23:06:57 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/10/05 02:06:43 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	join_attributs(t_list *parsing_lst, t_parsing *parsing_node,
-	t_exec *new_exec_node)
+void	join_attributs(t_shell_memory *data, t_list *parsing_lst,
+	t_parsing *parsing_node, t_exec *new_exec_node)
 {
 	if (parsing_node->token == COMMAND)
 	{
-		new_exec_node->cmd = ft_tabdup(parsing_node->cmd);
+		new_exec_node->cmd = ft_tabdup(data, parsing_node->cmd);
 		parsing_node->to_del = 1;
 	}
 	if (parsing_node->token == REDIR_IN)
@@ -46,7 +46,7 @@ void	setup_execution_lst(t_shell_memory *data, t_list *parsing_lst)
 
 	while (parsing_lst)
 	{
-		new_exec_node = create_execution_node();
+		new_exec_node = create_execution_node(data);
 		if (((t_parsing *)parsing_lst->content)->token == PIPE)
 		{
 			new_exec_node->in_struct = parsing_lst->content;
@@ -55,7 +55,7 @@ void	setup_execution_lst(t_shell_memory *data, t_list *parsing_lst)
 		while (parsing_lst
 			&& ((t_parsing *)parsing_lst->content)->token != PIPE)
 		{
-			join_attributs(parsing_lst, ((t_parsing *)parsing_lst->content),
+			join_attributs(data, parsing_lst, ((t_parsing *)parsing_lst->content),
 				new_exec_node);
 			parsing_lst = parsing_lst->next;
 		}
@@ -64,7 +64,7 @@ void	setup_execution_lst(t_shell_memory *data, t_list *parsing_lst)
 			new_exec_node->out_struct = parsing_lst->content;
 		if (!new_exec_node->cmd)
 			new_exec_node->execute = 0;
-		ft_lstadd_back(&data->exec_lst, ft_lstnew(new_exec_node));
+		ft_lstadd_back(&data->exec_lst, ft_lstnew(data, new_exec_node));
 	}
 	epure_lst(&data->parsing_lst);
 }

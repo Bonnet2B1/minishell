@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/20 19:27:22 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/09/14 14:09:18 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/10/05 01:55:18 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static int	ft_strlen_rmchar(char *str, char c)
 	return (len);
 }
 
-char	*ft_rmchar(char *str, char c)
+char	*ft_rmchar(t_shell_memory *data, char *str, char c)
 {
 	int		i;
 	int		j;
@@ -38,7 +38,7 @@ char	*ft_rmchar(char *str, char c)
 
 	i = 0;
 	j = 0;
-	new = malloc(sizeof(char) * ft_strlen_rmchar(str, c) + 1);
+	new = calloc_tuning(&data->malloc_chain, sizeof(char) * ft_strlen_rmchar(str, c) + 1);
 	while (str[i])
 	{
 		if (str[i] != c)
@@ -49,6 +49,5 @@ char	*ft_rmchar(char *str, char c)
 		i++;
 	}
 	new[j] = '\0';
-	free(str);
 	return (new);
 }

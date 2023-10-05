@@ -12,7 +12,7 @@
 
 #include "../minishell.h"
 
-static void	defsign(long *n, int *s_len, char **s)
+static void	defsign(t_shell_memory *data, long *n, int *s_len, char **s)
 {
 	int	n_cpy;
 
@@ -24,13 +24,13 @@ static void	defsign(long *n, int *s_len, char **s)
 	}
 	if (*n < 0)
 		(*s_len)++;
-	*s = malloc(sizeof(char) * (*s_len + 2));
+	*s = calloc_tuning(&data->malloc_chain, sizeof(char) * (*s_len + 2));
 	if (!*s)
 		return ;
 	(*s)[*s_len + 1] = '\0';
 }
 
-char	*ft_itoa(int n)
+char	*ft_itoa(t_shell_memory *data, int n)
 {
 	int		s_len;
 	char	*s;
@@ -38,7 +38,7 @@ char	*ft_itoa(int n)
 
 	nb = n;
 	s_len = 0;
-	defsign(&nb, &s_len, &s);
+	defsign(data, &nb, &s_len, &s);
 	if (!s)
 		return (NULL);
 	if (nb == 0)

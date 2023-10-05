@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 16:10:13 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/10/04 23:11:30 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/10/05 01:55:18 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	fill_new(char *str, char **new, int *index_tab, int index_tab_len)
 	new[0][ft_strlen(str) - index_tab_len] = '\0';
 }
 
-char	*erase_quote(char *str, int *index_tab)
+char	*erase_quote(t_shell_memory *data, char *str, int *index_tab)
 {
 	char	*new;
 	int		index_tab_len;
@@ -44,11 +44,10 @@ char	*erase_quote(char *str, int *index_tab)
 		index_tab_len++;
 	if (index_tab_len == 0)
 		return (str);
-	new = malloc(sizeof(char) * (ft_strlen(str) + 1 - index_tab_len));
+	new = calloc_tuning(&data->malloc_chain, sizeof(char) * (ft_strlen(str) + 1 - index_tab_len));
 	if (!new)
 		return (NULL);
 	fill_new(str, &new, index_tab, index_tab_len);
-	free(str);
 	return (new);
 }
 
@@ -78,31 +77,30 @@ int	*quote_index(char *str, int *index_tab)
 	return (index_tab);
 }
 
-char	*quote_remove(char *str)
+char	*quote_remove(t_shell_memory *data, char *str)
 {
 	int		*index_tab;
 	int		i;
 	char	*new;
 
 	i = 0;
-	index_tab = malloc(sizeof(int) * 100);
+	index_tab = calloc_tuning(&data->malloc_chain, sizeof(int) * 100);
 	while (i < 100)
 		index_tab[i++] = -1;
 	i = -1;
 	index_tab = quote_index(str, index_tab);
-	new = erase_quote(str, index_tab);
-	free(index_tab);
+	new = erase_quote(data, str, index_tab);
 	return (new);
 }
 
-void	rm_quotes(t_list *parsing_lst)
+void	rm_quotes(t_shell_memory *data, t_list *parsing_lst)
 {
 	t_parsing	*node;
 
 	while (parsing_lst)
 	{
 		node = parsing_lst->content;
-		node->arg = quote_remove(node->arg);
+		node->arg = quote_remove(data, node->arg);
 		parsing_lst = parsing_lst->next;
 	}
 }

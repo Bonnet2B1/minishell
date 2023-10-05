@@ -43,7 +43,7 @@ static size_t	wordcount(const char *s, char c)
 	return (count);
 }
 
-static char	*nextword(const char *s, size_t *i, char c, size_t len)
+static char	*nextword(t_shell_memory *data, const char *s, size_t *i, char c, size_t len)
 {
 	char	*cpy;
 	size_t	y;
@@ -51,7 +51,7 @@ static char	*nextword(const char *s, size_t *i, char c, size_t len)
 	y = 0;
 	while (s[*i] == c)
 		(*i)++;
-	cpy = malloc(sizeof(char) * (len + 2));
+	cpy = calloc_tuning(&data->malloc_chain, sizeof(char) * (len + 2));
 	if (!cpy)
 		return (NULL);
 	while (len)
@@ -64,21 +64,7 @@ static char	*nextword(const char *s, size_t *i, char c, size_t len)
 	return (cpy);
 }
 
-static char	**freeall_split(char **tab, size_t indice)
-{
-	size_t	y;
-
-	y = 0;
-	while (y <= indice)
-	{
-		free(tab[y]);
-		y++;
-	}
-	free(tab);
-	return (NULL);
-}
-
-char	**ft_split_w_slash(const char *s, char c)
+char	**ft_split_w_slash(t_shell_memory *data, const char *s, char c)
 {
 	size_t	i;
 	size_t	y;
@@ -88,14 +74,12 @@ char	**ft_split_w_slash(const char *s, char c)
 	y = 0;
 	if (!s)
 		return (NULL);
-	tab = malloc(sizeof(char *) * (wordcount(s, c) + 1));
+	tab = calloc_tuning(&data->malloc_chain, sizeof(char *) * (wordcount(s, c) + 1));
 	if (!tab)
 		return (NULL);
 	while (y < wordcount(s, c))
 	{
-		tab[y] = nextword(s, &i, c, nextlen(s, i, c));
-		if (!tab[y])
-			return (freeall_split(tab, y));
+		tab[y] = nextword(data, s, &i, c, nextlen(s, i, c));
 		y++;
 	}
 	tab[wordcount(s, c)] = NULL;

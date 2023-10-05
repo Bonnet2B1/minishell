@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 18:47:48 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/10/04 23:24:45 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/10/05 01:52:50 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,10 @@ void	redir_to_redir_functions(t_shell_memory *data, t_list **lst)
 			redir_error(data, (*lst));
 		else
 		{
-			free(((t_parsing *)(*lst)->content)->arg);
 			((t_parsing *)(*lst)->content)->arg
-				= ft_strdup(((t_parsing *)(*lst)->next->content)->arg);
+				= ft_strdup(data, ((t_parsing *)(*lst)->next->content)->arg);
 			ft_lstdel_here(&data->parsing_lst, (*lst)->next,
-				(void *)free_parsing_node);
+				NULL);
 		}
 	}
 }

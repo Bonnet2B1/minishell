@@ -6,29 +6,29 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 19:01:23 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/10/04 20:08:29 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/10/05 02:05:20 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	initialize(char **line)
+void	initialize(t_shell_memory *data, char **line)
 {
 	int	i;
 
-	line[1] = malloc(sizeof(char) * (ft_strlen(line[0]) + 1));
+	line[1] = calloc_tuning(&data->malloc_chain, sizeof(char) * (ft_strlen(line[0]) + 1));
 	i = -1;
 	while (line[0][++i])
 		line[1][i] = '0';
 	line[1][i] = '\0';
 }
 
-int	quotes_gestion(char **line)
+int	quotes_gestion(t_shell_memory *data, char **line)
 {
 	int		i;
 	char	quote;
 
-	initialize(line);
+	initialize(data, line);
 	quote = '0';
 	i = -1;
 	while (line[0][++i])

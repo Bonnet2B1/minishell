@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 21:26:48 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/10/04 22:52:32 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/10/05 01:59:19 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,28 +56,28 @@ int	env_var_len(char **line)
 	return (len);
 }
 
-char	**take_before(char **line)
+char	**take_before(t_shell_memory *data, char **line)
 {
 	char	**before;
 
-	before = malloc(sizeof(char *) * 2);
+	before = calloc_tuning(&data->malloc_chain, sizeof(char *) * 2);
 	if (before == NULL)
 		return (NULL);
-	before[0] = ft_substr(line[0], 0, there_is_a_env_var(line));
-	before[1] = ft_substr(line[1], 0, there_is_a_env_var(line));
+	before[0] = ft_substr(data, line[0], 0, there_is_a_env_var(line));
+	before[1] = ft_substr(data, line[1], 0, there_is_a_env_var(line));
 	return (before);
 }
 
-char	**take_var(char **line)
+char	**take_var(t_shell_memory *data, char **line)
 {
 	char	**var;
 
-	var = malloc(sizeof(char *) * 2);
+	var = calloc_tuning(&data->malloc_chain, sizeof(char *) * 2);
 	if (var == NULL)
 		return (NULL);
-	var[0] = ft_substr(line[0], there_is_a_env_var(line) + 1,
+	var[0] = ft_substr(data, line[0], there_is_a_env_var(line) + 1,
 			env_var_len(line));
-	var[1] = ft_substr(line[1], there_is_a_env_var(line) + 1,
+	var[1] = ft_substr(data, line[1], there_is_a_env_var(line) + 1,
 			env_var_len(line));
 	return (var);
 }

@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 20:20:07 by gloms             #+#    #+#             */
-/*   Updated: 2023/10/04 19:40:12 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/10/05 18:58:47 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	sig_handler_quit(void)
 {
-	printf("exit");
 	return ;
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gloms <rbrendle@student.42mulhouse.fr>     +#+  +:+       +#+        */
+/*   By: edelarbr <edelarbr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 17:54:21 by gloms             #+#    #+#             */
-/*   Updated: 2023/10/04 20:48:22 by gloms            ###   ########.fr       */
+/*   Updated: 2023/10/05 22:15:28 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,17 @@ int	find(t_shell_memory *data, char *find, int len)
 int	cd_root(t_shell_memory *data)
 {
 	int	index_pwd;
+	char	*path;
 
 	index_pwd = find(data, "PWD=", 4);
 	if (chdir("/") == -1)
 	{
-		perror("bash: cd: ");
+		perror("minishell: cd: ");
 		return (-1);
 	}
-	free(data->env[index_pwd]);
-	data->env[index_pwd] = ft_strjoin("PWD=", getcwd(NULL, 0));
+	path = getcwd(NULL, 0);
+	data->env[index_pwd] = ft_strjoin(data, "PWD=", path);
+	free(path);
 	return (0);
 }
 
@@ -44,21 +46,24 @@ int	change_path(t_shell_memory *data, char *args)
 {
 	char	*pat;
 	int		index_pwd;
+	char	*path;
 
 	index_pwd = find(data, "PWD=", 4);
-	pat = ft_strjoin(getcwd(NULL, 0), "/");
-	pat = ft_strjoin_free_s1(pat, ft_substr(args, 0, ft_strlen(args)));
+	path = getcwd(NULL, 0);
+	pat = ft_strjoin(data, path, "/");
+	free(path);
+	pat = ft_strjoin(data, pat, ft_substr(data, args, 0, ft_strlen(args)));
 	if (chdir(pat) == -1)
 	{
-		ft_putstr_fd("bash: cd: ", 2);
+		ft_putstr_fd("minishell: cd: ", 2);
 		ft_putstr_fd(args, 2);
 		ft_putstr_fd(": ", 2);
 		perror(NULL);
 		return (-1);
 	}
-	free(data->env[index_pwd]);
-	data->env[index_pwd] = ft_strjoin("PWD=", getcwd(NULL, 0));
-	free(pat);
+	path = getcwd(NULL, 0);
+	data->env[index_pwd] = ft_strjoin(data, "PWD=", path);
+	free(path);
 	return (0);
 }
 
@@ -67,26 +72,26 @@ int	cd_home(t_shell_memory *data, char *str)
 	char	*home;
 	int		len;
 	int		index_home;
+	int 	index_pwd;
+	char	*path;
 
 	index_home = find(data, "HOME=", 5);
 	len = ft_strlen(data->env[index_home]);
-	home = ft_substr(data->env[index_home], 5, len - 5);
+	home = ft_substr(data, data->env[index_home], 5, len - 5);
 	if (!home)
-	{
-		printf("minishell: cd: HOME not set\n");
-		return (-1);
-	}
+		return (printf("minishell: cd: HOME not set\n"), -1);
 	if (chdir(home) == -1)
 	{
-		ft_putstr_fd("bash: cd: ", 2);
+		ft_putstr_fd("minishell: cd: ", 2);
 		ft_putstr_fd(str, 2);
 		ft_putstr_fd(": ", 2);
 		perror(NULL);
 		return (-1);
 	}
-	free(data->env[index_home]);
-	data->env[index_home] = ft_strjoin("PWD=", getcwd(NULL, 0));
-	free(home);
+	index_pwd = find(data, "PWD=", 4);
+	path = getcwd(NULL, 0);
+	data->env[index_pwd] = ft_strjoin(data, "PWD=", path);
+	free(path);
 	return (0);
 }
 
@@ -95,18 +100,19 @@ int	ft_cd(t_shell_memory *data, char **args)
 	int		ind;
 	char	*tmp;
 
-	((void)0, tmp = getcwd(NULL, 0), ind = find(data, "OLDPWD=", 7));
+	tmp = getcwd(NULL, 0);
+	ind = find(data, "OLDPWD=", 7);
 	if (args[1])
 	{
 		if (!ft_strncmp(args[1], "~", 1))
 		{
-			args[1] = ft_substr(args[1], 1, ft_strlen(args[1]) - 1);
+			args[1] = ft_substr(data, args[1], 1, ft_strlen(args[1]) - 1);
 			if (cd_home(data, args[1]) < 0)
 				return (1);
 		}
 		else if (!ft_strncmp(args[1], "/", 1))
 		{
-			args[1] = ft_substr(args[1], 1, ft_strlen(args[1]) - 1);
+			args[1] = ft_substr(data, args[1], 1, ft_strlen(args[1]) - 1);
 			if (cd_root(data) < 0)
 				return (1);
 		}
@@ -114,7 +120,7 @@ int	ft_cd(t_shell_memory *data, char **args)
 	}
 	else
 		cd_home(data, args[1]);
-	data->env[ind] = ft_strjoin(ft_substr_free(data->env[ind], 0, 7), tmp);
+	data->env[ind] = ft_strjoin(data, ft_substr(data, data->env[ind], 0, 7), tmp);
 	free(tmp);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 13:49:54 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/10/04 21:44:34 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/10/05 02:11:15 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,8 @@ void	exec_node_stuff(t_shell_memory *data, t_list *exec_lst)
 
 void	execution(t_shell_memory *data)
 {
+	data->paths = get_paths(data, data->env);
 	if (!((t_exec *)data->exec_lst->content)->cmd)
 		return ;
 	exec_node_stuff(data, data->exec_lst);
-	data->paths = freetab(data->paths);
 }

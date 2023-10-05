@@ -6,13 +6,13 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 20:37:20 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/10/04 20:01:59 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/10/05 18:37:56 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char	**ft_tabdup(char **tab)
+char	**ft_tabdup(t_shell_memory *data, char **tab)
 {
 	int		i;
 	char	**new_tab;
@@ -22,13 +22,13 @@ char	**ft_tabdup(char **tab)
 		return (NULL);
 	while (tab[i])
 		i++;
-	new_tab = malloc(sizeof(char *) * (i + 1));
+	new_tab = calloc_tuning(&data->malloc_chain, sizeof(char *) * (i + 1));
 	if (!new_tab)
 		return (perror("Malloc"), NULL);
 	i = 0;
 	while (tab[i])
 	{
-		new_tab[i] = ft_strdup(tab[i]);
+		new_tab[i] = ft_strdup(data, tab[i]);
 		i++;
 	}
 	new_tab[i] = NULL;

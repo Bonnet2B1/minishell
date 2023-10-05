@@ -6,17 +6,17 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 14:34:16 by ljerinec          #+#    #+#             */
-/*   Updated: 2023/08/30 21:03:54 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/10/05 01:55:18 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-t_list	*ft_lstnew(void *content)
+t_list	*ft_lstnew(t_shell_memory *data, void *content)
 {
 	t_list	*list;
 
-	list = malloc(sizeof(t_list));
+	list = calloc_tuning(&data->malloc_chain, sizeof(t_list));
 	if (!list)
 		return (NULL);
 	if (list)

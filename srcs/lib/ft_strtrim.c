@@ -32,13 +32,12 @@ static int	getend(const char *s, const char *set)
 	return (end - getstart(s, set) + 1);
 }
 
-char	*ft_strtrim(const char *s, const char *set)
+char	*ft_strtrim(t_shell_memory *data, const char *s, const char *set)
 {
 	char	*str;
 
 	if (!s)
 		return (NULL);
-	str = ft_substr(s, getstart(s, set), getend(s, set));
-	free((char *)s);
+	str = ft_substr(data, s, getstart(s, set), getend(s, set));
 	return (str);
 }

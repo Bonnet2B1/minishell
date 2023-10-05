@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gloms <rbrendle@student.42mulhouse.fr>     +#+  +:+       +#+        */
+/*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 21:52:56 by gloms             #+#    #+#             */
-/*   Updated: 2023/10/03 01:29:11 by gloms            ###   ########.fr       */
+/*   Updated: 2023/10/05 01:39:21 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	ft_srch(char *s)
 	return (1);
 }
 
-char	*rtn_arg(char *str)
+char	*rtn_arg(t_shell_memory *data, char *str)
 {
 	int		i;
 	char	*new;
@@ -59,7 +59,7 @@ char	*rtn_arg(char *str)
 	}
 	if (i > 0)
 	{
-		new = ft_substr(str, 0, i);
+		new = ft_substr(data, str, 0, i);
 		return (new);
 	}
 	return (NULL);

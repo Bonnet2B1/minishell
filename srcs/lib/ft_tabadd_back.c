@@ -6,13 +6,13 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 22:41:14 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/10/04 20:01:51 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/10/05 02:01:01 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char	**ft_tabadd_back(char **tab, char *new_str)
+char	**ft_tabadd_back(t_shell_memory *data, char **tab, char *new_str)
 {
 	int		len;
 	int		i;
@@ -23,7 +23,7 @@ char	**ft_tabadd_back(char **tab, char *new_str)
 	len = 0;
 	while (tab && tab[len])
 		len++;
-	new_tab = malloc(sizeof(char *) * (len + 2));
+	new_tab = calloc_tuning(&data->malloc_chain, sizeof(char *) * (len + 2));
 	if (!new_tab)
 		return (NULL);
 	i = -1;
@@ -31,6 +31,5 @@ char	**ft_tabadd_back(char **tab, char *new_str)
 		new_tab[i] = tab[i];
 	new_tab[i] = new_str;
 	new_tab[i + 1] = NULL;
-	free(tab);
 	return (new_tab);
 }

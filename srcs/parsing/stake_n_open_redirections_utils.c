@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 18:47:48 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/10/04 23:24:22 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/10/05 01:52:44 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,17 +34,16 @@ void	stake_redir_in(t_shell_memory *data, t_list *lst)
 	{
 		((t_parsing *)lst->content)->open_error = 1;
 		data->exit_code = 1;
-		error_msg = ft_strjoin("minishell: ",
+		error_msg = ft_strjoin(data, "minishell: ",
 				((t_parsing *)lst->next->content)->arg);
 		perror(error_msg);
-		return (free(error_msg));
+		return ;
 	}
 	else
-		((t_parsing *)lst->content)->file_fd = fd;
-	free(((t_parsing *)lst->content)->arg);
+	((t_parsing *)lst->content)->file_fd = fd;
 	((t_parsing *)lst->content)->arg
-		= ft_strdup(((t_parsing *)lst->next->content)->arg);
-	ft_lstdel_here(&data->parsing_lst, lst->next, (void *)free_parsing_node);
+		= ft_strdup(data, ((t_parsing *)lst->next->content)->arg);
+	ft_lstdel_here(&data->parsing_lst, lst->next, NULL);
 }
 
 void	stake_redir_out(t_shell_memory *data, t_list *lst)
@@ -58,19 +57,18 @@ void	stake_redir_out(t_shell_memory *data, t_list *lst)
 			O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (fd == -1)
 	{
-		error_msg = ft_strjoin("minishell: ",
+		error_msg = ft_strjoin(data, "minishell: ",
 				((t_parsing *)lst->next->content)->arg);
 		((t_parsing *)lst->content)->open_error = 1;
 		data->exit_code = 1;
 		perror(error_msg);
-		return (free(error_msg));
+		return ;
 	}
 	else
-		((t_parsing *)lst->content)->file_fd = fd;
-	free(((t_parsing *)lst->content)->arg);
+	((t_parsing *)lst->content)->file_fd = fd;
 	((t_parsing *)lst->content)->arg
-		= ft_strdup(((t_parsing *)lst->next->content)->arg);
-	ft_lstdel_here(&data->parsing_lst, lst->next, (void *)free_parsing_node);
+		= ft_strdup(data, ((t_parsing *)lst->next->content)->arg);
+	ft_lstdel_here(&data->parsing_lst, lst->next, NULL);
 }
 
 void	stake_redir_append(t_shell_memory *data, t_list *lst)
@@ -84,17 +82,16 @@ void	stake_redir_append(t_shell_memory *data, t_list *lst)
 			O_WRONLY | O_CREAT | O_APPEND, 0644);
 	if (fd == -1)
 	{
-		error_msg = ft_strjoin("minishell: ",
+		error_msg = ft_strjoin(data, "minishell: ",
 				((t_parsing *)lst->next->content)->arg);
 		((t_parsing *)lst->content)->open_error = 1;
 		data->exit_code = 1;
 		perror(error_msg);
-		return (free(error_msg));
+		return ;
 	}
 	else
-		((t_parsing *)lst->content)->file_fd = fd;
-	free(((t_parsing *)lst->content)->arg);
+	((t_parsing *)lst->content)->file_fd = fd;
 	((t_parsing *)lst->content)->arg
-		= ft_strdup(((t_parsing *)lst->next->content)->arg);
-	ft_lstdel_here(&data->parsing_lst, lst->next, (void *)free_parsing_node);
+		= ft_strdup(data, ((t_parsing *)lst->next->content)->arg);
+	ft_lstdel_here(&data->parsing_lst, lst->next, NULL);
 }

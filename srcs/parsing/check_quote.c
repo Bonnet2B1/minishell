@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 23:00:33 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/10/02 23:00:37 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/10/05 01:35:30 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	quote_remove(t_list *list)
 	while (temp)
 	{
 		if (is_between_quote(temp->content, 0) != '0')
-			temp->content = ft_substr(temp->content, 1,
+			temp->content = ft_substr(data, temp->content, 1,
 					ft_strlen(temp->content) - 2);
 		temp = temp->next;
 	}

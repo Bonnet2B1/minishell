@@ -3,14 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc_gestion.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
+/*   By: edelarbr <edelarbr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 18:55:33 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/10/04 20:08:02 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/10/05 22:01:04 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+char	*ft_strjoin_hd(t_shell_memory *data, char *s1, char *s2)
+{
+	char	*str;
+	size_t	i;
+	size_t	j;
+
+	i = -1;
+	j = 0;
+	if (!s1 || !s2)
+		return (NULL);
+	str = ft_calloc(data, (ft_strlen(s1) + ft_strlen(s2)) + 1, sizeof(char));
+	if (!str)
+		return (NULL);
+	while (s1[++i])
+		str[i] = s1[i];
+	while (s2[j])
+		str[i++] = s2[j++];
+	str[i] = '\0';
+	free(s1);
+	return (str);
+}
 
 int	str_is_here_doc_char(char *str)
 {
@@ -25,24 +47,6 @@ int	str_is_here_doc_char(char *str)
 	return (1);
 }
 
-void	rewind_line(t_shell_memory *data)
-{
-	pid_t	pid;
-	char	*cmd[5];
-
-	pid = fork();
-	if (pid == 0)
-	{
-		cmd[0] = "tput";
-		cmd[1] = "-T";
-		cmd[2] = "xterm";
-		cmd[3] = "cuu1";
-		cmd[4] = NULL;
-		execve(find_cmd_path(data, cmd[0]), cmd, NULL);
-	}
-	waitpid(pid, NULL, 0);
-}
-
 void	fill_here_doc(t_shell_memory *data, int fd, char *delimiter)
 {
 	pid_t	pid;
@@ -53,21 +57,20 @@ void	fill_here_doc(t_shell_memory *data, int fd, char *delimiter)
 	pid = fork();
 	if (pid == 0)
 	{
+		ft_signal(SIG_HERE_DOC);
 		if (!str_is_here_doc_char(delimiter))
 			return (free_n_exit(data, 258));
-		ft_signal(SIG_HERE_DOC);
 		while (1)
 		{
 			line = readline("> ");
 			if (!line)
-				return (rewind_line(data), printf("> "), free_n_exit(data, 0));
+				return (printf("\033[1A\033[2Cexit\n"), free_n_exit(data, 0));
 			if (!ft_strncmp(line, delimiter, ft_strlen(delimiter) + 1))
 				return (free(line), free_n_exit(data, 0));
-			line = ft_strjoin_free_s1(line, "\n");
+			line = ft_strjoin_hd(data, line, "\n");
 			ft_putstr_fd(line, fd);
-			free(line);
 		}
-	}
+}
 	waitpid(pid, 0, 0);
 	ft_signal(ON);
 }

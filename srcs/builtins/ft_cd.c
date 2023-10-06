@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 17:54:21 by gloms             #+#    #+#             */
-/*   Updated: 2023/10/06 00:56:43 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/10/06 01:58:18 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int	cd_home(t_shell_memory *data, char *str)
 	len = ft_strlen(data->env[index_home]);
 	home = ft_substr(data, data->env[index_home], 5, len - 5);
 	if (!home)
-		return (printf("minishell: cd: HOME not set\n"), -1);
+		return (print_error("cd", "HOME not set"), -1);
 	if (chdir(home) == -1)
 	{
 		ft_putstr_fd("minishell: cd: ", 2);

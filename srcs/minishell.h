@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 20:38:43 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/10/06 01:23:52 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/10/06 14:24:56 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,11 @@
 
 // ? trus à gerer si on a vraaaaaaaiment le temps
 // @nevaspid
+// mettre tout les messages d'erreur avec print_error
 // export GHOST=123 | env | grep GHOST
 
 // @Bonnet2B1
+// mettre tout les messages d'erreur avec print_error
 // cat <<l | cat <<b | cat << c>
 // Ecrire :
 // The default interactive shell is now zsh.
@@ -244,5 +246,6 @@ void				ft_signal(int i);
 void				free_n_exit(t_shell_memory *data, int exit_code);
 void				*calloc_tuning(t_list **lst, size_t size);
 void				free_tuning(t_list **lst);
+void				print_error(char *obj, char *error);
 
 #endif

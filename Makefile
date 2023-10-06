@@ -6,7 +6,7 @@
 #    By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/22 16:59:43 by edelarbr          #+#    #+#              #
-#    Updated: 2023/10/06 01:34:37 by edelarbr         ###   ########.fr        #
+#    Updated: 2023/10/06 01:58:39 by edelarbr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,7 @@ NAME		:=	minishell
 SRCS		:=	srcs/others/signals.c \
 				srcs/others/free_n_exit.c \
 				srcs/others/tuning_memory.c \
+				srcs/others/print_error.c \
 				srcs/builtins/ft_unset.c \
 				srcs/builtins/ft_env.c \
 				srcs/builtins/ft_cd.c \

@@ -3,14 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
+/*   By: gloms <rbrendle@student.42mulhouse.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 17:05:06 by gloms             #+#    #+#             */
-/*   Updated: 2023/10/04 01:12:56 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/10/05 23:52:54 by gloms            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+int	check_args(char *str)
+{
+	int	i;
+
+	i = 1;
+	while (str[i])
+	{
+		if (str[0] != '-')
+			return (0);
+		if (str[i] != 'n')
+			return (0);
+		i++
+	}
+	return (i);
+}
 
 void	print_no_nl(char **args, int ac)
 {

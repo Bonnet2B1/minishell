@@ -43,13 +43,14 @@ static size_t	wordcount(const char *s, char c)
 	return (count);
 }
 
-static char	*nextword(t_shell_memory *data, const char *s, size_t *i, char c, size_t len)
+static char	*nextword(t_shell_memory *data, const char *s,
+	size_t *i, size_t len)
 {
 	char	*cpy;
 	size_t	y;
 
 	y = 0;
-	while (s[*i] == c)
+	while (s[*i] == ':')
 		(*i)++;
 	cpy = calloc_tuning(&data->malloc_chain, sizeof(char) * (len + 2));
 	if (!cpy)
@@ -74,12 +75,13 @@ char	**ft_split_w_slash(t_shell_memory *data, const char *s, char c)
 	y = 0;
 	if (!s)
 		return (NULL);
-	tab = calloc_tuning(&data->malloc_chain, sizeof(char *) * (wordcount(s, c) + 1));
+	tab = calloc_tuning(&data->malloc_chain,
+			sizeof(char *) * (wordcount(s, c) + 1));
 	if (!tab)
 		return (NULL);
 	while (y < wordcount(s, c))
 	{
-		tab[y] = nextword(data, s, &i, c, nextlen(s, i, c));
+		tab[y] = nextword(data, s, &i, nextlen(s, i, c));
 		y++;
 	}
 	tab[wordcount(s, c)] = NULL;

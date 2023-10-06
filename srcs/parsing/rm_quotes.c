@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 16:10:13 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/10/05 01:55:18 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/10/06 01:32:44 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,8 @@ char	*erase_quote(t_shell_memory *data, char *str, int *index_tab)
 		index_tab_len++;
 	if (index_tab_len == 0)
 		return (str);
-	new = calloc_tuning(&data->malloc_chain, sizeof(char) * (ft_strlen(str) + 1 - index_tab_len));
+	new = calloc_tuning(&data->malloc_chain,
+			sizeof(char) * (ft_strlen(str) + 1 - index_tab_len));
 	if (!new)
 		return (NULL);
 	fill_new(str, &new, index_tab, index_tab_len);

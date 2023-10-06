@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 19:01:23 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/10/05 02:05:20 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/10/06 01:32:35 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ void	initialize(t_shell_memory *data, char **line)
 {
 	int	i;
 
-	line[1] = calloc_tuning(&data->malloc_chain, sizeof(char) * (ft_strlen(line[0]) + 1));
+	line[1] = calloc_tuning(&data->malloc_chain,
+			sizeof(char) * (ft_strlen(line[0]) + 1));
 	i = -1;
 	while (line[0][++i])
 		line[1][i] = '0';

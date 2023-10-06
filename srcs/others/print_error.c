@@ -1,31 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   print_error.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/04 12:13:13 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/10/06 01:08:28 by edelarbr         ###   ########.fr       */
+/*   Created: 2023/10/06 01:51:32 by edelarbr          #+#    #+#             */
+/*   Updated: 2023/10/06 01:54:03 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char	*ft_strdup(t_shell_memory *data, const char *src)
+void	print_error(char *obj, char *error)
 {
-	int		i;
-	char	*dup;
-
-	if (!src)
-		return (NULL);
-	i = -1;
-	dup = calloc_tuning(&data->malloc_chain,
-			sizeof(char) * (ft_strlen(src) + 1));
-	if (!dup)
-		return (NULL);
-	while (src[++i])
-		dup[i] = src[i];
-	dup[i] = '\0';
-	return (dup);
+	ft_putstr_fd("minishell: ", 2);
+	ft_putstr_fd(obj, 2);
+	ft_putstr_fd(": ", 2);
+	ft_putstr_fd(error, 2);
+	ft_putstr_fd("\n", 2);
 }

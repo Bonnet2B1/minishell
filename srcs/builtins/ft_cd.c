@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 17:54:21 by gloms             #+#    #+#             */
-/*   Updated: 2023/10/06 01:58:18 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/10/06 20:27:49 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,11 @@ int	cd_root(t_shell_memory *data)
 		return (-1);
 	}
 	path = getcwd(NULL, 0);
+	if (index_pwd == -1)
+	{
+		ft_export(data, (char *[]){"export", "PWD=", NULL});
+		index_pwd = find(data, "PWD=", 4);
+	}
 	data->env[index_pwd] = ft_strjoin(data, "PWD=", path);
 	free(path);
 	return (0);
@@ -49,18 +54,18 @@ int	change_path(t_shell_memory *data, char *args)
 	char	*path;
 
 	index_pwd = find(data, "PWD=", 4);
+	if (index_pwd == -1)
+	{
+		ft_export(data, (char *[]){"export", "PWD=", NULL});
+		index_pwd = find(data, "PWD=", 4);
+	}
 	path = getcwd(NULL, 0);
 	pat = ft_strjoin(data, path, "/");
 	free(path);
 	pat = ft_strjoin(data, pat, ft_substr(data, args, 0, ft_strlen(args)));
 	if (chdir(pat) == -1)
-	{
-		ft_putstr_fd("minishell: cd: ", 2);
-		ft_putstr_fd(args, 2);
-		ft_putstr_fd(": ", 2);
-		perror(NULL);
-		return (-1);
-	}
+		return (ft_putstr_fd("minishell: cd: ", 2), ft_putstr_fd(args, 2),
+			ft_putstr_fd(": ", 2), perror(NULL), -1);
 	path = getcwd(NULL, 0);
 	data->env[index_pwd] = ft_strjoin(data, "PWD=", path);
 	free(path);
@@ -81,14 +86,14 @@ int	cd_home(t_shell_memory *data, char *str)
 	if (!home)
 		return (print_error("cd", "HOME not set"), -1);
 	if (chdir(home) == -1)
-	{
-		ft_putstr_fd("minishell: cd: ", 2);
-		ft_putstr_fd(str, 2);
-		ft_putstr_fd(": ", 2);
-		perror(NULL);
-		return (-1);
-	}
+		return (ft_putstr_fd("minishell: cd: ", 2), ft_putstr_fd(str, 2),
+			ft_putstr_fd(": ", 2), perror(NULL), -1);
 	index_pwd = find(data, "PWD=", 4);
+	if (index_pwd == -1)
+	{
+		ft_export(data, (char *[]){"export", "PWD=", NULL});
+		index_pwd = find(data, "PWD=", 4);
+	}
 	path = getcwd(NULL, 0);
 	data->env[index_pwd] = ft_strjoin(data, "PWD=", path);
 	free(path);

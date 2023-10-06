@@ -18,7 +18,9 @@ char	*ft_strjoin(t_shell_memory *data, char const *s1, char const *s2)
 	size_t	i;
 
 	i = 0;
-	if (!s1 || !s2)
+	if (!s1)
+		return (ft_strdup(data, s2));
+	if (!s2)
 		return (NULL);
 	str = ft_calloc(data, (ft_strlen(s1) + ft_strlen(s2)) + 1, sizeof(char));
 	if (!str)

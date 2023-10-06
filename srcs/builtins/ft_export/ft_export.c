@@ -6,39 +6,32 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 21:04:52 by gloms             #+#    #+#             */
-/*   Updated: 2023/10/05 01:55:31 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/10/06 19:26:50 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-char	*ft_strjoin_putkot(t_shell_memory *data, char const *s1, char const *s2)
+char	**ft_tabdup_add_nl(t_shell_memory *data, char **tab, char *str)
 {
-	char	*str;
-	int		eq;
-	size_t	i;
+	int		i;
+	char	**new_tab;
 
 	i = 0;
-	eq = 0;
-	if (!s1 || !s2)
-		return (NULL);
-	str = ft_calloc(data, (ft_strlen(s1) + ft_strlen(s2)) + 3, sizeof(char));
-	if (!str)
-		return (NULL);
-	while (*s1)
-		str[i++] = *s1++;
-	while (*s2)
+	while (tab[i])
+		i++;
+	new_tab = calloc_tuning(&data->malloc_chain, sizeof(char *) * (i + 2));
+	if (!new_tab)
+		return (perror("Malloc"), NULL);
+	i = 0;
+	while (tab[i])
 	{
-		if (*s2 == '=' && eq == 0)
-		{
-			str[i++] = *s2++;
-			str[i++] = '"';
-			eq = 1;
-		}
-		str[i++] = *s2++;
+		new_tab[i] = ft_strdup(data, tab[i]);
+		i++;
 	}
-	str[i++] = '"';
-	return (str);
+	new_tab[i] = ft_strdup(data, str);
+	new_tab[i + 1] = NULL;
+	return (new_tab);
 }
 
 void	swap_str(char **s1, char **s2)
@@ -54,11 +47,15 @@ int	ft_export(t_shell_memory *data, char **args)
 {
 	char	*rp;
 	int		i;
+	int		occurence;
 
-	i = 1;
-	while (args[i])
+	i = 0;
+	while (args[++i])
 	{
 		rp = rtn_arg(data, args[i]);
+		occurence = find(data, ft_strjoin(data, rp, "="), ft_strlen(rp) + 1);
+		if (occurence != -1 && !ft_strchr(args[i], '='))
+			continue ;
 		if (args[i] && (!is_letter(args[i][0]) || !ft_srch(args[i])))
 		{
 			printf("minishell: export: `%s': not a valid identifier\n", args[i]);
@@ -69,7 +66,6 @@ int	ft_export(t_shell_memory *data, char **args)
 			data->env = ft_tabdup_add_nl(data, data->env, args[i]);
 		else if (find(data, rp, ft_strlen(rp)) != -1)
 			swap_str(&data->env[find(data, rp, ft_strlen(rp))], &args[i]);
-		i++;
 	}
 	return (0);
 }

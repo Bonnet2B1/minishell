@@ -6,11 +6,61 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 18:58:26 by gloms             #+#    #+#             */
-/*   Updated: 2023/10/05 01:56:04 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/10/06 19:46:04 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
+
+char	*copy_w_quotes(t_shell_memory *data, char *str)
+{
+	char	*copy;
+	int		i;
+	int		j;
+
+	if (!strchr(str, '='))
+		return (ft_strdup(data, str));
+	copy = calloc_tuning(&data->malloc_chain,
+			sizeof(char) * (ft_strlen(str) + 3));
+	if (!copy)
+		return (perror("malloc"), NULL);
+	i = 0;
+	j = 0;
+	while (str[i] && str[i] != '=')
+		copy[j++] = str[i++];
+	if (str[i] == '=')
+	{
+		copy[j++] = str[i++];
+		copy[j++] = '"';
+	}
+	while (str[i])
+		copy[j++] = str[i++];
+	copy[j++] = '"';
+	copy[j] = '\0';
+	return (copy);
+}
+
+char	**create_declare_x(t_shell_memory *data, char **env)
+{
+	char	**new;
+	int		i;
+	int		_;
+
+	_ = find(data, "_=", 2);
+	new = calloc_tuning(&data->malloc_chain,
+			sizeof(char *) * (ft_tablen(env) + 1));
+	if (!new)
+		return (perror("malloc"), NULL);
+	i = -1;
+	while (env[++i])
+	{
+		if (i == _)
+			continue ;
+		new[i] = ft_strjoin(data, new[i], "declare -x ");
+		new[i] = ft_strjoin(data, new[i], copy_w_quotes(data, env[i]));
+	}
+	return (new);
+}
 
 int	check_tab(char **tab)
 {
@@ -24,49 +74,6 @@ int	check_tab(char **tab)
 		i++;
 	}
 	return (1);
-}
-
-char	**ft_tabdup_join(t_shell_memory *data, char **tab)
-{
-	int		i;
-	char	**new_tab;
-
-	i = 0;
-	while (tab[i])
-		i++;
-	new_tab = calloc_tuning(&data->malloc_chain, sizeof(char *) * (i + 1));
-	if (!new_tab)
-		return (perror("Malloc"), NULL);
-	i = 0;
-	while (tab[i])
-	{
-		new_tab[i] = ft_strjoin_putkot(data, "declare -x ", tab[i]);
-		i++;
-	}
-	new_tab[i] = NULL;
-	return (new_tab);
-}
-
-char	**ft_tabdup_add_nl(t_shell_memory *data, char **tab, char *str)
-{
-	int		i;
-	char	**new_tab;
-
-	i = 0;
-	while (tab[i])
-		i++;
-	new_tab = calloc_tuning(&data->malloc_chain, sizeof(char *) * (i + 2));
-	if (!new_tab)
-		return (perror("Malloc"), NULL);
-	i = 0;
-	while (tab[i])
-	{
-		new_tab[i] = ft_strdup(data, tab[i]);
-		i++;
-	}
-	new_tab[i] = ft_strdup(data, str);
-	new_tab[i + 1] = NULL;
-	return (new_tab);
 }
 
 void	sort_tab(char ***tab)
@@ -91,7 +98,7 @@ int	ft_export_fork(t_shell_memory *data)
 {
 	char	**declare_x;
 
-	declare_x = ft_tabdup_join(data, data->env);
+	declare_x = create_declare_x(data, data->env);
 	sort_tab(&declare_x);
 	tab_print(declare_x);
 	return (0);

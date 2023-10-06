@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 21:52:56 by gloms             #+#    #+#             */
-/*   Updated: 2023/10/05 01:39:21 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/10/06 19:45:42 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,5 +71,7 @@ void	tab_print(char **tab)
 
 	i = -1;
 	while (tab[++i])
+	{
 		printf("%s\n", tab[i]);
+	}
 }

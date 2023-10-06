@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 20:38:43 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/10/06 19:46:08 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/10/06 20:55:06 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,11 @@
 
 // ! crash
 // @nevaspid
-// unset PWD => cd
 
 // @Bonnet2B1
+
 // - bug
 // @nevaspid
-// Ne pas afficher la variable _ dans export sans args
 
 // @Bonnet2B1
 

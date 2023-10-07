@@ -6,30 +6,17 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 14:50:08 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/10/07 16:36:44 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/10/07 19:26:09 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	need_exec_to_exec(t_shell_memory *data)
-{
-	t_exec	*node;
-
-	node = data->exec_lst->content;
-	if (node->execute == 1 && node->cmd
-		&& ft_strncmp(node->cmd[0], "exit", 5) == 0
-		&& data->exec_lst->next == NULL && data->exec_lst->prev == NULL)
-		return (1);
-	else
-		return (0);
-}
-
 int	check_num(t_shell_memory *data, char **cmd, int i)
 {
 	if (cmd[1][i] < '0' || cmd[1][i] > '9')
 	{
-		if (need_exec_to_exec(data))
+		if (need_to_exec(data, cmd[0]))
 		{
 			p_err(cmd[0], NULL, "numeric argument required");
 			return (free_n_exit(data, data->exit_code = 255), 255);
@@ -47,9 +34,9 @@ int	ft_exit(t_shell_memory *data, char **cmd)
 {
 	int	i;
 
-	if (!cmd[1] && need_exec_to_exec(data))
+	if (!cmd[1] && need_to_exec(data, cmd[0]))
 		return (printf("exit\n"), free_n_exit(data, data->exit_code), 0);
-	else if (!cmd[1] && !need_exec_to_exec(data))
+	else if (!cmd[1] && !need_to_exec(data, cmd[0]))
 		return (0);
 	i = -1;
 	while (cmd[1][++i])

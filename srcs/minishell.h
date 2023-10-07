@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 20:38:43 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/10/07 17:23:36 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/10/07 22:19:25 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 
 // - bug
 // @nevaspid
+// export _=abc
+// echo
 
 // @Bonnet2B1
 
@@ -217,7 +219,9 @@ void				ft_execve(t_shell_memory *data, char **cmd);
 void				close_pipes(t_list *parsing_lst);
 char				*find_cmd_path(t_shell_memory *data, char *cmd);
 int					find(t_shell_memory *data, char *find, int len);
-char				is_between_quote(char *str, int index);
+int					need_to_exec(t_shell_memory *data, char *cmd_name);
+int					builtins_no_fork_or_fork(t_shell_memory *data, t_list *node,
+						char **cmd);
 
 /* BUILTINS */
 int					ft_unset(t_shell_memory *data, t_list *node, char **cmd);
@@ -228,15 +232,10 @@ void				ft_echo(t_shell_memory *data, char **args);
 int					ft_exit(t_shell_memory *data, char **cmd);
 int					ft_export(t_shell_memory *data, char **args);
 int					ft_export_fork(t_shell_memory *data);
-// char				**ft_tabdup_join(t_shell_memory *data, char **tab);
-// char				**ft_tabdup_add_nl(t_shell_memory *data,
-// 						char **tab, char *str);
 int					is_letter(int c);
 int					ft_srch(char *s);
 char				*rtn_arg(t_shell_memory *data, char *str);
 void				swap_str(char **s1, char **s2);
-char				*ft_strjoin_putkot(t_shell_memory *data,
-						char const *s1, char const *s2);
 
 /* 0THERS */
 void				ft_signal(int i);

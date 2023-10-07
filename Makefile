@@ -6,7 +6,7 @@
 #    By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/22 16:59:43 by edelarbr          #+#    #+#              #
-#    Updated: 2023/10/07 17:12:13 by edelarbr         ###   ########.fr        #
+#    Updated: 2023/10/07 20:40:53 by edelarbr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,6 +31,7 @@ SRCS		:=	srcs/others/signals.c \
 				srcs/execution/execution.c \
 				srcs/execution/close_pipes.c \
 				srcs/execution/get_path.c \
+				srcs/execution/builtins_no_fork_or_fork.c \
 				srcs/lib/ft_tablen.c \
 				srcs/lib/ft_atoi.c \
 				srcs/lib/ft_isenvchar.c \

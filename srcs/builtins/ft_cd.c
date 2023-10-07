@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 17:54:21 by gloms             #+#    #+#             */
-/*   Updated: 2023/10/07 16:45:49 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/10/07 18:16:12 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,12 +119,12 @@ int	ft_cd(t_shell_memory *data, char **args)
 			if (cd_root(data) < 0)
 				return (1);
 		}
-		change_path(data, args[1]);
+		if (change_path(data, args[1]) < 0)
+			return (1);
 	}
 	else
 		cd_home(data, args[1]);
 	data->env[find(data, "OLDPWD=", 7)] = ft_strjoin(data, ft_substr(
 				data, data->env[find(data, "OLDPWD=", 7)], 0, 7), tmp);
-	free(tmp);
-	return (0);
+	return (free(tmp), 0);
 }

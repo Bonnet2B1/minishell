@@ -6,32 +6,11 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 13:49:54 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/10/07 17:41:20 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/10/07 20:08:22 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-int	builtins_no_fork(t_shell_memory *data, t_list *node, char **cmd)
-{
-	if (ft_strcmp(cmd[0], "cd") == 0 && node->next == NULL)
-		return (data->exit_code = ft_cd(data, cmd), 1);
-	else if (ft_strcmp(cmd[0], "cd") == 0)
-		return (ft_cd(data, cmd), 1);
-	else if (ft_strcmp(cmd[0], "unset") == 0 && node->next == NULL)
-		return (data->exit_code = ft_unset(data, node, cmd), 1);
-	else if (ft_strcmp(cmd[0], "unset") == 0)
-		return (ft_unset(data, node, cmd), 1);
-	else if (ft_strcmp(cmd[0], "export") == 0 && cmd[1] && node->next == NULL)
-		return (data->exit_code = ft_export(data, cmd), 1);
-	else if (ft_strcmp(cmd[0], "export") == 0 && cmd[1])
-		return (ft_export(data, cmd), 1);
-	else if (ft_strcmp(cmd[0], "exit") == 0 && node->next == NULL)
-		return (data->exit_code = ft_exit(data, cmd), 1);
-	else if (ft_strcmp(cmd[0], "exit") == 0)
-		return (ft_exit(data, cmd), 1);
-	return (0);
-}
 
 void	child(t_shell_memory *data, t_exec *exec_node)
 {
@@ -63,9 +42,9 @@ void	exec_node_stuff(t_shell_memory *data, t_list *exec_lst)
 		return ;
 	exec_node = exec_lst->content;
 	if (exec_node->open_error == 1)
-		return ;
-	if (builtins_no_fork(data, exec_lst, exec_node->cmd))
-		return (exec_node_stuff(data, exec_lst->next));
+		return (close_fd(exec_node), exec_node_stuff(data, exec_lst->next));
+	if (builtins_no_fork_or_fork(data, exec_lst, exec_node->cmd))
+		return (close_fd(exec_node), exec_node_stuff(data, exec_lst->next));
 	exec_node->pid = fork();
 	if (exec_node->pid == -1)
 		return (perror("fork"));

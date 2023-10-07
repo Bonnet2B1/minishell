@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 16:04:31 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/10/07 17:49:11 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/10/07 19:13:42 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,9 @@ int	ft_unset(t_shell_memory *data, t_list *node, char **cmd)
 	{
 		if (there_is_banned_char(cmd[i]))
 		{
-			p_err("unset", cmd[i], "not a valid identifier");
+			ft_putstr_fd("minishell: unset: `", 2);
+			ft_putstr_fd(cmd[i], 2);
+			ft_putstr_fd("': not a valid identifier\n", 2);
 			exit_value = 1;
 		}
 		else if (env_find_correlation(data, data->env, cmd[i]) != -1)

@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 18:40:51 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/10/06 19:24:44 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/10/07 16:53:48 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,13 @@ char	*find_cmd_path(t_shell_memory *data, char *cmd)
 void	error_gestion(t_shell_memory *data, char **cmd)
 {
 	if (ft_there_is_char(cmd[0], '/') && opendir(cmd[0]))
-		return (printf("minishell: %s: is a directory\n", cmd[0]),
+		return (p_err(cmd[0], NULL, "is a directory"),
 			free_n_exit(data, 126));
 	if (ft_there_is_char(cmd[0], '/') && access(cmd[0], F_OK) != 0)
-		return (printf("minishell: %s: No such file or directory\n", cmd[0]),
+		return (p_err(cmd[0], NULL, "No such file or directory"),
 			free_n_exit(data, 127));
 	if (ft_there_is_char(cmd[0], '/') && access(cmd[0], X_OK) != 0)
-		return (printf("minishell: %s: Permissions denied\n", cmd[0]),
+		return (p_err(cmd[0], NULL, "Permission denied"),
 			free_n_exit(data, 126));
 }
 
@@ -63,12 +63,12 @@ void	ft_execve(t_shell_memory *data, char **cmd)
 		cmd_path = ft_strdup(data, find_cmd_path(data, cmd[0]));
 		if (cmd_path == NULL && data->paths == NULL)
 		{
-			printf("minishell: %s: No such file or directory\n", cmd[0]);
+			p_err(cmd[0], NULL, "No such file or directory");
 			free_n_exit(data, 127);
 		}
 		if (execve(cmd_path, cmd, data->env) == -1)
 		{
-			printf("minishell: %s: command not found\n", cmd[0]);
+			p_err(cmd[0], NULL, "command not found");
 			free_n_exit(data, 127);
 		}
 	}

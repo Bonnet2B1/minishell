@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 21:04:52 by gloms             #+#    #+#             */
-/*   Updated: 2023/10/06 19:26:50 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/10/07 16:29:10 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,9 @@ int	ft_export(t_shell_memory *data, char **args)
 			continue ;
 		if (args[i] && (!is_letter(args[i][0]) || !ft_srch(args[i])))
 		{
-			printf("minishell: export: `%s': not a valid identifier\n", args[i]);
+			ft_putstr_fd("minishell: export: `", 2);
+			ft_putstr_fd(args[i], 2);
+			ft_putstr_fd("': not a valid identifier\n", 2);
 			if (!args[i + 1])
 				return (1);
 		}

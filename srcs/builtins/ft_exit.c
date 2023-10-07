@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 14:50:08 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/10/06 02:02:56 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/10/07 16:36:44 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,12 @@ int	check_num(t_shell_memory *data, char **cmd, int i)
 	{
 		if (need_exec_to_exec(data))
 		{
-			print_error(cmd[0], "numeric argument required");
+			p_err(cmd[0], NULL, "numeric argument required");
 			return (free_n_exit(data, data->exit_code = 255), 255);
 		}
 		else
 		{
-			print_error(cmd[0], "numeric argument required");
+			p_err(cmd[0], NULL, "numeric argument required");
 			return (1);
 		}
 	}
@@ -66,6 +66,6 @@ int	ft_exit(t_shell_memory *data, char **cmd)
 		return (ft_atoi(cmd[1]));
 	}
 	if (cmd[0] && cmd[1] && cmd[2])
-		return (printf("exit\n"), print_error("exit", "too many arguments"), 1);
+		return (printf("exit\n"), p_err("exit", NULL, "too many arguments"), 1);
 	return (0);
 }

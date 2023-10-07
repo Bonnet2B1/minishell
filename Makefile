@@ -6,7 +6,7 @@
 #    By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/22 16:59:43 by edelarbr          #+#    #+#              #
-#    Updated: 2023/10/06 19:48:25 by edelarbr         ###   ########.fr        #
+#    Updated: 2023/10/07 17:12:13 by edelarbr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,6 +36,7 @@ SRCS		:=	srcs/others/signals.c \
 				srcs/lib/ft_isenvchar.c \
 				srcs/lib/ft_lstclear.c \
 				srcs/lib/ft_lstadd_back.c \
+				srcs/lib/ft_putchar_fd.c \
 				srcs/lib/ft_putstr_fd.c \
 				srcs/lib/ft_lstnew.c \
 				srcs/lib/ft_strlen.c \
@@ -94,7 +95,7 @@ BREW		:=	$(shell brew --prefix)
 INC_RL		:=	-I $(BREW)/Cellar/readline/8.2.1/include/
 LINK_RL		:=	-lreadline -L $(BREW)/Cellar/readline/8.2.1/lib
 CC			:=	gcc
-FLAGS		:=	-Wall -Wextra -Werror -g3 -fsanitize=address
+FLAGS		:=	-Wall -Wextra -Werror #-g3 -fsanitize=address
 RM			:=	rm -rf
 
 $(OBJ_DIR)/%.o :%.c

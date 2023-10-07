@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 17:54:21 by gloms             #+#    #+#             */
-/*   Updated: 2023/10/06 20:27:49 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/10/07 16:45:49 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,7 @@ int	change_path(t_shell_memory *data, char *args)
 	free(path);
 	pat = ft_strjoin(data, pat, ft_substr(data, args, 0, ft_strlen(args)));
 	if (chdir(pat) == -1)
-		return (ft_putstr_fd("minishell: cd: ", 2), ft_putstr_fd(args, 2),
-			ft_putstr_fd(": ", 2), perror(NULL), -1);
+		return (p_err("cd", args, NULL), perror(NULL), -1);
 	path = getcwd(NULL, 0);
 	data->env[index_pwd] = ft_strjoin(data, "PWD=", path);
 	free(path);
@@ -81,13 +80,14 @@ int	cd_home(t_shell_memory *data, char *str)
 	char	*path;
 
 	index_home = find(data, "HOME=", 5);
+	if (index_home == -1)
+		return (p_err("cd", NULL, "HOME not set"), -1);
 	len = ft_strlen(data->env[index_home]);
 	home = ft_substr(data, data->env[index_home], 5, len - 5);
 	if (!home)
-		return (print_error("cd", "HOME not set"), -1);
+		return (p_err("cd", NULL, "HOME not set"), -1);
 	if (chdir(home) == -1)
-		return (ft_putstr_fd("minishell: cd: ", 2), ft_putstr_fd(str, 2),
-			ft_putstr_fd(": ", 2), perror(NULL), -1);
+		return (p_err("cd", str, NULL), perror(NULL), -1);
 	index_pwd = find(data, "PWD=", 4);
 	if (index_pwd == -1)
 	{

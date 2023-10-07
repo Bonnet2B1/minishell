@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 16:04:31 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/10/05 01:55:18 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/10/07 17:49:11 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,13 @@ char	there_is_banned_char(char *str)
 {
 	int	i;
 
+	if (str[0] >= '0' && str[0] <= '9')
+		return (1);
 	i = -1;
 	while (str[++i])
-		if ((str[0] >= '0' && str[0] <= '9') || !((str[i] >= 'A'
-					&& str[i] <= 'Z') || (str[i] >= 'a' && str[i] <= 'z')
+		if (!((str[i] >= 'A' && str[i] <= 'Z')
+				|| (str[i] >= '0' && str[i] <= '9')
+				|| (str[i] >= 'a' && str[i] <= 'z')
 				|| str[i] == '_'))
 			return (1);
 	return (0);
@@ -80,7 +83,7 @@ int	ft_unset(t_shell_memory *data, t_list *node, char **cmd)
 	{
 		if (there_is_banned_char(cmd[i]))
 		{
-			printf("minishell: unset: `%s': not a valid identifier\n", cmd[i]);
+			p_err("unset", cmd[i], "not a valid identifier");
 			exit_value = 1;
 		}
 		else if (env_find_correlation(data, data->env, cmd[i]) != -1)

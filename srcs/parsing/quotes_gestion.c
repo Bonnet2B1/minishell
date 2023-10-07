@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 19:01:23 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/10/06 01:32:35 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/10/07 17:16:56 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,7 @@ int	quotes_gestion(t_shell_memory *data, char **line)
 		}
 	}
 	if (quote != '0')
-		return (printf("minishell: syntax error near expected token `%c'\n",
-				quote), 0);
-	else
-		return (1);
+		return (ft_putstr_fd("minishell: syntax error near expected token `",
+				2), ft_putchar_fd(quote, 2), ft_putstr_fd("'\n", 2), 0);
+	return (1);
 }

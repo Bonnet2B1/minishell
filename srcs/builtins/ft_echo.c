@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
+/*   By: gloms <rbrendle@student.42mulhouse.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 17:05:06 by gloms             #+#    #+#             */
-/*   Updated: 2023/10/06 17:01:20 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/10/10 16:34:20 by gloms            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,20 @@ int	is_flag(char *str)
 	return (i);
 }
 
+void	do_nl(char **args)
+{
+	if (!&args[1] || !args[1])
+		printf("\n");
+	if (!is_flag(args[1]))
+		printf("\n");
+}
+
 void	ft_echo(t_shell_memory *data, char **args)
 {
 	int	i;
 
 	i = 1;
-	while (is_flag(args[i]))
+	while (&args[i] && args[i] && is_flag(args[i]))
 		i++;
 	if (i > 1)
 	{
@@ -52,7 +60,7 @@ void	ft_echo(t_shell_memory *data, char **args)
 			if (args[i])
 				printf(" ");
 		}
-		printf("\n");
 	}
+	do_nl(args);
 	free_n_exit(data, 0);
 }

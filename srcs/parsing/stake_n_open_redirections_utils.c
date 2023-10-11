@@ -6,7 +6,7 @@
 /*   By: edelarbr <edelarbr@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 18:47:48 by edelarbr          #+#    #+#             */
-/*   Updated: 2023/10/07 18:03:51 by edelarbr         ###   ########.fr       */
+/*   Updated: 2023/10/11 17:50:17 by edelarbr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	redir_error(t_shell_memory *data, t_list *lst)
 {
 	data->fatal_error = 1;
 	if (!lst->next)
-		ft_putstr_fd("minishell: syntax error near unexpected token `newline'",
+		ft_putstr_fd("minishell: syntax error near unexpected token `newline'\n",
 			2);
 	else
 	{

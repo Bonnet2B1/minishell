@@ -33,7 +33,7 @@ void	sig_handler_int_hd(void)
 
 void	sig_handler_int_dfl(void)
 {
-	printf("bite\n");
+	return ;
 }
 
 void	ft_signal(int i)

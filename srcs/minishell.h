@@ -10,33 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-/*================================ BUGS/CRASH ================================*/
-
-// ! crash
-// @nevaspid
-
-// @Bonnet2B1
-
-// - bug
-// @nevaspid
-// export _=abc
-// echo
-
-// @Bonnet2B1
-
-// ? trus à gerer si on a vraaaaaaaiment le temps
-// @nevaspid
-// mettre tout les messages d'erreur avec p_err
-// export GHOST=123 | env | grep GHOST
-
-// @Bonnet2B1
-// mettre tout les messages d'erreur avec p_err
-// cat <<l | cat <<b | cat << c>
-// Ecrire :
-// The default interactive shell is now zsh.
-// To update your account to use zsh, please run `chsh -s /bin/zsh`.
-// For more details, please visit https://support.apple.com/kb/HT208050.
-
 /*=============================== PROTECTIONS ================================*/
 
 #ifndef MINISHELL_H
